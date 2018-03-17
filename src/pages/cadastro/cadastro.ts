@@ -14,12 +14,26 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'cadastro.html',
 })
 export class CadastroPage {
+  private nome: string;
+  private sobrenome: string;
+  private email: string;
+  private senha: string;
+  private senha2: string;
+  private cpf: string;
+  private celular: string;
+  private nascimento: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    private _navCtrl: NavController,
+    private _navParams: NavParams
+  ) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CadastroPage');
+  }
+
+  cadastrar() {
+    this._navCtrl.pop();
   }
 
 }
