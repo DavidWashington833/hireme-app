@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { CadastroPage } from '../cadastro/cadastro';
 import { RecuperacaoDeSenhaPage } from '../recuperacao-de-senha/recuperacao-de-senha';
+import { MapaPage } from '../mapa/mapa';
 
 @Component({
   selector: 'page-login',
@@ -13,7 +14,9 @@ export class LoginPage {
 
   constructor(private _navCtrl: NavController) {}
 
-  logar() {}
+  logar() {
+    this._navCtrl.push(MapaPage.name);
+  }
 
   cadastrar() {
     this._navCtrl.push(CadastroPage.name);
