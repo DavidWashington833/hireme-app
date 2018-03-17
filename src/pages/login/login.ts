@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { CadastroPage } from '../cadastro/cadastro';
+import { RecuperacaoDeSenhaPage } from '../recuperacao-de-senha/recuperacao-de-senha';
 
 @Component({
   selector: 'page-login',
@@ -16,6 +17,10 @@ export class LoginPage {
 
   cadastrar() {
     this._navCtrl.push(CadastroPage.name);
+  }
+
+  recuperarSenha() {
+    this._navCtrl.push(RecuperacaoDeSenhaPage.name);
   }
 
 }
