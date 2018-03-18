@@ -1,4 +1,4 @@
-import { Prestador } from './../models/prestador';
+import { Prestador } from './../../models/prestador';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -263,7 +263,7 @@ export class MapaPage {
       {id: 5, icon: '../../assets/imgs/employees.png', latitude: -23.732156, longitude: -46.691307}
     ];
     setTimeout(() => {
-      this.prestadores.push({id: 6, latitude: -23.737156, longitude: -46.691307});
+      this.prestadores.push({id: 6, icon: '../../assets/imgs/employees.png', latitude: -23.737156, longitude: -46.691307});
     },2000);
   }
 
