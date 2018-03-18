@@ -1,6 +1,7 @@
 import { Prestador } from './../../models/prestador';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { DetalheDoPrestadorPage } from '../detalhe-do-prestador/detalhe-do-prestador';
 
 /**
  * Generated class for the MapaPage page.
@@ -254,7 +255,9 @@ export class MapaPage {
 
   prestadores: Array<Prestador>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    private _navCtrl: NavController, private _navParams: NavParams
+  ) {
     this.prestadores = [
       {id: 1, icon: '../../assets/imgs/employees.png', latitude: -23.738156, longitude: -46.692307},
       {id: 2, icon: '../../assets/imgs/employees.png', latitude: -23.739156, longitude: -46.691307},
@@ -269,6 +272,10 @@ export class MapaPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MapaPage');
+  }
+
+  abrirDetalhesPrestador(id: number) {
+    this._navCtrl.push(DetalheDoPrestadorPage.name, {id: id});
   }
 
 }
