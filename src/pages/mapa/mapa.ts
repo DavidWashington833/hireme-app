@@ -259,14 +259,14 @@ export class MapaPage {
     private _navCtrl: NavController, private _navParams: NavParams
   ) {
     this.prestadores = [
-      {id: 1, icon: '../../assets/imgs/employees.png', latitude: -23.738156, longitude: -46.692307},
-      {id: 2, icon: '../../assets/imgs/employees.png', latitude: -23.739156, longitude: -46.691307},
-      {id: 3, icon: '../../assets/imgs/employees.png', latitude: -23.732156, longitude: -46.691107},
-      {id: 4, icon: '../../assets/imgs/employees.png', latitude: -23.731156, longitude: -46.691707},
-      {id: 5, icon: '../../assets/imgs/employees.png', latitude: -23.732156, longitude: -46.691307}
+      {id: 1, icon: 'assets/imgs/employees.png', latitude: -23.738156, longitude: -46.692307},
+      {id: 2, icon: 'assets/imgs/employees.png', latitude: -23.739156, longitude: -46.691307},
+      {id: 3, icon: 'assets/imgs/employees.png', latitude: -23.732156, longitude: -46.691107},
+      {id: 4, icon: 'assets/imgs/employees.png', latitude: -23.731156, longitude: -46.691707},
+      {id: 5, icon: 'assets/imgs/employees.png', latitude: -23.732156, longitude: -46.691307}
     ];
     setTimeout(() => {
-      this.prestadores.push({id: 6, icon: '../../assets/imgs/employees.png', latitude: -23.737156, longitude: -46.691307});
+      this.prestadores.push({id: 6, icon: 'assets/imgs/employees.png', latitude: -23.737156, longitude: -46.691307});
     },2000);
   }
 
