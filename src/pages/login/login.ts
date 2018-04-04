@@ -15,7 +15,7 @@ export class LoginPage {
   constructor(private _navCtrl: NavController) {}
 
   logar() {
-    this._navCtrl.push(MapaPage.name);
+    this._navCtrl.setRoot(MapaPage.name);
   }
 
   cadastrar() {

@@ -1,10 +1,14 @@
 import { MapaPage } from './../pages/mapa/mapa';
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav } from 'ionic-angular';
+import { Platform, Nav, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
+import { CadastroPrestadorPage } from '../pages/cadastro-prestador/cadastro-prestador';
+import { RecuperacaoDeSenhaPage } from '../pages/recuperacao-de-senha/recuperacao-de-senha';
+import { CadastroServicoPage } from '../pages/cadastro-servico/cadastro-servico';
+import { ServicosPage } from '../pages/servicos/servicos';
 @Component({
   templateUrl: 'app.html'
 })
@@ -16,11 +20,15 @@ export class MyApp {
   constructor(
     private platform: Platform,
     private statusBar: StatusBar,
-    private splashScreen: SplashScreen) {
+    private splashScreen: SplashScreen,
+    private _menuCtrl: MenuController
+  ) {
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Mapa', component: MapaPage },
-      { title: 'Login', component: LoginPage }
+      { title: 'Serviços', component: ServicosPage.name },
+      { title: 'Mapa', component: MapaPage.name },
+      { title: 'Cadastrar Prestador', component: CadastroPrestadorPage.name },
+      { title: 'Cadastrar Servico', component: CadastroServicoPage.name },
     ];
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -43,4 +51,3 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
 }
-
