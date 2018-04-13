@@ -1,7 +1,10 @@
+import { PedidosPage } from './../pedidos/pedidos';
+import { DetalheDoUsuarioPage } from './../detalhe-do-usuario/detalhe-do-usuario';
 import { Prestador } from './../../models/prestador';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DetalheDoPrestadorPage } from '../detalhe-do-prestador/detalhe-do-prestador';
+import { BuscarPage } from '../buscar/buscar';
 
 /**
  * Generated class for the MapaPage page.
@@ -276,6 +279,18 @@ export class MapaPage {
 
   abrirDetalhesPrestador(id: number) {
     this._navCtrl.push(DetalheDoPrestadorPage.name, {id: id});
+  }
+
+  verDetalheDoUsuario() {
+    this._navCtrl.setRoot(DetalheDoUsuarioPage.name);
+  }
+
+  verPedidos() {
+    this._navCtrl.setRoot(PedidosPage.name);
+  }
+
+  pesquisarServicos() {
+    this._navCtrl.setRoot(BuscarPage.name);
   }
 
 }
