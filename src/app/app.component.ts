@@ -12,7 +12,7 @@ import { ServicosPage } from '../pages/servicos/servicos';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class AppComponent {
   @ViewChild(Nav) nav: Nav;
   pages: Array<{title: string, component: any}>;
   rootPage:any = LoginPage;
