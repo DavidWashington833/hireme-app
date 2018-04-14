@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { CadastroPage } from '../cadastro/cadastro';
+import { RegisterUserPage } from '../register-user/register-user';
 import { RecuperacaoDeSenhaPage } from '../recuperacao-de-senha/recuperacao-de-senha';
 import { MapaPage } from '../mapa/mapa';
 
@@ -19,7 +19,7 @@ export class LoginPage {
   }
 
   cadastrar() {
-    this._navCtrl.push(CadastroPage.name);
+    this._navCtrl.push(RegisterUserPage.name);
   }
 
   recuperarSenha() {

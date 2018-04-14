@@ -1,4 +1,4 @@
-export interface Prestador {
+export class Prestador {
   id: number;
   icon: string;
   longitude: number;
