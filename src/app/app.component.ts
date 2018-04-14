@@ -34,6 +34,14 @@ export class AppComponent {
     ];
   }
 
+  public get pages() {
+    return this._pages;
+  }
+
+  public get rootPage() {
+    return this._rootPage;
+  }
+
   initializeApp() {
     this._platform.ready().then(() => {
       this._statusBar.styleDefault();

@@ -4,7 +4,7 @@ import { Prestador } from './../../models/prestador';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DetalheDoPrestadorPage } from '../detalhe-do-prestador/detalhe-do-prestador';
-import { BuscarPage } from '../buscar/buscar';
+import { SearchPage } from '../search/search';
 
 /**
  * Generated class for the MapaPage page.
@@ -259,7 +259,8 @@ export class MapaPage {
   prestadores: Array<Prestador>;
 
   constructor(
-    private _navCtrl: NavController, private _navParams: NavParams
+    private _navCtrl: NavController,
+    private _navParams: NavParams
   ) {
     this.prestadores = [
       {id: 1, icon: 'assets/imgs/employees.png', latitude: -23.738156, longitude: -46.692307},
@@ -290,7 +291,7 @@ export class MapaPage {
   }
 
   pesquisarServicos() {
-    this._navCtrl.setRoot(BuscarPage.name);
+    this._navCtrl.setRoot(SearchPage.name);
   }
 
 }
