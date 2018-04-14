@@ -16,22 +16,24 @@
 </ion-content>
 
 <ion-footer>
-  <div class="box-footer" (click)="verDetalheDoUsuario()">
-    <button ion-button clear small>
-      <ion-icon name="person"></ion-icon>
-    </button>
-    <br>Meus Dados
-  </div>
-  <div class="box-footer" (click)="verPedidos()">
-    <button ion-button clear small>
-      <ion-icon name="paper"></ion-icon>
-    </button>
-    <br>Pedidos
-  </div>
-  <div class="box-footer">
-    <button ion-button clear small (click)="pesquisarServicos()">
-      <ion-icon name="search"></ion-icon>
-    </button>
-    <br>Buscar
-  </div>
+  <ion-row>
+    <ion-col (click)="verDetalheDoUsuario()">
+      <button ion-button clear small>
+        <ion-icon name="person"></ion-icon>
+      </button>
+      <br>Meus Dados
+    </ion-col>
+    <ion-col (click)="verPedidos()">
+      <button ion-button clear small>
+        <ion-icon name="paper"></ion-icon>
+      </button>
+      <br>Pedidos
+    </ion-col>
+    <ion-col>
+      <button ion-button clear small (click)="pesquisarServicos()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <br>Buscar
+    </ion-col>
+  </ion-row>
 </ion-footer>

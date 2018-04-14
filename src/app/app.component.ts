@@ -16,7 +16,7 @@ import { ServicosPage } from '../pages/servicos/servicos';
 export class AppComponent {
   @ViewChild(Nav)
   private _nav: Nav;
-  private _pages: Array<{title: string, component: any}>;
+  private _pages: Array<{title: string, component: any, icon: string}>;
   private _rootPage: any = LoginPage;
 
   constructor(
@@ -26,11 +26,11 @@ export class AppComponent {
     private _menuCtrl: MenuController
   ) {
     this._pages = [
-      { title: 'Serviços', component: ServicosPage.name },
-      { title: 'Mapa', component: MapaPage.name },
-      { title: 'Cadastrar Prestador', component: CadastroPrestadorPage.name },
-      { title: 'Cadastrar Servico', component: CadastroServicoPage.name },
-      { title: 'Sair', component: LoginPage }
+      { title: 'Mapa', component: MapaPage.name, icon: 'paper' },
+      { title: 'Serviços', component: ServicosPage.name, icon: 'paper' },
+      { title: 'Cadastrar Prestador', component: CadastroPrestadorPage.name, icon: 'paper' },
+      { title: 'Cadastrar Servico', component: CadastroServicoPage.name, icon: 'paper' },
+      { title: 'Sair', component: LoginPage, icon: 'paper' }
     ];
   }
 

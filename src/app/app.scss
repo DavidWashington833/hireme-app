@@ -1,0 +1,29 @@
+ion-menu {
+  ion-header {
+    background-image: url('../assets/imgs/material-design-background.jpg');
+    height: 150px;
+    margin-bottom: 10px;
+
+    ion-avatar img {
+      width: 50px;
+      height: 50px;
+    }
+
+    ion-item {
+      background: transparent !important;
+    }
+
+    .item-inner {
+      border: none !important;
+    }
+
+    h2 {
+      color: #fff;
+      font-weight: bold;
+    }
+
+    p {
+      color: #eee !important;
+    }
+  }
+}
