@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding>
-  <form (ngSubmit)="cadastrar()" #formCadastro="ngForm">
+  <form (ngSubmit)="register()" #formRegister="ngForm">
     <ion-item>
       <ion-label stacked>Nome:</ion-label>
       <ion-input (keyup)="user.nome = $event.target.value"></ion-input>
@@ -40,7 +40,7 @@
     </ion-item>
   </form>
   <ion-fab bottom right padding>
-    <button ion-fab (click)="formCadastro.ngSubmit.emit()">
+    <button ion-fab (click)="formRegister.ngSubmit.emit()">
       <ion-icon name="send"></ion-icon>
     </button>
   </ion-fab>

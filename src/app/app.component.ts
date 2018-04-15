@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { MapaPage } from './../pages/mapa/mapa';
 import { LoginPage } from '../pages/login/login';
-import { CadastroPrestadorPage } from '../pages/cadastro-prestador/cadastro-prestador';
+import { RegisterProviderPage } from '../pages/register-provider/register-provider';
 import { RecuperacaoDeSenhaPage } from '../pages/recuperacao-de-senha/recuperacao-de-senha';
 import { CadastroServicoPage } from '../pages/cadastro-servico/cadastro-servico';
 import { ServicosPage } from '../pages/servicos/servicos';
@@ -28,7 +28,7 @@ export class AppComponent {
     this._pages = [
       { title: 'Mapa', component: MapaPage.name, icon: 'paper' },
       { title: 'Serviços', component: ServicosPage.name, icon: 'paper' },
-      { title: 'Cadastrar Prestador', component: CadastroPrestadorPage.name, icon: 'paper' },
+      { title: 'Cadastrar Prestador', component: RegisterProviderPage.name, icon: 'paper' },
       { title: 'Cadastrar Servico', component: CadastroServicoPage.name, icon: 'paper' },
       { title: 'Sair', component: LoginPage, icon: 'paper' }
     ];
