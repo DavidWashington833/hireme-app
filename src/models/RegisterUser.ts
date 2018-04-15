@@ -31,20 +31,20 @@ export class RegisterUser {
     this.senhaUsuario = v;
   }
 
-  private cpfUsuario : string;
+  private cpfUsuario : number;
   public get cpf() : string {
-    return this.cpfUsuario;
+    return String(this.cpfUsuario);
   }
   public set cpf(v : string) {
-    this.cpfUsuario = v;
+    this.cpfUsuario = Number(v.replace(/[^0-9]/g,''));
   }
 
-  private celularUsuario : string;
+  private celularUsuario : number;
   public get celular() : string {
-    return this.celularUsuario;
+    return String(this.celularUsuario);
   }
   public set celular(v : string) {
-    this.celularUsuario = v;
+    this.celularUsuario = Number(v.replace(/[^0-9]/g,''));
   }
 
   private nascimentoUsuario : string;

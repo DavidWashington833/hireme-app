@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FormBuilder } from '@angular/forms';
 
 import { RegisterUser } from './../../models/RegisterUser';
 
@@ -14,14 +15,19 @@ export class RegisterUserPage {
 
   constructor(
     private _navCtrl: NavController,
-    private _navParams: NavParams
+    private _navParams: NavParams,
+    private _formBuild: FormBuilder
   ) {}
 
   ionViewDidLoad() {}
 
   cadastrar() {
     console.log(JSON.parse(JSON.stringify(this.user)));
-    // this._navCtrl.pop();
+    this._navCtrl.pop();
+  }
+
+  buildNascimento(event) {
+    this.user.nascimento = `${event.day}-${event.month}-${event.year}`;
   }
 
 }

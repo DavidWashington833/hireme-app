@@ -8,35 +8,35 @@
   <form (ngSubmit)="cadastrar()" #formCadastro="ngForm">
     <ion-item>
       <ion-label stacked>Nome:</ion-label>
-      <ion-input [(ngModel)]="user.nome" name="user.nome" type="text"></ion-input>
+      <ion-input (keyup)="user.nome = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Sobrenome:</ion-label>
-      <ion-input [(ngModel)]="user.sobrenome" name="user.sobrenome" type="text"></ion-input>
+      <ion-input (keyup)="user.sobrenome = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Email:</ion-label>
-      <ion-input [(ngModel)]="user.email" name="user.email"></ion-input>
+      <ion-input (keyup)="user.email = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Senha:</ion-label>
-      <ion-input [(ngModel)]="user.senha" name="user.senha"></ion-input>
+      <ion-input (keyup)="user.senha = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Repetir senha:</ion-label>
-      <ion-input [(ngModel)]="senha2" name="senha2"></ion-input>
+      <ion-input (keyup)="senha2 = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>CPF:</ion-label>
-      <ion-input [(ngModel)]="user.CPF" name="user.CPF"></ion-input>
+      <ion-input (keyup)="user.cpf = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Celular:</ion-label>
-      <ion-input [(ngModel)]="user.celular" name="user.celular"></ion-input>
+      <ion-input (keyup)="user.celular = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Nascimento:</ion-label>
-      <ion-datetime [(ngModel)]="user.nascimento" name="user.nascimento" displayFormat="DD/MM/YY"></ion-datetime>
+      <ion-datetime (ionChange)="buildNascimento($event)" displayFormat="DD/MM/YY"></ion-datetime>
     </ion-item>
   </form>
   <ion-fab bottom right padding>
