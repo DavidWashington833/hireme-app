@@ -31,12 +31,12 @@ export class RegisterUser {
     this.senhaUsuario = v;
   }
 
-  private cpfUsuario : number;
+  private CPFUsuario : number;
   public get cpf() : string {
-    return String(this.cpfUsuario);
+    return String(this.CPFUsuario);
   }
   public set cpf(v : string) {
-    this.cpfUsuario = Number(v.replace(/[^0-9]/g,''));
+    this.CPFUsuario = Number(v.replace(/[^0-9]/g,''));
   }
 
   private celularUsuario : number;
