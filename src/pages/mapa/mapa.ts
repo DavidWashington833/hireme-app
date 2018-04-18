@@ -1,5 +1,5 @@
 import { PedidosPage } from './../pedidos/pedidos';
-import { DetalheDoUsuarioPage } from './../detalhe-do-usuario/detalhe-do-usuario';
+import { UserDetailPage } from './../user-detail/user-detail';
 import { Prestador } from './../../models/prestador';
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
@@ -275,7 +275,7 @@ export class MapaPage {
   }
 
   verDetalheDoUsuario() {
-    this._navCtrl.setRoot(DetalheDoUsuarioPage.name);
+    this._navCtrl.push(UserDetailPage.name);
   }
 
   verPedidos() {
