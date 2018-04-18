@@ -1,14 +1,10 @@
+import { PedidosPage } from './../pedidos/pedidos';
+import { UserDetailPage } from './../user-detail/user-detail';
 import { Prestador } from './../../models/prestador';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { DetalheDoPrestadorPage } from '../detalhe-do-prestador/detalhe-do-prestador';
-
-/**
- * Generated class for the MapaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { SearchPage } from '../search/search';
 
 @IonicPage()
 @Component({
@@ -256,7 +252,7 @@ export class MapaPage {
   prestadores: Array<Prestador>;
 
   constructor(
-    private _navCtrl: NavController, private _navParams: NavParams
+    private _navCtrl: NavController
   ) {
     this.prestadores = [
       {id: 1, icon: 'assets/imgs/employees.png', latitude: -23.738156, longitude: -46.692307},
@@ -276,6 +272,18 @@ export class MapaPage {
 
   abrirDetalhesPrestador(id: number) {
     this._navCtrl.push(DetalheDoPrestadorPage.name, {id: id});
+  }
+
+  verDetalheDoUsuario() {
+    this._navCtrl.push(UserDetailPage.name);
+  }
+
+  verPedidos() {
+    this._navCtrl.push(PedidosPage.name);
+  }
+
+  pesquisarServicos() {
+    this._navCtrl.push(SearchPage.name);
   }
 
 }

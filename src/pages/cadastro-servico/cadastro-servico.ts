@@ -20,7 +20,7 @@ export class CadastroServicoPage {
   descricao: string;
 
   constructor(
-    private _navCtrl: NavController, 
+    private _navCtrl: NavController,
     public navParams: NavParams
   ) { }
 
@@ -29,7 +29,7 @@ export class CadastroServicoPage {
   }
 
   cadastrar() {
-    this._navCtrl.setRoot(MapaPage.name);
+    this._navCtrl.pop();
   }
 
 }

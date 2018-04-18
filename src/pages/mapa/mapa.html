@@ -10,6 +10,30 @@
 <ion-content>
   <agm-map [styles]="styleArray" [latitude]="latitude" [longitude]="longitude" [zoom]="15">
     <!-- <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker> -->
-    <agm-marker *ngFor="let prestador of prestadores" [iconUrl]="prestador.icon" [latitude]="prestador.latitude" [longitude]="prestador.longitude" (markerClick)="abrirDetalhesPrestador(prestador.id)"></agm-marker>
+    <agm-marker *ngFor="let prestador of prestadores" [iconUrl]="prestador.icon" [latitude]="prestador.latitude" [longitude]="prestador.longitude"
+      (markerClick)="abrirDetalhesPrestador(prestador.id)"></agm-marker>
   </agm-map>
 </ion-content>
+
+<ion-footer>
+  <ion-row>
+    <ion-col (click)="verDetalheDoUsuario()">
+      <button ion-button clear small>
+        <ion-icon name="person"></ion-icon>
+      </button>
+      <br>Meus Dados
+    </ion-col>
+    <ion-col (click)="verPedidos()">
+      <button ion-button clear small>
+        <ion-icon name="paper"></ion-icon>
+      </button>
+      <br>Pedidos
+    </ion-col>
+    <ion-col>
+      <button ion-button clear small (click)="pesquisarServicos()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <br>Buscar
+    </ion-col>
+  </ion-row>
+</ion-footer>
