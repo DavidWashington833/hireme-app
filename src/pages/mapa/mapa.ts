@@ -279,11 +279,11 @@ export class MapaPage {
   }
 
   verPedidos() {
-    this._navCtrl.setRoot(PedidosPage.name);
+    this._navCtrl.push(PedidosPage.name);
   }
 
   pesquisarServicos() {
-    this._navCtrl.setRoot(SearchPage.name);
+    this._navCtrl.push(SearchPage.name);
   }
 
 }
