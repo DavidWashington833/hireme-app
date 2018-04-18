@@ -3,7 +3,6 @@ import { NavController } from 'ionic-angular';
 import { RegisterUserPage } from '../register-user/register-user';
 import { RecuperacaoDeSenhaPage } from '../recuperacao-de-senha/recuperacao-de-senha';
 import { MapaPage } from '../mapa/mapa';
-import { UsuarioProvider } from '../../providers/usuario/usuario';
 
 @Component({
   selector: 'page-login',
@@ -14,8 +13,7 @@ export class LoginPage {
   private senha: string;
 
   constructor(
-    private _navCtrl: NavController,
-    private _usuarioProvider: UsuarioProvider
+    private _navCtrl: NavController
   ) {}
 
   logar() {

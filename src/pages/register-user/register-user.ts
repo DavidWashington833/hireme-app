@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { FormBuilder } from '@angular/forms';
+import { IonicPage, NavController, LoadingController } from 'ionic-angular';
 
 import { RegisterUser } from './../../models/RegisterUser';
 import { UsuarioProvider } from './../../providers/usuario/usuario';
@@ -17,8 +16,6 @@ export class RegisterUserPage {
   constructor(
     private _loadingCtrl: LoadingController,
     private _navCtrl: NavController,
-    private _navParams: NavParams,
-    private _formBuild: FormBuilder,
     private _usuarioProvider: UsuarioProvider
   ) {}
 

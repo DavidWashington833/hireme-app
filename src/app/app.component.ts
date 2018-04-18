@@ -1,12 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav, MenuController } from 'ionic-angular';
+import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { MapaPage } from './../pages/mapa/mapa';
 import { LoginPage } from '../pages/login/login';
 import { RegisterProviderPage } from '../pages/register-provider/register-provider';
-import { RecuperacaoDeSenhaPage } from '../pages/recuperacao-de-senha/recuperacao-de-senha';
 import { CadastroServicoPage } from '../pages/cadastro-servico/cadastro-servico';
 import { ServicosPage } from '../pages/servicos/servicos';
 
@@ -22,8 +21,7 @@ export class AppComponent {
   constructor(
     private _platform: Platform,
     private _statusBar: StatusBar,
-    private _splashScreen: SplashScreen,
-    private _menuCtrl: MenuController
+    private _splashScreen: SplashScreen
   ) {
     this._pages = [
       { title: 'Mapa', component: MapaPage.name, icon: 'paper' },
@@ -50,6 +48,6 @@ export class AppComponent {
   }
 
   openPage(page) {
-    this._nav.setRoot(page.component);
+    this._nav.push(page.component);
   }
 }

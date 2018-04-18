@@ -2,16 +2,9 @@ import { PedidosPage } from './../pedidos/pedidos';
 import { DetalheDoUsuarioPage } from './../detalhe-do-usuario/detalhe-do-usuario';
 import { Prestador } from './../../models/prestador';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { DetalheDoPrestadorPage } from '../detalhe-do-prestador/detalhe-do-prestador';
 import { SearchPage } from '../search/search';
-
-/**
- * Generated class for the MapaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -259,8 +252,7 @@ export class MapaPage {
   prestadores: Array<Prestador>;
 
   constructor(
-    private _navCtrl: NavController,
-    private _navParams: NavParams
+    private _navCtrl: NavController
   ) {
     this.prestadores = [
       {id: 1, icon: 'assets/imgs/employees.png', latitude: -23.738156, longitude: -46.692307},

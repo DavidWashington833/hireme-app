@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -10,9 +10,7 @@ export class SearchPage {
 
   public text: string;
 
-  constructor(
-    private _navCtrl: NavController
-  ) {}
+  constructor() {}
 
   ionViewDidLoad() {}
 
