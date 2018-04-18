@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { CadastroServicoPage } from '../cadastro-servico/cadastro-servico';
 
+import { PrestadorCadastradoPage } from '../prestador-cadastrado/prestador-cadastrado';
 
 @IonicPage()
 @Component({
@@ -15,8 +15,7 @@ export class RegisterProviderPage {
   relationship: string = 'friends';
 
   constructor(
-    public _navCtrl: NavController,
-    public navParams: NavParams
+    private _navCtrl: NavController
   ) { }
 
   ionViewDidLoad() {
@@ -24,7 +23,7 @@ export class RegisterProviderPage {
   }
 
   cadastrar() {
-    this._navCtrl.setRoot(CadastroServicoPage.name);
+    this._navCtrl.push(PrestadorCadastradoPage.name);
   }
 
   segmentChanged(event) {

@@ -1,3 +1,4 @@
+import { DetalhePedidoPage } from './../detalhe-pedido/detalhe-pedido';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MapaPage } from '../mapa/mapa';
@@ -17,7 +18,7 @@ import { MapaPage } from '../mapa/mapa';
 export class ServicosPage {
 
   constructor(
-    private _navCtrl: NavController, 
+    private _navCtrl: NavController,
     public navParams: NavParams
   ) { }
 
@@ -25,7 +26,7 @@ export class ServicosPage {
     console.log('ionViewDidLoad ServicosPage');
   }
 
-  buscarServico() {
-    this._navCtrl.setRoot(MapaPage.name);
+  detalhePedido() {
+    this._navCtrl.push(DetalhePedidoPage.name);
   }
 }

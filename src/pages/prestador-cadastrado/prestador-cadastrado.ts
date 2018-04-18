@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 
-/**
- * Generated class for the PrestadorCadastradoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { MapaPage } from './../mapa/mapa';
 
 @IonicPage()
 @Component({
@@ -15,7 +10,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PrestadorCadastradoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    private _navCtrl: NavController
+  ) {}
+
+  goMap() {
+    this._navCtrl.setRoot(MapaPage.name);
   }
 
   ionViewDidLoad() {
