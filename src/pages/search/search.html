@@ -9,7 +9,7 @@
 
 <ion-content padding>
   <ion-searchbar [(ngModel)]="text" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)"></ion-searchbar>
-  <ion-card>
+  <ion-card (click)="goServiceDetail()">
     <ion-card-header>
       Header
     </ion-card-header>
