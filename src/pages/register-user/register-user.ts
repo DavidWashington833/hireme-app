@@ -15,6 +15,7 @@ export class RegisterUserPage {
   private _user: RegisterUser = new RegisterUser();
   private _confirmPassward: string;
   private _formGroup: FormGroup;
+  private _cpf = '';
 
   constructor(
     private _loadingCtrl: LoadingController,

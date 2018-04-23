@@ -11,13 +11,13 @@ export class CustomValidators extends Validators {
   }
 
   static cpf(control: AbstractControl): ValidationErrors | null {
-    let cpf = control.value.replace(/[^0-9]/g, '');
+    let cpf = (control.value + '').replace(/[^0-9]/g, '');
     return CustomValidators.isCPF(cpf) ? null : { key: 'invalid CPF' };
   }
 
   static tel(control: AbstractControl): ValidationErrors | null {
-    let cpf = control.value.replace(/[^0-9]/g, '');
-    return CustomValidators.isTel(cpf) ? null : { key: 'invalid Tel' };
+    let tel = (control.value + '').replace(/[^0-9]/g, '');
+    return CustomValidators.isTel(tel) ? null : { key: 'invalid Tel' };
   }
 
   private static isTel(tel: string) {
@@ -29,6 +29,7 @@ export class CustomValidators extends Validators {
     let rest;
     if (
       cpf == '00000000000' ||
+      cpf == '11111111111' ||
       cpf == '22222222222' ||
       cpf == '33333333333' ||
       cpf == '44444444444' ||

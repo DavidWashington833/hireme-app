@@ -16,19 +16,19 @@
     </ion-item>
     <ion-item>
       <ion-label floating>Email:</ion-label>
-      <ion-input formControlName="email" type="email" (keyup)="_user.email = $event.target.value"></ion-input>
+      <ion-input type="email" formControlName="email" (keyup)="_user.email = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Senha:</ion-label>
-      <ion-input formControlName="senha" type="password" (keyup)="_user.senha = $event.target.value"></ion-input>
+      <ion-input type="password" formControlName="senha" (keyup)="_user.senha = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Repetir senha:</ion-label>
-      <ion-input formControlName="confirmPassward" type="password" (keyup)="_confirmPassward = $event.target.value"></ion-input>
+      <ion-input type="password" formControlName="confirmPassward" (keyup)="_confirmPassward = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>CPF:</ion-label>
-      <ion-input formControlName="cpf" (keyup)="_user.cpf = $event.target.value"></ion-input>
+      <ion-input type="text" formControlName="cpf" (keyup)="_user.cpf = $event.target.value; _cpf = $event.target.value" value="{{_cpf | maskCpf}}"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Celular:</ion-label>
