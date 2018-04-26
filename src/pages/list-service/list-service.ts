@@ -1,14 +1,14 @@
 import { RegisterServicePage } from './../register-service/register-service';
-import { ServiceDetailPage } from './../service-detail/service-detail';
+import { DetailServicePage } from './../detail-service/detail-service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-lista-servico',
-  templateUrl: 'lista-servico.html',
+  selector: 'page-list-service',
+  templateUrl: 'list-service.html',
 })
-export class ListaServicoPage {
+export class ListServicePage {
 
   constructor(
     private _navCtrl: NavController
@@ -19,7 +19,7 @@ export class ListaServicoPage {
   }
 
   detalheServico() {
-    this._navCtrl.push(ServiceDetailPage.name);
+    this._navCtrl.push(DetailServicePage.name);
   }
 
   cadastrar() {

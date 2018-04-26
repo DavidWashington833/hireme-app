@@ -1,9 +1,9 @@
-import { PedidosPage } from './../pedidos/pedidos';
-import { UserDetailPage } from './../user-detail/user-detail';
+import { RequestPage } from './../request/request';
+import { DetailUserPage } from './../detail-user/detail-user';
 import { Prestador } from './../../models/prestador';
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { DetalheDoPrestadorPage } from '../detalhe-do-prestador/detalhe-do-prestador';
+import { DetailProviderPage } from '../detail-provider/detail-provider';
 import { SearchPage } from '../search/search';
 
 @IonicPage()
@@ -271,15 +271,15 @@ export class MapPage {
   }
 
   abrirDetalhesPrestador(id: number) {
-    this._navCtrl.push(DetalheDoPrestadorPage.name, {id: id});
+    this._navCtrl.push(DetailProviderPage.name, {id: id});
   }
 
   verDetalheDoUsuario() {
-    this._navCtrl.push(UserDetailPage.name);
+    this._navCtrl.push(DetailUserPage.name);
   }
 
   verPedidos() {
-    this._navCtrl.push(PedidosPage.name);
+    this._navCtrl.push(RequestPage.name);
   }
 
   pesquisarServicos() {

@@ -5,10 +5,10 @@ import { RegisterAddressPage } from '../register-address/register-address';
 
 @IonicPage()
 @Component({
-  selector: 'page-user-detail',
-  templateUrl: 'user-detail.html',
+  selector: 'page-detail-user',
+  templateUrl: 'detail-user.html',
 })
-export class UserDetailPage {
+export class DetailUserPage {
 
   constructor(
     private _navCtrl: NavController

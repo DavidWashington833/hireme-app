@@ -3,10 +3,10 @@ import { IonicPage, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'detalhe-do-prestador',
-  templateUrl: 'detalhe-do-prestador.html',
+  selector: 'page-detail-provider',
+  templateUrl: 'detail-provider.html',
 })
-export class DetalheDoPrestadorPage {
+export class DetailProviderPage {
   public idPrestador: number = 0;
 
   constructor(

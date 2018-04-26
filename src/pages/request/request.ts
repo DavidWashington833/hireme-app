@@ -4,10 +4,10 @@ import { IonicPage, NavController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-pedidos',
-  templateUrl: 'pedidos.html',
+  selector: 'page-request',
+  templateUrl: 'request.html',
 })
-export class PedidosPage {
+export class RequestPage {
 
   constructor(
     private _navCtrl: NavController
