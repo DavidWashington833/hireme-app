@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { RegisterUserPage } from '../register-user/register-user';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
-import { MapaPage } from '../mapa/mapa';
+import { MapPage } from '../map/map';
 
 @Component({
   selector: 'page-login',
@@ -17,7 +17,7 @@ export class LoginPage {
   ) {}
 
   logar() {
-    this._navCtrl.setRoot(MapaPage.name);
+    this._navCtrl.setRoot(MapPage.name);
   }
 
   cadastrar() {

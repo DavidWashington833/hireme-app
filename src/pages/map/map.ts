@@ -8,10 +8,10 @@ import { SearchPage } from '../search/search';
 
 @IonicPage()
 @Component({
-  selector: 'page-mapa',
-  templateUrl: 'mapa.html',
+  selector: 'page-map',
+  templateUrl: 'map.html',
 })
-export class MapaPage {
+export class MapPage {
   styleArray = [
     {
       "elementType": "geometry",

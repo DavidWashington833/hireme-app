@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { MapaPage } from '../mapa/mapa';
+import { MapPage } from '../map/map';
 
 @IonicPage()
 @Component({

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 
-import { MapaPage } from './../mapa/mapa';
+import { MapPage } from './../map/map';
 
 @IonicPage()
 @Component({
@@ -15,7 +15,7 @@ export class PrestadorCadastradoPage {
   ) {}
 
   goMap() {
-    this._navCtrl.setRoot(MapaPage.name);
+    this._navCtrl.setRoot(MapPage.name);
   }
 
   ionViewDidLoad() {

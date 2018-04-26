@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { MapaPage } from '../mapa/mapa';
+import { MapPage } from '../map/map';
 
 /**
  * Generated class for the DetalhePedidoPage page.
@@ -25,7 +25,7 @@ export class DetalhePedidoPage {
   }
 
   goMapa() {
-    this._navCtrl.push(MapaPage.name);
+    this._navCtrl.push(MapPage.name);
   }
 
 }
