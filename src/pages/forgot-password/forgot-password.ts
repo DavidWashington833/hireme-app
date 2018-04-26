@@ -3,10 +3,10 @@ import { IonicPage, NavController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-recuperacao-de-senha',
-  templateUrl: 'recuperacao-de-senha.html',
+  selector: 'page-forgot-password',
+  templateUrl: 'forgot-password.html',
 })
-export class RecuperacaoDeSenhaPage {
+export class ForgotPasswordPage {
   private email: string;
 
   constructor(

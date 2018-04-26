@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { RegisterUserPage } from '../register-user/register-user';
-import { RecuperacaoDeSenhaPage } from '../recuperacao-de-senha/recuperacao-de-senha';
+import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import { MapaPage } from '../mapa/mapa';
 
 @Component({
@@ -25,7 +25,7 @@ export class LoginPage {
   }
 
   recuperarSenha() {
-    this._navCtrl.push(RecuperacaoDeSenhaPage.name);
+    this._navCtrl.push(ForgotPasswordPage.name);
   }
 
 }
