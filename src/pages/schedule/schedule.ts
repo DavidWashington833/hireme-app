@@ -1,4 +1,4 @@
-import { DetalhePedidoPage } from './../detalhe-pedido/detalhe-pedido';
+import { DetailRequestPage } from './../detail-request/detail-request';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MapPage } from '../map/map';
@@ -20,6 +20,6 @@ export class SchedulePage {
   }
 
   detalhePedido() {
-    this._navCtrl.push(DetalhePedidoPage.name);
+    this._navCtrl.push(DetailRequestPage.name);
   }
 }

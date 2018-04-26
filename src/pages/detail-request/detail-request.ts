@@ -2,19 +2,12 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MapPage } from '../map/map';
 
-/**
- * Generated class for the DetalhePedidoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
-  selector: 'page-detalhe-pedido',
-  templateUrl: 'detalhe-pedido.html',
+  selector: 'page-detail-request',
+  templateUrl: 'detail-request.html',
 })
-export class DetalhePedidoPage {
+export class DetailRequestPage {
 
   constructor(
     private _navCtrl: NavController
