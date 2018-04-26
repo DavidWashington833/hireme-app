@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { PrestadorCadastradoPage } from '../prestador-cadastrado/prestador-cadastrado';
+import { RegisteredProviderPage } from '../registered-provider/registered-provider';
 
 @IonicPage()
 @Component({
@@ -23,7 +23,7 @@ export class RegisterProviderPage {
   }
 
   cadastrar() {
-    this._navCtrl.push(PrestadorCadastradoPage.name);
+    this._navCtrl.push(RegisteredProviderPage.name);
   }
 
   segmentChanged(event) {

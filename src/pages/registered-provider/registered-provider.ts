@@ -5,10 +5,10 @@ import { MapPage } from './../map/map';
 
 @IonicPage()
 @Component({
-  selector: 'page-prestador-cadastrado',
-  templateUrl: 'prestador-cadastrado.html',
+  selector: 'page-registered-provider',
+  templateUrl: 'registered-provider.html',
 })
-export class PrestadorCadastradoPage {
+export class RegisteredProviderPage {
 
   constructor(
     private _navCtrl: NavController
