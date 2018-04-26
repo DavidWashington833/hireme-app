@@ -16,7 +16,7 @@ export class AppComponent {
   @ViewChild(Nav)
   private _nav: Nav;
   private _pages: Array<{title: string, component: any, icon: string}>;
-  private _rootPage: any = MapPage;
+  private _rootPage: any = LoginPage;
 
   constructor(
     private _platform: Platform,
