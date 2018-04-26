@@ -1,20 +1,14 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { MapaPage } from '../mapa/mapa';
 
-/**
- * Generated class for the CadastroServicoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { MapaPage } from '../mapa/mapa';
 
 @IonicPage()
 @Component({
-  selector: 'page-cadastro-servico',
-  templateUrl: 'cadastro-servico.html',
+  selector: 'page-register-service',
+  templateUrl: 'register-service.html',
 })
-export class CadastroServicoPage {
+export class RegisterServicePage {
   nome: string;
   preco: string;
   descricao: string;

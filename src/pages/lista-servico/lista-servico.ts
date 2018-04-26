@@ -1,4 +1,4 @@
-import { CadastroServicoPage } from './../cadastro-servico/cadastro-servico';
+import { RegisterServicePage } from './../register-service/register-service';
 import { ServiceDetailPage } from './../service-detail/service-detail';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -23,7 +23,7 @@ export class ListaServicoPage {
   }
 
   cadastrar() {
-    this._navCtrl.push(CadastroServicoPage.name);
+    this._navCtrl.push(RegisterServicePage.name);
   }
 
 }
