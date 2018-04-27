@@ -70,7 +70,9 @@ export class RegisterUserPage {
     });
   }
 
-  ionViewDidLoad() {}
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad RegisterUserPage');
+  }
 
   register(): void {
     if (!this._formIsValid()) {

@@ -15,7 +15,9 @@ export class SearchPage {
     private _navCtrl: NavController
   ) {}
 
-  ionViewDidLoad() {}
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad SearchPage');
+  }
 
   onCancel(event: Event) {}
   onInput(event: Event) {}

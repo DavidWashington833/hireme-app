@@ -14,7 +14,7 @@ export class ForgotPasswordPage {
   ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RecuperacaoDeSenhaPage');
+    console.log('ionViewDidLoad ForgotPasswordPage');
   }
 
   enviar() {

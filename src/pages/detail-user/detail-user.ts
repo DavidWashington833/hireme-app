@@ -14,6 +14,10 @@ export class DetailUserPage {
     private _navCtrl: NavController
   ) {}
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad DetailUserPage');
+  }
+
   goEndereco() {
     this._navCtrl.push(RegisterAddressPage.name);
   }

@@ -267,7 +267,7 @@ export class MapPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MapaPage');
+    console.log('ionViewDidLoad MapPage');
   }
 
   abrirDetalhesPrestador(id: number) {

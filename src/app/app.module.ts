@@ -7,24 +7,18 @@ import { SharedModule } from './shared/shared.module';
 import { UsuarioProvider } from './../providers/usuario/usuario';
 import { ProvidersModule } from './../providers/providers.module';
 import { MapPage } from '../pages/map/map';
-import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginPage,
-    MapPage
+    LoginPage
   ],
   imports: [
     SharedModule,
-    IonicModule.forRoot(AppComponent),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBeYIszBebgBTI-HAlw0uXXRMo25gohQv4'
-    })
+    IonicModule.forRoot(AppComponent)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MapPage,
     AppComponent,
     LoginPage
   ],

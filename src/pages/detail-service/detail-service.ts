@@ -12,7 +12,7 @@ export class DetailServicePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DetalheServicoPage');
+    console.log('ionViewDidLoad DetailServicePage');
   }
 
 }

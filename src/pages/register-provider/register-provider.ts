@@ -19,7 +19,7 @@ export class RegisterProviderPage {
   ) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CadastroPrestadorPage');
+    console.log('ionViewDidLoad RegisterProviderPage');
   }
 
   cadastrar() {

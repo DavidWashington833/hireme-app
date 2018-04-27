@@ -14,7 +14,7 @@ export class DetailRequestPage {
   ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DetalhePedidoPage');
+    console.log('ionViewDidLoad DetailRequestPage');
   }
 
   goMapa() {

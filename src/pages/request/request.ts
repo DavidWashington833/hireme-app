@@ -13,6 +13,10 @@ export class RequestPage {
     private _navCtrl: NavController
   ) {}
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad RequestPage');
+  }
+
   detalhePedido() {
     this._navCtrl.push(DetailRequestPage.name);
   }

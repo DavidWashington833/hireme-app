@@ -16,7 +16,7 @@ export class DetailProviderPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PrestadorPage');
+    console.log('ionViewDidLoad DetailProviderPage');
   }
 
 }

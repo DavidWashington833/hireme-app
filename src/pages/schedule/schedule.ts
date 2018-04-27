@@ -16,7 +16,7 @@ export class SchedulePage {
   ) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ServicosPage');
+    console.log('ionViewDidLoad SchedulePage');
   }
 
   detalhePedido() {

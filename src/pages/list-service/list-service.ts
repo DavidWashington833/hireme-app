@@ -15,7 +15,7 @@ export class ListServicePage {
   ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ListaServicoPage');
+    console.log('ionViewDidLoad ListServicePage');
   }
 
   detalheServico() {
