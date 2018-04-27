@@ -12,6 +12,10 @@ export class RegisterAddressPage {
     private _navCtrl: NavController
   ) {}
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad RegisterAddressPage');
+  }
+
   register() {
     this._navCtrl.pop();
   }

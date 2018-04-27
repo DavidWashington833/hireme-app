@@ -14,9 +14,10 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     Form,
-    StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {
+      provide: ErrorHandler,
+      useClass: IonicErrorHandler
+    },
   ]
 })
 export class SharedModule {}

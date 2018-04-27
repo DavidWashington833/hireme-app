@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { UsuarioProvider } from './usuario/usuario';
 @NgModule({
-	declarations: [UsuarioProvider],
+	declarations: [
+    UsuarioProvider
+  ],
 	imports: [],
-	exports: [UsuarioProvider]
+	exports: [
+    UsuarioProvider
+  ]
 })
 export class ProvidersModule {}

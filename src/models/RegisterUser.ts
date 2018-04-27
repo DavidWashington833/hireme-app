@@ -54,5 +54,4 @@ export class RegisterUser {
   public set nascimento(v : string) {
     this.nascimentoUsuario = v;
   }
-
 }

@@ -5,6 +5,18 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class MaskCpfPipe implements PipeTransform {
   transform(value: string, ...args) {
-    return value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, '\$1.\$2.\$3\-\$4');
+    let n: Array<string> = value.replace(/[^0-9]/g, '').split('');
+
+    if (n.length > 11) {
+      n = n.slice(0, 11);
+    }
+
+    let mask =
+      (n.length >= 3 ? n[0] + n[1] + n[2] + '.' : '') +
+      (n.length >= 6 ? n[3] + n[4] + n[5] + '.' : '') +
+      (n.length >= 9 ? n[6] + n[7] + n[8] + '-' : '') +
+      (n.length >= 11 ? n[9] + n[10] : '');
+
+    return mask;
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { ServiceDetailPage } from './../service-detail/service-detail';
+import { DetailServicePage } from './../detail-service/detail-service';
 
 @IonicPage()
 @Component({
@@ -15,12 +15,14 @@ export class SearchPage {
     private _navCtrl: NavController
   ) {}
 
-  ionViewDidLoad() {}
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad SearchPage');
+  }
 
   onCancel(event: Event) {}
   onInput(event: Event) {}
 
   goServiceDetail() {
-    this._navCtrl.push(ServiceDetailPage.name);
+    this._navCtrl.push(DetailServicePage.name);
   }
 }

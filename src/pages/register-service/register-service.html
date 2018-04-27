@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Cadastro de Servico
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="cadastrar()" #formCadastro="ngForm">
+    <ion-item>
+      <ion-label stacked>nome:</ion-label>
+      <ion-input [(ngModel)]="nome" name="nome" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Descrição:</ion-label>
+      <ion-input [(ngModel)]="descricao" name="descricao"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Preço:</ion-label>
+      <ion-input [(ngModel)]="preco" name="preco"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Categoria</ion-label>
+      <ion-select>
+        <ion-option value="categoria1">categoria1</ion-option>
+        <ion-option value="categoria2">categoria2</ion-option>
+      </ion-select>
+    </ion-item>
+  </form>
+  <ion-fab bottom right padding>
+    <button ion-fab (click)="formCadastro.ngSubmit.emit()">
+      <ion-icon name="send"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>
