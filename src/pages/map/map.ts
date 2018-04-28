@@ -1,6 +1,6 @@
-import { RequestPage } from './../request/request';
-import { DetailUserPage } from './../detail-user/detail-user';
-import { Prestador } from './../../models/prestador';
+import { RequestPage } from '../request/request';
+import { DetailUserPage } from '../detail-user/detail-user';
+import { Prestador } from '../../models/prestador';
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { DetailProviderPage } from '../detail-provider/detail-provider';
@@ -17,7 +17,15 @@ export class MapPage {
       "elementType": "geometry",
       "stylers": [
         {
-          "color": "#1d2c4d"
+          "color": "#f5f5f5"
+        }
+      ]
+    },
+    {
+      "elementType": "labels.icon",
+      "stylers": [
+        {
+          "visibility": "off"
         }
       ]
     },
@@ -25,7 +33,7 @@ export class MapPage {
       "elementType": "labels.text.fill",
       "stylers": [
         {
-          "color": "#8ec3b9"
+          "color": "#616161"
         }
       ]
     },
@@ -33,16 +41,16 @@ export class MapPage {
       "elementType": "labels.text.stroke",
       "stylers": [
         {
-          "color": "#1a3646"
+          "color": "#f5f5f5"
         }
       ]
     },
     {
-      "featureType": "administrative.country",
-      "elementType": "geometry.stroke",
+      "featureType": "administrative",
+      "elementType": "geometry",
       "stylers": [
         {
-          "color": "#4b6878"
+          "visibility": "off"
         }
       ]
     },
@@ -51,34 +59,15 @@ export class MapPage {
       "elementType": "labels.text.fill",
       "stylers": [
         {
-          "color": "#64779e"
+          "color": "#bdbdbd"
         }
       ]
     },
     {
-      "featureType": "administrative.province",
-      "elementType": "geometry.stroke",
+      "featureType": "poi",
       "stylers": [
         {
-          "color": "#4b6878"
-        }
-      ]
-    },
-    {
-      "featureType": "landscape.man_made",
-      "elementType": "geometry.stroke",
-      "stylers": [
-        {
-          "color": "#334e87"
-        }
-      ]
-    },
-    {
-      "featureType": "landscape.natural",
-      "elementType": "geometry",
-      "stylers": [
-        {
-          "color": "#023e58"
+          "visibility": "off"
         }
       ]
     },
@@ -87,7 +76,7 @@ export class MapPage {
       "elementType": "geometry",
       "stylers": [
         {
-          "color": "#283d6a"
+          "color": "#eeeeee"
         }
       ]
     },
@@ -96,25 +85,16 @@ export class MapPage {
       "elementType": "labels.text.fill",
       "stylers": [
         {
-          "color": "#6f9ba5"
-        }
-      ]
-    },
-    {
-      "featureType": "poi",
-      "elementType": "labels.text.stroke",
-      "stylers": [
-        {
-          "color": "#1d2c4d"
+          "color": "#757575"
         }
       ]
     },
     {
       "featureType": "poi.park",
-      "elementType": "geometry.fill",
+      "elementType": "geometry",
       "stylers": [
         {
-          "color": "#023e58"
+          "color": "#e5e5e5"
         }
       ]
     },
@@ -123,7 +103,7 @@ export class MapPage {
       "elementType": "labels.text.fill",
       "stylers": [
         {
-          "color": "#3C7680"
+          "color": "#9e9e9e"
         }
       ]
     },
@@ -132,25 +112,25 @@ export class MapPage {
       "elementType": "geometry",
       "stylers": [
         {
-          "color": "#304a7d"
+          "color": "#ffffff"
         }
       ]
     },
     {
       "featureType": "road",
+      "elementType": "labels.icon",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "road.arterial",
       "elementType": "labels.text.fill",
       "stylers": [
         {
-          "color": "#98a5be"
-        }
-      ]
-    },
-    {
-      "featureType": "road",
-      "elementType": "labels.text.stroke",
-      "stylers": [
-        {
-          "color": "#1d2c4d"
+          "color": "#757575"
         }
       ]
     },
@@ -159,16 +139,7 @@ export class MapPage {
       "elementType": "geometry",
       "stylers": [
         {
-          "color": "#2c6675"
-        }
-      ]
-    },
-    {
-      "featureType": "road.highway",
-      "elementType": "geometry.stroke",
-      "stylers": [
-        {
-          "color": "#255763"
+          "color": "#dadada"
         }
       ]
     },
@@ -177,43 +148,33 @@ export class MapPage {
       "elementType": "labels.text.fill",
       "stylers": [
         {
-          "color": "#b0d5ce"
+          "color": "#616161"
         }
       ]
     },
     {
-      "featureType": "road.highway",
-      "elementType": "labels.text.stroke",
-      "stylers": [
-        {
-          "color": "#023e58"
-        }
-      ]
-    },
-    {
-      "featureType": "transit",
+      "featureType": "road.local",
       "elementType": "labels.text.fill",
       "stylers": [
         {
-          "color": "#98a5be"
+          "color": "#9e9e9e"
         }
       ]
     },
     {
       "featureType": "transit",
-      "elementType": "labels.text.stroke",
       "stylers": [
         {
-          "color": "#1d2c4d"
+          "visibility": "off"
         }
       ]
     },
     {
       "featureType": "transit.line",
-      "elementType": "geometry.fill",
+      "elementType": "geometry",
       "stylers": [
         {
-          "color": "#283d6a"
+          "color": "#e5e5e5"
         }
       ]
     },
@@ -222,7 +183,7 @@ export class MapPage {
       "elementType": "geometry",
       "stylers": [
         {
-          "color": "#3a4762"
+          "color": "#eeeeee"
         }
       ]
     },
@@ -231,7 +192,7 @@ export class MapPage {
       "elementType": "geometry",
       "stylers": [
         {
-          "color": "#0e1626"
+          "color": "#c9c9c9"
         }
       ]
     },
@@ -240,7 +201,7 @@ export class MapPage {
       "elementType": "labels.text.fill",
       "stylers": [
         {
-          "color": "#4e6d70"
+          "color": "#9e9e9e"
         }
       ]
     }
@@ -249,40 +210,40 @@ export class MapPage {
   latitude: number = -23.737156;
   longitude: number = -46.691307;
 
-  prestadores: Array<Prestador>;
+  providers: Array<Prestador>;
 
   constructor(
     private _navCtrl: NavController
   ) {
-    this.prestadores = [
-      {id: 1, icon: 'assets/imgs/employees.png', latitude: -23.738156, longitude: -46.692307},
-      {id: 2, icon: 'assets/imgs/employees.png', latitude: -23.739156, longitude: -46.691307},
-      {id: 3, icon: 'assets/imgs/employees.png', latitude: -23.732156, longitude: -46.691107},
-      {id: 4, icon: 'assets/imgs/employees.png', latitude: -23.731156, longitude: -46.691707},
-      {id: 5, icon: 'assets/imgs/employees.png', latitude: -23.732156, longitude: -46.691307}
+    this.providers = [
+      { id: 1, icon: 'assets/imgs/employees.png', latitude: -23.738156, longitude: -46.692307 },
+      { id: 2, icon: 'assets/imgs/employees.png', latitude: -23.739156, longitude: -46.691307 },
+      { id: 3, icon: 'assets/imgs/employees.png', latitude: -23.732156, longitude: -46.691107 },
+      { id: 4, icon: 'assets/imgs/employees.png', latitude: -23.731156, longitude: -46.691707 },
+      { id: 5, icon: 'assets/imgs/employees.png', latitude: -23.732156, longitude: -46.691307 }
     ];
     setTimeout(() => {
-      this.prestadores.push({id: 6, icon: 'assets/imgs/employees.png', latitude: -23.737156, longitude: -46.691307});
-    },2000);
+      this.providers.push({ id: 6, icon: 'assets/imgs/employees.png', latitude: -23.737156, longitude: -46.691307 });
+    }, 2000);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MapPage');
   }
 
-  abrirDetalhesPrestador(id: number) {
-    this._navCtrl.push(DetailProviderPage.name, {id: id});
+  detailProvider(id: number) {
+    this._navCtrl.push(DetailProviderPage.name, { id: id });
   }
 
-  verDetalheDoUsuario() {
+  detailUser() {
     this._navCtrl.push(DetailUserPage.name);
   }
 
-  verPedidos() {
+  request() {
     this._navCtrl.push(RequestPage.name);
   }
 
-  pesquisarServicos() {
+  search() {
     this._navCtrl.push(SearchPage.name);
   }
 

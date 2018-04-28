@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { IonicPage, NavController, LoadingController, AlertController } from 'ionic-angular';
 
-import { RegisterUser } from './../../models/RegisterUser';
-import { UsuarioProvider } from './../../providers/usuario/usuario';
+import { RegisterUser } from '../../models/RegisterUser';
+import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { CustomValidators } from '../../utils/custom-validators';
 
 @IonicPage()
@@ -64,7 +64,7 @@ export class RegisterUserPage {
   }
 
   register(): void {
-    if (!this._formIsValid()) {
+    if (!this.formGroup.valid) {
       const alert = this._alertCtrl.create({
         title: 'Erro ao cadastrar',
         subTitle: 'Preencha todos os campos da forma correta!',
@@ -111,9 +111,4 @@ export class RegisterUserPage {
   buildNascimento(event) {
     this.user.nascimento = `${event.year}-${event.month}-${event.day}`;
   }
-
-  private _formIsValid(): boolean {
-    return this.formGroup.status == 'VALID';
-  }
-
 }

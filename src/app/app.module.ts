@@ -4,8 +4,8 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 import { AppComponent } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { SharedModule } from './shared/shared.module';
-import { UsuarioProvider } from './../providers/usuario/usuario';
-import { ProvidersModule } from './../providers/providers.module';
+import { UsuarioProvider } from '../providers/usuario/usuario';
+import { ProvidersModule } from '../providers/providers.module';
 import { MapPage } from '../pages/map/map';
 
 @NgModule({

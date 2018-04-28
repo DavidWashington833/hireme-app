@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, AlertController } from 'ionic-angular';
 
-import { Login } from './../../models/login';
-import { RegisterUserPage } from './../register-user/register-user';
-import { ForgotPasswordPage } from './../forgot-password/forgot-password';
-import { MapPage } from './../map/map';
+import { Login } from '../../models/login';
+import { RegisterUserPage } from '../register-user/register-user';
+import { ForgotPasswordPage } from '../forgot-password/forgot-password';
+import { MapPage } from '../map/map';
 
 @Component({
   selector: 'page-login',

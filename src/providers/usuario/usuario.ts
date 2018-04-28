@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 
-import { RegisterUser } from './../../models/RegisterUser';
+import { RegisterUser } from '../../models/RegisterUser';
 
 @Injectable()
 export class UsuarioProvider {
