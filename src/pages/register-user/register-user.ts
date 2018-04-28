@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { IonicPage, NavController, LoadingController, AlertController } from 'ionic-angular';
 
 import { RegisterUser } from './../../models/RegisterUser';
@@ -12,62 +12,51 @@ import { CustomValidators } from '../../utils/custom-validators';
   templateUrl: 'register-user.html',
 })
 export class RegisterUserPage {
-  private _user: RegisterUser = new RegisterUser();
-  private _confirmPassward: string;
-  private _formGroup: FormGroup;
-  private _cpf = '';
+  public user: RegisterUser = new RegisterUser();
+  public formGroup: FormGroup;
+  public confirmPassward: string;
+  public cpf = '';
 
   constructor(
     private _loadingCtrl: LoadingController,
     private _navCtrl: NavController,
     private _alertCtrl: AlertController,
-    private _formBuider: FormBuilder,
+    private _formBuilder: FormBuilder,
     private _usuarioProvider: UsuarioProvider
   ) {
-    this._formGroup = this._formBuider.group({
-      nome: ['',
-        CustomValidators.compose([
-          CustomValidators.required,
-          CustomValidators.minLength(3),
-          CustomValidators.maxLength(20)
-        ])],
-      sobrenome: ['',
-        CustomValidators.compose([
-          CustomValidators.required,
-          CustomValidators.minLength(3),
-          CustomValidators.maxLength(20)
-        ])],
-      email: ['',
-        CustomValidators.compose([
-          CustomValidators.required,
-          CustomValidators.email
-        ])
-      ],
-      senha: ['',
-        CustomValidators.compose([
-          CustomValidators.required
-        ])
-      ],
-      confirmPassward: ['',
-        CustomValidators.compose([
-          CustomValidators.required,
-          CustomValidators.confirmPassward
-        ])
-      ],
-      cpf: ['',
-        CustomValidators.compose([
-          CustomValidators.required,
-          CustomValidators.cpf
-        ])
-      ],
-      celular: ['',
-        CustomValidators.compose([
-          CustomValidators.required,
-          CustomValidators.tel
-        ])
-      ],
+    this.formGroup = this._formBuilder.group({
+      nome: ['', [
+        CustomValidators.required,
+        CustomValidators.minLength(3),
+        CustomValidators.maxLength(20)
+      ]],
+      sobrenome: ['', [
+        CustomValidators.required,
+        CustomValidators.minLength(3),
+        CustomValidators.maxLength(20)
+      ]],
+      email: ['', [
+        CustomValidators.required,
+        CustomValidators.email
+      ]],
+      senha: ['', [
+        CustomValidators.required
+      ]],
+      confirmPassward: ['', [
+        CustomValidators.required,
+        CustomValidators.confirmPassward
+      ]],
+      cpf: ['', [
+        CustomValidators.required,
+        CustomValidators.cpf
+      ]],
+      celular: ['', [
+        CustomValidators.required,
+        CustomValidators.tel
+      ]],
       nascimento: ['', CustomValidators.required]
     });
+    this.formGroup.valueChanges.subscribe(value => this.markAsTouchedFields(value));
   }
 
   ionViewDidLoad() {
@@ -82,7 +71,7 @@ export class RegisterUserPage {
         buttons: ['OK']
       });
       alert.present();
-      console.log(this._user);
+      console.log(this.user);
 
       return;
     }
@@ -94,12 +83,12 @@ export class RegisterUserPage {
 
     setTimeout(() => {
       loading.dismiss();
-      console.log(this._user);
-    }, 500);
+      console.log(this.user);
+    }, 1000);
 
     // this
     //   ._usuarioProvider
-    //   .post(this._user)
+    //   .post(this.user)
     //   .subscribe(
     //     res => {
     //       loading.dismiss();
@@ -114,12 +103,17 @@ export class RegisterUserPage {
     //   )
   }
 
+  markAsTouchedFields(value: Object) {
+    let fields = ['nome', 'sobrenome', 'email', 'senha', 'confirmPassward','cpf', 'celular', 'nascimento'];
+    fields.forEach((field) => this.formGroup.controls[field].markAsTouched());
+  }
+
   buildNascimento(event) {
-    this._user.nascimento = `${event.year}-${event.month}-${event.day}`;
+    this.user.nascimento = `${event.year}-${event.month}-${event.day}`;
   }
 
   private _formIsValid(): boolean {
-    return this._formGroup.status == 'VALID';
+    return this.formGroup.status == 'VALID';
   }
 
 }
