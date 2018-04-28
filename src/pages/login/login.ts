@@ -1,11 +1,10 @@
-import { Login } from './../../models/login';
 import { Component } from '@angular/core';
 import { NavController, LoadingController, AlertController } from 'ionic-angular';
-import { RegisterUserPage } from '../register-user/register-user';
-import { ForgotPasswordPage } from '../forgot-password/forgot-password';
-import { MapPage } from '../map/map';
-import { CustomValidators } from '../../utils/custom-validators';
-import { FormGroup, FormBuilder } from '@angular/forms';
+
+import { Login } from './../../models/login';
+import { RegisterUserPage } from './../register-user/register-user';
+import { ForgotPasswordPage } from './../forgot-password/forgot-password';
+import { MapPage } from './../map/map';
 
 @Component({
   selector: 'page-login',
@@ -30,22 +29,23 @@ export class LoginPage {
       loading.dismiss();
       console.log(this.login);
 
+      // Em caso de erro no login
       // const alert = this._alertCtrl.create({
       //   title: 'Erro ao logar',
       //   subTitle: 'Usuário não encontrado!',
       //   buttons: ['OK']
       // });
       // alert.present();
-    }, 1000);
 
-    // this._navCtrl.setRoot(MapPage.name);
+      this._navCtrl.setRoot(MapPage.name);
+    }, 1000);
   }
 
-  cadastrar() {
+  register() {
     this._navCtrl.push(RegisterUserPage.name);
   }
 
-  recuperarSenha() {
+  forgotPassword() {
     this._navCtrl.push(ForgotPasswordPage.name);
   }
 
