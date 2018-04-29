@@ -2,7 +2,6 @@ import { RegisterProvider } from './../../models/RegisterProvider';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 
-import { RegisteredProviderPage } from '../registered-provider/registered-provider';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { CustomValidators } from '../../utils/custom-validators';
 

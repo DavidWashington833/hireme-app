@@ -19,7 +19,7 @@ export class SchedulePage {
     console.log('ionViewDidLoad SchedulePage');
   }
 
-  detalhePedido() {
+  detailRequest() {
     this._navCtrl.push(DetailRequestPage.name);
   }
 }
