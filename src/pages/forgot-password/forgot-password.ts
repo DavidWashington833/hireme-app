@@ -40,6 +40,17 @@ export class ForgotPasswordPage {
     setTimeout(() => {
       loading.dismiss();
 
+      if (!this.formGroup.valid) {
+        const alert = this._alertCtrl.create({
+          title: 'Erro ao enviar email de recuperação',
+          subTitle: 'O email é inválido.',
+          buttons: ['OK']
+        });
+        alert.present();
+
+        return;
+      }
+
       // Em caso de recuperação
       // const alert = this._alertCtrl.create({
       //   title: 'Erro na recuperação',
@@ -48,7 +59,18 @@ export class ForgotPasswordPage {
       // });
       // alert.present();
 
-      // this._navCtrl.pop();
+
+      const alert = this._alertCtrl.create({
+        title: 'Email enviado com sucesso!',
+        subTitle: 'Verifique sua caixa de email para recuperar sua senha.',
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => { this._navCtrl.pop() }
+          },
+        ]
+      });
+      alert.present();
     }, 1000);
   }
 

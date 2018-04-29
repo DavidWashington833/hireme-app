@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, LoadingController, AlertController, AlertOptions } from 'ionic-angular';
 
 import { Login } from '../../models/login';
 import { RegisterUserPage } from '../register-user/register-user';
@@ -32,7 +32,15 @@ export class LoginPage {
       // Em caso de erro no login
       // const alert = this._alertCtrl.create({
       //   title: 'Erro ao logar',
-      //   subTitle: 'Usuário não encontrado!',
+      //   subTitle: 'Login ou senha inválida.',
+      //   buttons: ['OK']
+      // });
+      // alert.present();
+
+      // Erro de conexão
+      // const alert = this._alertCtrl.create({
+      //   title: 'Erro ao logar',
+      //   subTitle: 'Para logar você precisa esta conectado a internet.',
       //   buttons: ['OK']
       // });
       // alert.present();
@@ -48,5 +56,4 @@ export class LoginPage {
   forgotPassword() {
     this._navCtrl.push(ForgotPasswordPage.name);
   }
-
 }

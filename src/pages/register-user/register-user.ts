@@ -16,6 +16,7 @@ export class RegisterUserPage {
   public formGroup: FormGroup;
   public confirmPassward: string;
   public cpf = '';
+  public celular = '';
 
   constructor(
     private _loadingCtrl: LoadingController,
@@ -82,8 +83,29 @@ export class RegisterUserPage {
     loading.present();
 
     setTimeout(() => {
-      loading.dismiss();
       console.log(this.user);
+      loading.dismiss();
+
+      // Erro de conexão
+      // const alert = this._alertCtrl.create({
+      //   title: 'Erro ao cadastrar',
+      //   subTitle: 'Para se cadastrar você precisa esta conectado a internet.',
+      //   buttons: ['OK']
+      // });
+      // alert.present();
+
+      const alert = this._alertCtrl.create({
+        title: 'Cadastro efetuado com sucesso!',
+        subTitle: 'Verifique sua caixa de email para confirmar sua conta.',
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => { this._navCtrl.pop() }
+          },
+        ]
+      });
+      alert.present();
+
     }, 1000);
 
     // this

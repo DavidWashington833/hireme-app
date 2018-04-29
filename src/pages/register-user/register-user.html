@@ -34,7 +34,7 @@
     </ion-item>
     <ion-item>
       <ion-label floating>Celular:</ion-label>
-      <ion-input formControlName="celular" (keyup)="user.celular = $event.target.value"></ion-input>
+      <ion-input formControlName="celular" (keyup)="user.celular = $event.target.value; celular = $event.target.value" value="{{celular | maskTel}}"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Nascimento:</ion-label>
