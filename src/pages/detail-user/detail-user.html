@@ -3,6 +3,11 @@
     <ion-title>
       Meus Dados
     </ion-title>
+    <ion-buttons end (click)="formUpdateUser.ngSubmit.emit()">
+      <button ion-button icon-only>
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -32,11 +37,13 @@
       <ion-label floating>Nascimento:</ion-label>
       <ion-datetime formControlName="nascimento" (ionChange)="buildNascimento($event)" displayFormat="DD/MM/YY"></ion-datetime>
     </ion-item>
+    <ion-item>
+      <ion-label floating>Endereço</ion-label>
+      <ion-select>
+        <ion-option value="1" selected>endereco1</ion-option>
+        <ion-option value="2">endereco2</ion-option>
+      </ion-select>
+    </ion-item>
   </form>
-  <ion-fab bottom right padding>
-    <button ion-fab (click)="formUpdateUser.ngSubmit.emit()">
-      <ion-icon name="send"></ion-icon>
-    </button>
-  </ion-fab>
-  <button ion-button (click)="registerAddress()">Cadastrar endereço</button>
+  <button ion-button block (click)="registerAddress()">Cadastrar endereço</button>
 </ion-content>

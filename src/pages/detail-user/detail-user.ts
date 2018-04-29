@@ -51,7 +51,6 @@ export class DetailUserPage {
       ]],
       nascimento: ['', CustomValidators.required]
     });
-    // this.formGroup.valueChanges.subscribe(value => this.markAsTouchedFields(value));
   }
 
   ionViewDidLoad() {
@@ -78,6 +77,8 @@ export class DetailUserPage {
       this.formGroup.controls['email'].setValue('davidwashington833@gmail.com');
       this.formGroup.controls['nascimento'].setValue('1997-01-29');
       this.formGroup.controls['cpf'].setValue('41147261873');
+
+      this.formGroup.valueChanges.subscribe(value => this.markAsTouchedFields(value));
 
       // Em caso de erro
       // const alert = this._alertCtrl.create({
@@ -130,7 +131,7 @@ export class DetailUserPage {
   }
 
   markAsTouchedFields(value: Object) {
-    let fields = ['nome', 'sobrenome', 'email', 'senha', 'confirmPassward','cpf', 'celular', 'nascimento'];
+    let fields = ['nome', 'sobrenome', 'email', 'cpf', 'celular', 'nascimento'];
     fields.forEach((field) => this.formGroup.controls[field].markAsTouched());
   }
 
