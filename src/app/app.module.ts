@@ -13,20 +13,20 @@ import { MapPage } from '../pages/map/map';
   declarations: [
     AppComponent,
     LoginPage,
-    MapPage,
+    // MapPage,
   ],
   imports: [
     SharedModule,
     IonicModule.forRoot(AppComponent),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBeYIszBebgBTI-HAlw0uXXRMo25gohQv4'
-    })
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'AIzaSyBeYIszBebgBTI-HAlw0uXXRMo25gohQv4'
+    // })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     AppComponent,
     LoginPage,
-    MapPage
+    // MapPage
   ],
   providers: [
     ProvidersModule,
