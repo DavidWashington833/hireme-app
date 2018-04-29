@@ -17,7 +17,7 @@ export class DetailRequestPage {
     console.log('ionViewDidLoad DetailRequestPage');
   }
 
-  goMapa() {
+  mapa() {
     this._navCtrl.push(MapPage.name);
   }
 

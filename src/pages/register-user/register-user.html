@@ -3,47 +3,47 @@
     <ion-title>
       Cadastro
     </ion-title>
+    <ion-buttons end (click)="formRegister.ngSubmit.emit()">
+      <button ion-button icon-only>
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="_formGroup" (ngSubmit)="register()" #formRegister="ngForm">
+  <form [formGroup]="formGroup" (ngSubmit)="register()" #formRegister="ngForm">
     <ion-item>
       <ion-label floating>Nome:</ion-label>
-      <ion-input formControlName="nome" (keyup)="_user.nome = $event.target.value"></ion-input>
+      <ion-input formControlName="nome" (keyup)="user.nome = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Sobrenome:</ion-label>
-      <ion-input formControlName="sobrenome" (keyup)="_user.sobrenome = $event.target.value"></ion-input>
+      <ion-input formControlName="sobrenome" (keyup)="user.sobrenome = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Email:</ion-label>
-      <ion-input type="email" formControlName="email" (keyup)="_user.email = $event.target.value"></ion-input>
+      <ion-input type="email" formControlName="email" (keyup)="user.email = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Senha:</ion-label>
-      <ion-input type="password" formControlName="senha" (keyup)="_user.senha = $event.target.value"></ion-input>
+      <ion-input type="password" formControlName="senha" (keyup)="user.senha = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Repetir senha:</ion-label>
-      <ion-input type="password" formControlName="confirmPassward" (keyup)="_confirmPassward = $event.target.value"></ion-input>
+      <ion-input type="password" formControlName="confirmPassward" (keyup)="confirmPassward = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>CPF:</ion-label>
-      <ion-input type="text" formControlName="cpf" (keyup)="_user.cpf = $event.target.value; _cpf = $event.target.value" value="{{_cpf | maskCpf}}"></ion-input>
+      <ion-input type="text" formControlName="cpf" (keyup)="user.cpf = $event.target.value; cpf = $event.target.value" value="{{cpf | maskCpf}}"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Celular:</ion-label>
-      <ion-input formControlName="celular" (keyup)="_user.celular = $event.target.value"></ion-input>
+      <ion-input formControlName="celular" (keyup)="user.celular = $event.target.value; celular = $event.target.value" value="{{celular | maskTel}}"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Nascimento:</ion-label>
       <ion-datetime formControlName="nascimento" (ionChange)="buildNascimento($event)" displayFormat="DD/MM/YY"></ion-datetime>
     </ion-item>
   </form>
-  <ion-fab bottom right padding>
-    <button ion-fab (click)="formRegister.ngSubmit.emit()">
-      <ion-icon name="send"></ion-icon>
-    </button>
-  </ion-fab>
 </ion-content>

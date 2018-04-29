@@ -9,19 +9,19 @@
 <ion-content padding>
   <form #formLogin="ngForm" (ngSubmit)="logar()">
     <ion-item>
-      <ion-label floating>Usuário</ion-label>
-      <ion-input [(ngModel)]="email" name="email" type="email"></ion-input>
+      <ion-label floating>Email:</ion-label>
+      <ion-input type="email" (keyup)="login.email = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>Senha</ion-label>
-      <ion-input [(ngModel)]="senha" name="senha" type="password"></ion-input>
+      <ion-label floating>Senha:</ion-label>
+      <ion-input type="password" (keyup)="login.senha = $event.target.value"></ion-input>
     </ion-item>
   </form>
   <div padding>
     <button ion-button block (click)="formLogin.ngSubmit.emit()">Entrar</button>
   </div>
   <div>
-    <button ion-button clear small (click)="cadastrar()">Criar conta</button>
-    <button ion-button clear small (click)="recuperarSenha()">Esqueci minha senha</button>
+    <button ion-button clear small (click)="register()">Criar conta</button>
+    <button ion-button clear small (click)="forgotPassword()">Esqueci minha senha</button>
   </div>
 </ion-content>

@@ -12,10 +12,10 @@ export class MaskCpfPipe implements PipeTransform {
     }
 
     let mask =
-      (n.length >= 3 ? n[0] + n[1] + n[2] + '.' : '') +
-      (n.length >= 6 ? n[3] + n[4] + n[5] + '.' : '') +
-      (n.length >= 9 ? n[6] + n[7] + n[8] + '-' : '') +
-      (n.length >= 11 ? n[9] + n[10] : '');
+      (n.length >= 3 ? `${n[0]}${n[1]}${n[2]}.` : '') +
+      (n.length >= 6 ? `${n[3]}${n[4]}${n[5]}.` : '') +
+      (n.length >= 9 ? `${n[6]}${n[7]}${n[8]}-` : '') +
+      (n.length >= 11 ? `${n[9]}${n[10]}` : '');
 
     return mask;
   }

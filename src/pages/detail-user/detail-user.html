@@ -3,9 +3,47 @@
     <ion-title>
       Meus Dados
     </ion-title>
+    <ion-buttons end (click)="formUpdateUser.ngSubmit.emit()">
+      <button ion-button icon-only>
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <button ion-button (click)="goEndereco()">Cadastrar endereço</button>
+  <form [formGroup]="formGroup" (ngSubmit)="updateUser()" #formUpdateUser="ngForm">
+    <ion-item>
+      <ion-label floating>Nome:</ion-label>
+      <ion-input formControlName="nome" (keyup)="user.nome = $event.target.value"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Sobrenome:</ion-label>
+      <ion-input formControlName="sobrenome" (keyup)="user.sobrenome = $event.target.value"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Email:</ion-label>
+      <ion-input type="email" formControlName="email" (keyup)="user.email = $event.target.value"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>CPF:</ion-label>
+      <ion-input type="text" formControlName="cpf" (keyup)="user.cpf = $event.target.value; cpf = $event.target.value" value="{{cpf | maskCpf}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Celular:</ion-label>
+      <ion-input formControlName="celular" (keyup)="user.celular = $event.target.value"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Nascimento:</ion-label>
+      <ion-datetime formControlName="nascimento" (ionChange)="buildNascimento($event)" displayFormat="DD/MM/YY"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Endereço</ion-label>
+      <ion-select>
+        <ion-option value="1" selected>endereco1</ion-option>
+        <ion-option value="2">endereco2</ion-option>
+      </ion-select>
+    </ion-item>
+  </form>
+  <button ion-button block (click)="registerAddress()">Cadastrar endereço</button>
 </ion-content>

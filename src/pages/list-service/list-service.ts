@@ -1,5 +1,5 @@
-import { RegisterServicePage } from './../register-service/register-service';
-import { DetailServicePage } from './../detail-service/detail-service';
+import { RegisterServicePage } from '../register-service/register-service';
+import { DetailServicePage } from '../detail-service/detail-service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 

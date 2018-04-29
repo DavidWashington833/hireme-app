@@ -3,48 +3,34 @@
     <ion-title>
       Cadastro de Prestador
     </ion-title>
+    <ion-buttons end (click)="formRegister.ngSubmit.emit()">
+      <button ion-button icon-only>
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <form (ngSubmit)="cadastrar()" #formCadastro="ngForm">
+  <form [formGroup]="formGroup" (ngSubmit)="register()" #formRegister="ngForm">
     <ion-item>
-      <ion-label stacked>Sobrenome:</ion-label>
-      <ion-input [(ngModel)]="agencia" name="agencia" type="text"></ion-input>
+      <ion-label floating>Agência:</ion-label>
+      <ion-input name="agencia" formControlName="agencia" (keyup)="registerProvider.agencia = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label stacked>Email:</ion-label>
-      <ion-input [(ngModel)]="conta" name="conta"></ion-input>
+      <ion-label floating>Conta:</ion-label>
+      <ion-input name="conta" formControlName="conta" (keyup)="registerProvider.conta = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-segment color="primary" (ionChange)="segmentChanged($event)">
-        <ion-segment-button value="friends">
-          CPF
-        </ion-segment-button>
-        <ion-segment-button value="enemies">
-          CNPJ
-        </ion-segment-button>
-      </ion-segment>
+      <ion-label floating>CPF/CNPJ:</ion-label>
+      <ion-input name="documento" formControlName="documento" (keyup)="registerProvider.documento = $event.target.value; documento = $event.target.value" value="{{documento | maskCpf}}"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label stacked>CPF:</ion-label>
-      <ion-input [(ngModel)]="CPF" name="CPF"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>CNPJ:</ion-label>
-      <ion-input [(ngModel)]="CNPJ" name="CNPJ"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Endereço</ion-label>
-      <ion-select>
-        <ion-option value="endereco1">endereco1</ion-option>
-        <ion-option value="endereco2">endereco2</ion-option>
+      <ion-label floating>Endereço</ion-label>
+      <ion-select (ionChange)="registerProvider.endereco = $event">
+        <ion-option value="1">endereco1</ion-option>
+        <ion-option value="2">endereco2</ion-option>
       </ion-select>
     </ion-item>
   </form>
-  <ion-fab bottom right padding>
-    <button ion-fab (click)="formCadastro.ngSubmit.emit()">
-      <ion-icon name="send"></ion-icon>
-    </button>
-  </ion-fab>
 </ion-content>

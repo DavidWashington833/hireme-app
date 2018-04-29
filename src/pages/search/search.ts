@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { DetailServicePage } from './../detail-service/detail-service';
+import { DetailServicePage } from '../detail-service/detail-service';
 
 @IonicPage()
 @Component({

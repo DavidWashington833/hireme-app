@@ -3,11 +3,11 @@ import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { MapPage } from './../pages/map/map';
-import { RegisterProviderPage } from './../pages/register-provider/register-provider';
-import { SchedulePage } from './../pages/schedule/schedule';
-import { ListServicePage } from './../pages/list-service/list-service';
-import { LoginPage } from './../pages/login/login';
+import { MapPage } from '../pages/map/map';
+import { RegisterProviderPage } from '../pages/register-provider/register-provider';
+import { SchedulePage } from '../pages/schedule/schedule';
+import { ListServicePage } from '../pages/list-service/list-service';
+import { LoginPage } from '../pages/login/login';
 
 @Component({
   templateUrl: 'app.html'

@@ -3,9 +3,43 @@
     <ion-title>
       Cadastrar Endereço
     </ion-title>
+    <ion-buttons end (click)="formRegister.ngSubmit.emit()">
+      <button ion-button icon-only>
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <button ion-button (click)="register()">Cadastrar</button>
-</ion-content>
+    <form (ngSubmit)="register()" #formRegister="ngForm">
+      <ion-item>
+        <ion-label floating>Rua:</ion-label>
+        <ion-input [(ngModel)]="rua" name="rua" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Logradouro:</ion-label>
+        <ion-input [(ngModel)]="logradouro" name="logradouro" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Complemento:</ion-label>
+        <ion-input [(ngModel)]="complemento" name="complemento" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Estado:</ion-label>
+        <ion-input [(ngModel)]="estado" name="estado" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Cidade:</ion-label>
+        <ion-input [(ngModel)]="cidade" name="cidade" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Numero:</ion-label>
+        <ion-input [(ngModel)]="numero" name="numero" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>CEP:</ion-label>
+        <ion-input [(ngModel)]="CEP" name="CEP" type="text"></ion-input>
+      </ion-item>
+    </form>
+  </ion-content>
