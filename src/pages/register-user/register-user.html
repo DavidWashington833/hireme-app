@@ -3,6 +3,11 @@
     <ion-title>
       Cadastro
     </ion-title>
+    <ion-buttons end (click)="formRegister.ngSubmit.emit()">
+      <button ion-button icon-only>
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -41,9 +46,4 @@
       <ion-datetime formControlName="nascimento" (ionChange)="buildNascimento($event)" displayFormat="DD/MM/YY"></ion-datetime>
     </ion-item>
   </form>
-  <ion-fab bottom right padding>
-    <button ion-fab (click)="formRegister.ngSubmit.emit()">
-      <ion-icon name="send"></ion-icon>
-    </button>
-  </ion-fab>
 </ion-content>
