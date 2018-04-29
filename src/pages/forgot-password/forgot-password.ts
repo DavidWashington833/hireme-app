@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, LoadingController, AlertController } from 'ionic-angular';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { CustomValidators } from '../../utils/custom-validators';
 
 @IonicPage()
 @Component({
@@ -7,13 +9,23 @@ import { IonicPage, NavController, LoadingController, AlertController } from 'io
   templateUrl: 'forgot-password.html',
 })
 export class ForgotPasswordPage {
-  private email: string;
+  public email: string;
+  public formGroup: FormGroup;
 
   constructor(
     private _alertCtrl: AlertController,
     private _loadingCtrl: LoadingController,
+    private _formBuilder: FormBuilder,
     private _navCtrl: NavController
-  ) {}
+  ) {
+    this.formGroup = this._formBuilder.group({
+      email: ['', [
+        CustomValidators.required,
+        CustomValidators.email
+      ]]
+    });
+    this.formGroup.valueChanges.subscribe(value => this.markAsTouchedFields(value));
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ForgotPasswordPage');
@@ -38,5 +50,10 @@ export class ForgotPasswordPage {
 
       // this._navCtrl.pop();
     }, 1000);
+  }
+
+  markAsTouchedFields(value: Object) {
+    let fields = ['email'];
+    fields.forEach((field) => this.formGroup.controls[field].markAsTouched());
   }
 }
