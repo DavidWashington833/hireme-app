@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { CustomValidators } from '../../utils/custom-validators';
+import { CustomValidators } from '../../utils/CustomValidators';
 
 @IonicPage()
 @Component({

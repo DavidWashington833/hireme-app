@@ -8,6 +8,8 @@ import { SharedModule } from './shared/shared.module';
 import { UsuarioProvider } from '../providers/usuario/usuario';
 import { ProvidersModule } from '../providers/providers.module';
 import { MapPage } from '../pages/map/map';
+import { AlertProvider } from '../providers/alert/alert';
+import { LoadingProvider } from '../providers/loading/loading';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { MapPage } from '../pages/map/map';
   ],
   providers: [
     ProvidersModule,
-    UsuarioProvider
+    UsuarioProvider,
+    AlertProvider,
+    LoadingProvider
   ]
 })
 export class AppModule {}

@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { UsuarioProvider } from './usuario/usuario';
+import { AlertProvider } from './alert/alert';
+
 @NgModule({
 	declarations: [
-    UsuarioProvider
+    UsuarioProvider,
+    AlertProvider
   ],
 	imports: [],
 	exports: [
-    UsuarioProvider
+    UsuarioProvider,
+    AlertProvider
   ]
 })
 export class ProvidersModule {}

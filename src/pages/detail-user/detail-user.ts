@@ -5,7 +5,7 @@ import { RegisterAddressPage } from '../register-address/register-address';
 import { RegisterUser } from '../../models/RegisterUser';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
-import { CustomValidators } from '../../utils/custom-validators';
+import { CustomValidators } from '../../utils/CustomValidators';
 import { EditUser } from '../../models/EditUser';
 
 @IonicPage()
