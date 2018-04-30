@@ -18,11 +18,11 @@ export class UsuarioProvider {
         'Content-Type': 'application/json; charset=utf-8'
       })
     };
-    return this._http.post(`${this._baseUrl}usuario`, user, httpOption);
+    return this._http.post<RegisterUser>(`${this._baseUrl}usuario`, user, httpOption);
   }
 
-  get() {
-    return this._http.get(`${this._baseUrl}usuario/1`);
+  get(id: number) {
+    return this._http.get<RegisterUser>(`${this._baseUrl}usuario/${id}`);
   }
 
 }

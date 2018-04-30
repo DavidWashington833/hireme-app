@@ -45,7 +45,7 @@ export class LoginPage {
       // });
       // alert.present();
 
-      this._navCtrl.setRoot(MapPage.name);
+      this._navCtrl.setRoot(MapPage.name, {userId: 5});
     }, 1000);
   }
 

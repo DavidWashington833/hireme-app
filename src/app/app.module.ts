@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { AgmCoreModule } from '@agm/core';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { AppComponent } from './app.component';
 import { LoginPage } from '../pages/login/login';
@@ -20,6 +21,10 @@ import { LoadingProvider } from '../providers/loading/loading';
   imports: [
     SharedModule,
     IonicModule.forRoot(AppComponent),
+    IonicStorageModule.forRoot({
+      name: 'localdb',
+         driverOrder: ['indexeddb', 'sqlite', 'websql']
+    }),
     // AgmCoreModule.forRoot({
     //   apiKey: 'AIzaSyBeYIszBebgBTI-HAlw0uXXRMo25gohQv4'
     // })
