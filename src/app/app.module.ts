@@ -11,6 +11,7 @@ import { ProvidersModule } from '../providers/providers.module';
 import { MapPage } from '../pages/map/map';
 import { AlertProvider } from '../providers/alert/alert';
 import { LoadingProvider } from '../providers/loading/loading';
+import { EnderecoProvider } from '../providers/endereco/endereco';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { LoadingProvider } from '../providers/loading/loading';
     ProvidersModule,
     UsuarioProvider,
     AlertProvider,
-    LoadingProvider
+    LoadingProvider,
+    EnderecoProvider
   ]
 })
 export class AppModule {}
