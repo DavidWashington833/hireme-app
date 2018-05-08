@@ -1,5 +1,6 @@
+import { ResponseUser } from './../models/ResponseUser';
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav } from 'ionic-angular';
+import { Platform, Nav, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -13,6 +14,9 @@ import { LoginPage } from '../pages/login/login';
   templateUrl: 'app.html'
 })
 export class AppComponent {
+  public userName: string = '';
+  public userEmail: string = '';
+
   @ViewChild(Nav)
   private _nav: Nav;
   private _pages: Array<{ title: string, component: any, icon: string }>;
@@ -26,7 +30,19 @@ export class AppComponent {
     return this._rootPage;
   }
 
-  constructor() {
+  constructor(
+    private _events: Events
+  ) {
+    this._events.subscribe('user:created', user => {
+      const responseUser: ResponseUser = JSON.parse(user);
+      this.userName = `${responseUser.nomeUsuario} ${responseUser.sobrenomeUsuario}`;
+      this.userEmail = responseUser.emailUsuario;
+      console.log('user',user);
+      console.log('responseUser',responseUser);
+      console.log('this.userName',this.userName);
+      console.log('this.userEmail',this.userEmail);
+    });
+
     this._pages = [
       { title: 'Mapa', component: MapPage.name, icon: 'paper' },
       { title: 'Agenda', component: SchedulePage.name, icon: 'paper' },

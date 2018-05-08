@@ -12,34 +12,34 @@
 </ion-header>
 
 <ion-content padding>
-    <form (ngSubmit)="register()" #formRegister="ngForm">
+    <form [formGroup]="formGroup" (ngSubmit)="register()" #formRegister="ngForm">
       <ion-item>
         <ion-label floating>Rua:</ion-label>
-        <ion-input [(ngModel)]="rua" name="rua" type="text"></ion-input>
+        <ion-input type="text" name="rua" formControlName="rua" (keyup)="address.rua = $event.target.value"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Logradouro:</ion-label>
-        <ion-input [(ngModel)]="logradouro" name="logradouro" type="text"></ion-input>
+        <ion-input type="text" name="logradouro" formControlName="logradouro" (keyup)="address.logradouro = $event.target.value"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Complemento:</ion-label>
-        <ion-input [(ngModel)]="complemento" name="complemento" type="text"></ion-input>
+        <ion-input type="text" name="complemento" formControlName="complemento" (keyup)="address.complemento = $event.target.value"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Estado:</ion-label>
-        <ion-input [(ngModel)]="estado" name="estado" type="text"></ion-input>
+        <ion-input type="text" name="estado" formControlName="estado" (keyup)="address.estado = $event.target.value"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Cidade:</ion-label>
-        <ion-input [(ngModel)]="cidade" name="cidade" type="text"></ion-input>
+        <ion-input type="text" name="cidade" formControlName="cidade" (keyup)="address.cidade = $event.target.value"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Numero:</ion-label>
-        <ion-input [(ngModel)]="numero" name="numero" type="text"></ion-input>
+        <ion-input name="numero" formControlName="numero" (keyup)="address.numero = $event.target.value"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>CEP:</ion-label>
-        <ion-input [(ngModel)]="CEP" name="CEP" type="text"></ion-input>
+        <ion-input type="text" name="cep" formControlName="cep" (keyup)="address.cep = $event.target.value"></ion-input>
       </ion-item>
     </form>
   </ion-content>

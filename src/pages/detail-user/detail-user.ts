@@ -5,8 +5,9 @@ import { RegisterAddressPage } from '../register-address/register-address';
 import { RegisterUser } from '../../models/RegisterUser';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
-import { CustomValidators } from '../../utils/custom-validators';
+import { CustomValidators } from '../../utils/CustomValidators';
 import { EditUser } from '../../models/EditUser';
+import { ResponseUser } from '../../models/ResponseUser';
 
 @IonicPage()
 @Component({
@@ -61,33 +62,28 @@ export class DetailUserPage {
     });
     loading.present();
 
-    setTimeout(() => {
-      loading.dismiss();
+    const responseUser: ResponseUser =
+      JSON.parse(localStorage.getItem('user'));
 
-      this.user.nome = 'David';
-      this.user.sobrenome = 'Washington';
-      this.user.celular = '11111111111';
-      this.user.email = 'davidwashington833@gmail.com';
-      this.user.nascimento = '1997-01-29';
-      this.user.cpf= '41147261873';
+    console.log(responseUser);
 
-      this.formGroup.controls['nome'].setValue('David');
-      this.formGroup.controls['sobrenome'].setValue('Washington');
-      this.formGroup.controls['celular'].setValue('11111111111');
-      this.formGroup.controls['email'].setValue('davidwashington833@gmail.com');
-      this.formGroup.controls['nascimento'].setValue('1997-01-29');
-      this.formGroup.controls['cpf'].setValue('41147261873');
+    loading.dismiss();
 
-      this.formGroup.valueChanges.subscribe(value => this.markAsTouchedFields(value));
+    this.user.nome = responseUser.nomeUsuario;
+    this.user.sobrenome = responseUser.sobrenomeUsuario;
+    this.user.celular = String(responseUser.celularUsuario);
+    this.user.email = responseUser.emailUsuario;
+    this.user.nascimento = responseUser.nascimentoUsuario;
+    this.user.cpf = String(responseUser.CPFUsuario);
 
-      // Em caso de erro
-      // const alert = this._alertCtrl.create({
-      //   title: 'Erro de conexão',
-      //   subTitle: 'Tente de novo mais tarde!',
-      //   buttons: ['OK']
-      // });
-      // alert.present();
-    }, 1000);
+    this.formGroup.controls['nome'].setValue(responseUser.nomeUsuario);
+    this.formGroup.controls['sobrenome'].setValue(responseUser.sobrenomeUsuario);
+    this.formGroup.controls['celular'].setValue(String(responseUser.celularUsuario));
+    this.formGroup.controls['email'].setValue(responseUser.emailUsuario);
+    this.formGroup.controls['nascimento'].setValue(responseUser.nascimentoUsuario);
+    this.formGroup.controls['cpf'].setValue(String(responseUser.CPFUsuario));
+
+    this.formGroup.valueChanges.subscribe(value => this.markAsTouchedFields(value));
   }
 
   updateUser() {

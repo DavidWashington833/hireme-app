@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, LoadingController, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { CustomValidators } from '../../utils/custom-validators';
+import { CustomValidators } from '../../utils/CustomValidators';
 
 @IonicPage()
 @Component({

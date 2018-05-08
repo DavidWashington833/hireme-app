@@ -2,9 +2,13 @@ import { RequestPage } from '../request/request';
 import { DetailUserPage } from '../detail-user/detail-user';
 import { Prestador } from '../../models/prestador';
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { DetailProviderPage } from '../detail-provider/detail-provider';
 import { SearchPage } from '../search/search';
+import { UsuarioProvider } from '../../providers/usuario/usuario';
+import { ResponseUser } from '../../models/ResponseUser';
+import { LoadingProvider } from '../../providers/loading/loading';
+import { AlertProvider } from '../../providers/alert/alert';
 
 @IonicPage()
 @Component({
@@ -213,7 +217,12 @@ export class MapPage {
   providers: Array<Prestador>;
 
   constructor(
-    private _navCtrl: NavController
+    private _navCtrl: NavController,
+    private _navParams: NavParams,
+    private _loadingCtrl: LoadingProvider,
+    private _alertCtrl: AlertProvider,
+    private _usuarioProvider: UsuarioProvider,
+    private _events: Events
   ) {
     this.providers = [
       { id: 1, icon: 'assets/imgs/employees.png', latitude: -23.738156, longitude: -46.692307 },
@@ -225,25 +234,47 @@ export class MapPage {
     setTimeout(() => {
       this.providers.push({ id: 6, icon: 'assets/imgs/employees.png', latitude: -23.737156, longitude: -46.691307 });
     }, 2000);
+    this.createUser('123');
   }
 
   ionViewDidLoad() {
+    console.log(this._navParams.get('userId'));
+    this.getUser();
     console.log('ionViewDidLoad MapPage');
   }
 
-  detailProvider(id: number) {
+  private getUser() {
+    this._loadingCtrl.show({content: 'Buscando dados do usuário...'});
+    this._usuarioProvider
+      .get(this._navParams.get('userId'))
+      .subscribe(res => {
+        console.log(res);
+        localStorage.setItem('user', JSON.stringify(res));
+        this._loadingCtrl.hide();
+        this.createUser(localStorage.getItem('user'));
+      }, err => {
+        console.log(err);
+        this._loadingCtrl.hide();
+      });
+  }
+
+  private createUser(user) {
+    this._events.publish('user:created', user);
+  }
+
+  private detailProvider(id: number) {
     this._navCtrl.push(DetailProviderPage.name, { id: id });
   }
 
-  detailUser() {
+  private detailUser() {
     this._navCtrl.push(DetailUserPage.name);
   }
 
-  request() {
+  private request() {
     this._navCtrl.push(RequestPage.name);
   }
 
-  search() {
+  private search() {
     this._navCtrl.push(SearchPage.name);
   }
 

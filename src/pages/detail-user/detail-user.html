@@ -37,13 +37,6 @@
       <ion-label floating>Nascimento:</ion-label>
       <ion-datetime formControlName="nascimento" (ionChange)="buildNascimento($event)" displayFormat="DD/MM/YY"></ion-datetime>
     </ion-item>
-    <ion-item>
-      <ion-label floating>Endereço</ion-label>
-      <ion-select>
-        <ion-option value="1" selected>endereco1</ion-option>
-        <ion-option value="2">endereco2</ion-option>
-      </ion-select>
-    </ion-item>
   </form>
-  <button ion-button block (click)="registerAddress()">Cadastrar endereço</button>
+  <button ion-button block (click)="registerAddress()">endereço</button>
 </ion-content>

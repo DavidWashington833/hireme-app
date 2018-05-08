@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 
 import { RegisterUser } from '../../models/RegisterUser';
+import { ResponseUser } from '../../models/ResponseUser';
 
 @Injectable()
 export class UsuarioProvider {
@@ -18,11 +19,11 @@ export class UsuarioProvider {
         'Content-Type': 'application/json; charset=utf-8'
       })
     };
-    return this._http.post(`${this._baseUrl}usuario`, user, httpOption);
+    return this._http.post<RegisterUser>(`${this._baseUrl}usuario`, user, httpOption);
   }
 
-  get() {
-    return this._http.get(`${this._baseUrl}usuario/1`);
+  get(id: number) {
+    return this._http.get<ResponseUser>(`${this._baseUrl}usuario/${id}`);
   }
 
 }
