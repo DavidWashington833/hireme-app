@@ -93,7 +93,7 @@ export class RegisterUserPage {
           this.alertSuccessRegister();
         },
         err => {
-          console.log('erro do cadastro', err);
+          console.error('erro no cadastro', err);
           this._loadingCtrl.hide();
           this.alertNoConnection();
         }

@@ -18,11 +18,12 @@ import { RequestPage } from '../pages/request/request';
 export class AppComponent {
   public userName: string = '';
   public userEmail: string = '';
+  public userInitials: string = '';
 
   @ViewChild(Nav)
   private _nav: Nav;
   private _pages: Array<{ title: string, component: any, icon: string }>;
-  private _rootPage: any = LoginPage;
+  private _rootPage: any = MapPage;
 
   public get pages() {
     return this._pages;
@@ -39,10 +40,10 @@ export class AppComponent {
       const responseUser: ResponseUser = JSON.parse(user);
       this.userName = `${responseUser.nomeUsuario} ${responseUser.sobrenomeUsuario}`;
       this.userEmail = responseUser.emailUsuario;
-      console.log('user',user);
-      console.log('responseUser',responseUser);
-      console.log('this.userName',this.userName);
-      console.log('this.userEmail',this.userEmail);
+
+      if (responseUser.nomeUsuario != undefined && responseUser.sobrenomeUsuario != undefined) {
+        this.userInitials = `${responseUser.nomeUsuario.substr(0,1)}${responseUser.sobrenomeUsuario.substr(0,1)}`.toLocaleUpperCase();
+      }
     });
 
     this._pages = [

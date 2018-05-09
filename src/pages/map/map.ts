@@ -1,3 +1,4 @@
+import { PrestadorProvider } from './../../providers/prestador/prestador';
 import { RequestPage } from '../request/request';
 import { DetailUserPage } from '../detail-user/detail-user';
 import { Prestador } from '../../models/prestador';
@@ -222,6 +223,7 @@ export class MapPage {
     private _loadingCtrl: LoadingProvider,
     private _alertCtrl: AlertProvider,
     private _usuarioProvider: UsuarioProvider,
+    private _prestadorProvider: PrestadorProvider,
     private _events: Events
   ) {
     this.providers = [
@@ -235,25 +237,32 @@ export class MapPage {
       this.providers.push({ id: 6, icon: 'assets/imgs/employees.png', latitude: -23.737156, longitude: -46.691307 });
     }, 2000);
     this.createUser('123');
+    this._prestadorProvider
+      .get(1)
+      .subscribe(
+        res => console.log('resposta ao buscar prestador', res),
+        err => console.error('erro ao buscar prestador', err)
+      );
   }
 
   ionViewDidLoad() {
-    console.log(this._navParams.get('userId'));
-    this.getUser();
     console.log('ionViewDidLoad MapPage');
+    console.log('id do usuario', this._navParams.get('userId'));
+    this.getUser();
   }
 
   private getUser() {
     this._loadingCtrl.show({content: 'Buscando dados do usuário...'});
     this._usuarioProvider
-      .get(this._navParams.get('userId'))
+      // .get(this._navParams.get('userId'))
+      .get(1)
       .subscribe(res => {
-        console.log(res);
+        console.log('resposta da busca por usuário', res);
         localStorage.setItem('user', JSON.stringify(res));
         this._loadingCtrl.hide();
         this.createUser(localStorage.getItem('user'));
       }, err => {
-        console.log(err);
+        console.error('erro ao buscar usuário', err);
         this._loadingCtrl.hide();
       });
   }

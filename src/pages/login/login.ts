@@ -27,7 +27,7 @@ export class LoginPage {
 
     setTimeout(() => {
       loading.dismiss();
-      console.log(this.login);
+      console.log('login', this.login);
 
       // Em caso de erro no login
       // const alert = this._alertCtrl.create({
@@ -45,7 +45,7 @@ export class LoginPage {
       // });
       // alert.present();
 
-      this._navCtrl.setRoot(MapPage.name, {userId: 5});
+      this._navCtrl.setRoot(MapPage.name, {userId: 11});
     }, 1000);
   }
 
