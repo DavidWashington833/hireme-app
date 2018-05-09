@@ -1,3 +1,4 @@
+import { DetailUserPage } from './../pages/detail-user/detail-user';
 import { ResponseUser } from './../models/ResponseUser';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav, Events } from 'ionic-angular';
@@ -9,6 +10,7 @@ import { RegisterProviderPage } from '../pages/register-provider/register-provid
 import { SchedulePage } from '../pages/schedule/schedule';
 import { ListServicePage } from '../pages/list-service/list-service';
 import { LoginPage } from '../pages/login/login';
+import { RequestPage } from '../pages/request/request';
 
 @Component({
   templateUrl: 'app.html'
@@ -44,7 +46,8 @@ export class AppComponent {
     });
 
     this._pages = [
-      { title: 'Mapa', component: MapPage.name, icon: 'paper' },
+      { title: 'Meus dados', component: DetailUserPage.name, icon: 'paper' },
+      { title: 'Meus pedidos', component: RequestPage.name, icon: 'paper' },
       { title: 'Agenda', component: SchedulePage.name, icon: 'paper' },
       { title: 'Cadastrar Prestador', component: RegisterProviderPage.name, icon: 'paper' },
       { title: 'Servico', component: ListServicePage.name, icon: 'paper' }

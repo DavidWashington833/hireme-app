@@ -45,11 +45,15 @@ export class RegisterUserPage {
         CustomValidators.email
       ]],
       senha: ['', [
-        CustomValidators.required
+        CustomValidators.required,
+        CustomValidators.minLength(3),
+        CustomValidators.maxLength(20)
       ]],
       confirmPassward: ['', [
         CustomValidators.required,
-        CustomValidators.confirmPassward
+        CustomValidators.confirmPassward,
+        CustomValidators.minLength(3),
+        CustomValidators.maxLength(20)
       ]],
       cpf: ['', [
         CustomValidators.required,
@@ -69,7 +73,7 @@ export class RegisterUserPage {
   }
 
   private register() {
-    console.log(this.user);
+    console.log('dados cadastrais', this.user);
     if (!this.formGroup.valid) {
       this.alertInvalidFields();
       return;
@@ -84,12 +88,12 @@ export class RegisterUserPage {
       .post(this.user)
       .subscribe(
         res => {
-          console.log(res)
+          console.log('resposta do cadastro', res);
           this._loadingCtrl.hide();
           this.alertSuccessRegister();
         },
         err => {
-          console.log(err)
+          console.log('erro do cadastro', err);
           this._loadingCtrl.hide();
           this.alertNoConnection();
         }
