@@ -22,7 +22,7 @@ export class AppComponent {
 
   @ViewChild(Nav)
   private _nav: Nav;
-  private _pages: Array<{ title: string, component: any, icon: string }>;
+  private _pages: Array<{ title: string, component: any, icon: string }> = [];
   private _rootPage: any = MapPage;
 
   public get pages() {
@@ -46,13 +46,25 @@ export class AppComponent {
       }
     });
 
-    this._pages = [
-      { title: 'Meus dados', component: DetailUserPage.name, icon: 'paper' },
-      { title: 'Meus pedidos', component: RequestPage.name, icon: 'paper' },
-      { title: 'Agenda', component: SchedulePage.name, icon: 'paper' },
-      { title: 'Cadastrar Prestador', component: RegisterProviderPage.name, icon: 'paper' },
-      { title: 'Servico', component: ListServicePage.name, icon: 'paper' }
-    ];
+    this._events.subscribe('user:provider', isProvider => {
+      console.log(isProvider);
+      if(isProvider) {
+        this._pages = [
+          { title: 'Meus dados', component: DetailUserPage.name, icon: 'paper' },
+          { title: 'Meus pedidos', component: RequestPage.name, icon: 'paper' },
+          { title: 'Agenda', component: SchedulePage.name, icon: 'paper' },
+          { title: 'Servico', component: ListServicePage.name, icon: 'paper' }
+        ];
+      }
+      else {
+        this._pages = [
+          { title: 'Meus dados', component: DetailUserPage.name, icon: 'paper' },
+          { title: 'Meus pedidos', component: RequestPage.name, icon: 'paper' },
+          { title: 'Cadastrar Prestador', component: RegisterProviderPage.name, icon: 'paper' },
+        ];
+      }
+    });
+
   }
 
   openPage(page) {

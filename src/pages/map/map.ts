@@ -92,10 +92,16 @@ export class MapPage {
       .subscribe(
       res => {
         console.log('resposta ao buscar prestador', res)
+        this.isProvider(res != null);
       },
       err => {
         console.error('erro ao buscar prestador', err)
+        this.isProvider(false);
       });
+  }
+
+  private isProvider(v: boolean) {
+    this._events.publish('user:provider', v);
   }
 
   private createUser(user) {
