@@ -8,6 +8,7 @@ import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { CustomValidators } from '../../utils/CustomValidators';
 import { EditUser } from '../../models/EditUser';
 import { ResponseUser } from '../../models/ResponseUser';
+import { AlertProvider } from '../../providers/alert/alert';
 
 @IonicPage()
 @Component({
@@ -18,12 +19,13 @@ export class DetailUserPage {
   public user: EditUser = new EditUser();
   public formGroup: FormGroup;
   public confirmPassward: string;
+  public usuarioId: number;
   public cpf = '';
 
   constructor(
     private _loadingCtrl: LoadingController,
     private _navCtrl: NavController,
-    private _alertCtrl: AlertController,
+    private _alertCtrl: AlertProvider,
     private _formBuilder: FormBuilder,
     private _usuarioProvider: UsuarioProvider
   ) {
@@ -69,6 +71,7 @@ export class DetailUserPage {
 
     loading.dismiss();
 
+    this.usuarioId = responseUser.idUsuario;
     this.user.nome = responseUser.nomeUsuario;
     this.user.sobrenome = responseUser.sobrenomeUsuario;
     this.user.celular = String(responseUser.celularUsuario);
@@ -87,15 +90,10 @@ export class DetailUserPage {
   }
 
   updateUser() {
+    console.log('--------------------->', this.user);
+    console.log('--------------------->', JSON.stringify(this.user));
     if (!this.formGroup.valid) {
-      const alert = this._alertCtrl.create({
-        title: 'Erro ao alterar dados do usuário',
-        subTitle: 'Preencha todos os campos da forma correta!',
-        buttons: ['OK']
-      });
-      alert.present();
-      console.log(this.user);
-
+      this.alertInvalidFields();
       return;
     }
 
@@ -104,26 +102,50 @@ export class DetailUserPage {
     });
     loading.present();
 
-    setTimeout(() => {
-      loading.dismiss();
-      console.log(this.user);
-    }, 1000);
+    this
+      ._usuarioProvider
+      .put(this.usuarioId, this.user)
+      .subscribe(
+        res => {
+          loading.dismiss();
+          this.alertSuccessRegister();
+          console.log(res)
+        },
+        err => {
+          loading.dismiss();
+          console.log(err)
+          this.alertNoConnection();
+        }
+      )
+  }
 
-    // this
-    //   ._usuarioProvider
-    //   .put(this.user)
-    //   .subscribe(
-    //     res => {
-    //       loading.dismiss();
-    //       console.log(res)
-    //       this._navCtrl.pop();
-    //     },
-    //     err => {
-    //       loading.dismiss();
-    //       console.log(err)
-    //       this._navCtrl.pop();
-    //     }
-    //   )
+  private alertNoConnection() {
+    this._alertCtrl.show({
+      title: 'Erro ao editar dados',
+      subTitle: 'Para editar você precisa esta conectado a internet.',
+      buttons: ['OK']
+    });
+  }
+
+  private alertSuccessRegister() {
+    this._alertCtrl.show({
+      title: 'Atualização de dados efetuado com sucesso!',
+      subTitle: '.',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => { this._navCtrl.pop(); }
+        },
+      ]
+    });
+  }
+
+  private alertInvalidFields() {
+    this._alertCtrl.show({
+      title: 'Erro ao alterar dados do usuário',
+      subTitle: 'Preencha todos os campos da forma correta!',
+      buttons: ['OK']
+    });
   }
 
   markAsTouchedFields(value: Object) {
