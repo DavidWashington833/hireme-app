@@ -1,3 +1,4 @@
+import { Geolocation } from '@ionic-native/geolocation';
 import { PrestadorProvider } from './../../providers/prestador/prestador';
 import { RequestPage } from '../request/request';
 import { DetailUserPage } from '../detail-user/detail-user';
@@ -218,6 +219,7 @@ export class MapPage {
   providers: Array<Prestador>;
 
   constructor(
+    private _geolocation: Geolocation,
     private _navCtrl: NavController,
     private _navParams: NavParams,
     private _loadingCtrl: LoadingProvider,
@@ -236,19 +238,24 @@ export class MapPage {
     setTimeout(() => {
       this.providers.push({ id: 6, icon: 'assets/imgs/employees.png', latitude: -23.737156, longitude: -46.691307 });
     }, 2000);
-    this.createUser('123');
-    this._prestadorProvider
-      .get(1)
-      .subscribe(
-        res => console.log('resposta ao buscar prestador', res),
-        err => console.error('erro ao buscar prestador', err)
-      );
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MapPage');
     console.log('id do usuario', this._navParams.get('userId'));
     this.getUser();
+    this.getCoords();
+  }
+
+  private getCoords() {
+    this._geolocation.watchPosition().subscribe(res => {
+      console.log('pegando cordenadas usuário', res);
+      this.longitude = res.coords.longitude;
+      this.latitude = res.coords.latitude;
+     },
+     error => {
+       console.error('erro ao pegar cordenadas do usuário', error);
+     });
   }
 
   private getUser() {
@@ -264,6 +271,17 @@ export class MapPage {
       }, err => {
         console.error('erro ao buscar usuário', err);
         this._loadingCtrl.hide();
+      });
+
+    this._prestadorProvider
+      // .get(this._navParams.get('userId'))
+      .get(1)
+      .subscribe(
+      res => {
+        console.log('resposta ao buscar prestador', res)
+      },
+      err => {
+        console.error('erro ao buscar prestador', err)
       });
   }
 

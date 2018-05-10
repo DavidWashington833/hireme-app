@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { AgmCoreModule } from '@agm/core';
 import { IonicStorageModule } from '@ionic/storage';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { AppComponent } from './app.component';
 import { LoginPage } from '../pages/login/login';
@@ -38,6 +39,7 @@ import { PrestadorProvider } from '../providers/prestador/prestador';
     MapPage
   ],
   providers: [
+    Geolocation,
     ProvidersModule,
     UsuarioProvider,
     AlertProvider,
