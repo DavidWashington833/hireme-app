@@ -1,4 +1,4 @@
-import { Geolocation } from '@ionic-native/geolocation';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { PrestadorProvider } from './../../providers/prestador/prestador';
 import { RequestPage } from '../request/request';
 import { DetailUserPage } from '../detail-user/detail-user';
@@ -57,18 +57,29 @@ export class MapPage {
     console.log('ionViewDidLoad MapPage');
     console.log('id do usuario', this._navParams.get('userId'));
     this.getUser();
-    this.getCoords();
+    this.getCoords().then((res: Geoposition) => {
+      this.longitude = res.coords.longitude;
+      this.latitude = res.coords.latitude;
+      console.log('pegando cordenadas usuário', res);
+
+      this._prestadorProvider.getForCoords(this.latitude, this.longitude)
+        .subscribe(
+          res => console.log('getForCoords', res),
+          error => console.log('getForCoords', error)
+        );
+
+    }).catch(error => console.log(error));
   }
 
   private getCoords() {
-    this._geolocation.watchPosition().subscribe(res => {
-      console.log('pegando cordenadas usuário', res);
-      this.longitude = res.coords.longitude;
-      this.latitude = res.coords.latitude;
-     },
-     error => {
-       console.error('erro ao pegar cordenadas do usuário', error);
-     });
+    return new Promise((resolve, reject) => {
+      this._geolocation
+        .watchPosition()
+        .subscribe(
+          (res: Geoposition) => resolve(res),
+          error => reject(error)
+        );
+    });
   }
 
   private getUser() {

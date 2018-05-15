@@ -14,4 +14,10 @@ export class PrestadorProvider {
     return this._http.get<ResponseProvider>(`${this._baseUrl}prestador?idPrestador=${id}`);
   }
 
+  getForCoords(latitude: number, longitude: number) {
+    let lat = latitude.toString().replace('.', '').split('');
+    let lon = longitude.toString().replace('.', '').split('');
+    return this._http.get<ResponseProvider[]>(`${this._baseUrl}prestador?lat=${lat.splice(0, lat.length - 1)}&lon=${lon.splice(0, lon.length - 1)}`);
+  }
+
 }
