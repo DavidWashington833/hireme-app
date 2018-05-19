@@ -85,8 +85,8 @@ export class MapPage {
   private getUser() {
     this._loadingCtrl.show({content: 'Buscando dados do usuário...'});
     this._usuarioProvider
-      // .get(this._navParams.get('userId'))
-      .get(1)
+      .get(this._navParams.get('userId'))
+      // .get(1)
       .subscribe(res => {
         console.log('resposta da busca por usuário', res);
         localStorage.setItem('user', JSON.stringify(res));
@@ -98,8 +98,8 @@ export class MapPage {
       });
 
     this._prestadorProvider
-      // .get(this._navParams.get('userId'))
-      .get(1)
+      .get(this._navParams.get('userId'))
+      // .get(1)
       .subscribe(
       res => {
         console.log('resposta ao buscar prestador', res)

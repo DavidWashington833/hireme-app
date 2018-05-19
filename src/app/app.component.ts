@@ -1,3 +1,4 @@
+import { LoginPage } from './../pages/login/login';
 import { DetailUserPage } from './../pages/detail-user/detail-user';
 import { ResponseUser } from './../models/ResponseUser';
 import { Component, ViewChild } from '@angular/core';
@@ -9,7 +10,6 @@ import { MapPage } from '../pages/map/map';
 import { RegisterProviderPage } from '../pages/register-provider/register-provider';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { ListServicePage } from '../pages/list-service/list-service';
-import { LoginPage } from '../pages/login/login';
 import { RequestPage } from '../pages/request/request';
 
 @Component({
@@ -23,7 +23,7 @@ export class AppComponent {
   @ViewChild(Nav)
   private _nav: Nav;
   private _pages: Array<{ title: string, component: any, icon: string }> = [];
-  private _rootPage: any = MapPage;
+  private _rootPage: any = LoginPage;
 
   public get pages() {
     return this._pages;

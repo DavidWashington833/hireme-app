@@ -5,6 +5,7 @@ import { Login } from '../../models/login';
 import { RegisterUserPage } from '../register-user/register-user';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import { MapPage } from '../map/map';
+import { LoginProvider } from '../../providers/login/login';
 
 @Component({
   selector: 'page-login',
@@ -16,7 +17,8 @@ export class LoginPage {
   constructor(
     private _alertCtrl: AlertController,
     private _loadingCtrl: LoadingController,
-    private _navCtrl: NavController
+    private _navCtrl: NavController,
+    private _loginProvider: LoginProvider
   ) {}
 
   logar() {
@@ -25,28 +27,35 @@ export class LoginPage {
     });
     loading.present();
 
-    setTimeout(() => {
-      loading.dismiss();
-      console.log('login', this.login);
+    this._loginProvider.post(this.login)
+      .subscribe(
+        res => {
+          console.log(res)
+          loading.dismiss();
+          this._navCtrl.setRoot(MapPage.name, {userId: res.idUsuario});
+        },
+        err => {
+          console.log(err)
+          loading.dismiss();
+          if (err.status == 404) {
+            const alert = this._alertCtrl.create({
+              title: 'Erro ao logar',
+              subTitle: 'Login ou senha inválida.',
+              buttons: ['OK']
+            });
+            alert.present();
+          }
+          else {
+            const alert = this._alertCtrl.create({
+              title: 'Erro ao logar',
+              subTitle: 'Para logar você precisa esta conectado a internet.',
+              buttons: ['OK']
+            });
+            alert.present();
+          }
+        })
 
-      // Em caso de erro no login
-      // const alert = this._alertCtrl.create({
-      //   title: 'Erro ao logar',
-      //   subTitle: 'Login ou senha inválida.',
-      //   buttons: ['OK']
-      // });
-      // alert.present();
-
-      // Erro de conexão
-      // const alert = this._alertCtrl.create({
-      //   title: 'Erro ao logar',
-      //   subTitle: 'Para logar você precisa esta conectado a internet.',
-      //   buttons: ['OK']
-      // });
-      // alert.present();
-
-      this._navCtrl.setRoot(MapPage.name, {userId: 11});
-    }, 1000);
+    console.log('login', this.login);
   }
 
   register() {

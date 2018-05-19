@@ -14,12 +14,13 @@ import { AlertProvider } from '../providers/alert/alert';
 import { LoadingProvider } from '../providers/loading/loading';
 import { EnderecoProvider } from '../providers/endereco/endereco';
 import { PrestadorProvider } from '../providers/prestador/prestador';
+import { LoginProvider } from '../providers/login/login';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPage,
-    MapPage,
+    // MapPage,
   ],
   imports: [
     SharedModule,
@@ -28,15 +29,15 @@ import { PrestadorProvider } from '../providers/prestador/prestador';
       name: 'localdb',
          driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBeYIszBebgBTI-HAlw0uXXRMo25gohQv4'
-    })
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'AIzaSyBeYIszBebgBTI-HAlw0uXXRMo25gohQv4'
+    // })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     AppComponent,
     LoginPage,
-    MapPage
+    // MapPage
   ],
   providers: [
     Geolocation,
@@ -45,7 +46,8 @@ import { PrestadorProvider } from '../providers/prestador/prestador';
     AlertProvider,
     LoadingProvider,
     EnderecoProvider,
-    PrestadorProvider
+    PrestadorProvider,
+    LoginProvider
   ]
 })
 export class AppModule {}
