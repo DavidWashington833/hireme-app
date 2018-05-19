@@ -41,20 +41,8 @@ export class MapPage {
     private _httpClient: HttpClient,
     private _events: Events,
     private _mapsAPILoader: MapsAPILoader,
-    private _ngZone: NgZone,
-    private _teste: GMapsServiceProvider
+    private _ngZone: NgZone
   ) {
-    this._teste.getLatLan('04856285')
-      .subscribe(
-        res => {
-        console.log('------------------------------> teste', res)
-          console.log('lng', res.lng());
-          console.log('lat', res.lat());
-          this.longitude = res.lng();
-          this.latitude = res.lat();
-        },
-        err => console.log('------------------------------>', err)
-      )
 
     this._httpClient.get('/assets/json/map.json').
       subscribe(res => {
@@ -95,8 +83,8 @@ export class MapPage {
     console.log('id do usuario', this._navParams.get('userId'));
     this.getUser();
     this.getCoords().then((res: Geoposition) => {
-      // this.longitude = res.coords.longitude;
-      // this.latitude = res.coords.latitude;
+      this.longitude = res.coords.longitude;
+      this.latitude = res.coords.latitude;
       console.log('pegando cordenadas usuário', res);
 
       this._prestadorProvider.getForCoords(this.latitude, this.longitude)

@@ -9,6 +9,7 @@ import { CustomValidators } from '../../utils/CustomValidators';
 import { HandlerFields } from '../../utils/HandlerFields';
 import { EnderecoProvider } from '../../providers/endereco/endereco';
 import { ResponseUser } from '../../models/ResponseUser';
+import { GMapsServiceProvider } from '../../providers/g-maps-service/g-maps-service';
 
 @IonicPage()
 @Component({
@@ -24,7 +25,8 @@ export class RegisterAddressPage {
     private _loadingCtrl: LoadingProvider,
     private _alertCtrl: AlertProvider,
     private _formBuilder: FormBuilder,
-    private _enderecoProvider: EnderecoProvider
+    private _enderecoProvider: EnderecoProvider,
+    private _GMaps: GMapsServiceProvider
   ) {
     this.formGroup = this._formBuilder.group({
       rua: ['', [
@@ -70,8 +72,6 @@ export class RegisterAddressPage {
     console.log('ionViewDidLoad RegisterAddressPage');
     const user: ResponseUser = JSON.parse(localStorage.getItem('user'));
     this.address.idUsuario = user.idUsuario;
-    this.address.latitudeEndereco = 500;
-    this.address.longitudeEndereco = 500;
   }
 
   private register() {
@@ -85,27 +85,54 @@ export class RegisterAddressPage {
       content: 'Cadastrando...'
     });
 
-    this
-      ._enderecoProvider
-      .post(this.address)
+    console.log('cep', this.address.cep);
+    this._GMaps.getLatLan(`${this.address.rua} ${this.address.numero}`)
       .subscribe(
         res => {
-          console.log(res)
-          this._loadingCtrl.hide();
-          this.alertSuccessRegister();
+        console.log('------------------------------> teste', res)
+          console.log('lng', res.lng());
+          console.log('lat', res.lat());
+          this.address.longitudeEndereco = parseFloat(res.lng()).toFixed(6);
+          this.address.latitudeEndereco = parseFloat(res.lat()).toFixed(6);
+
+          console.log(this.address);
+
+          this
+          ._enderecoProvider
+          .post(this.address)
+          .subscribe(
+            res => {
+              console.log(res)
+              this._loadingCtrl.hide();
+              this.alertSuccessRegister();
+            },
+            err => {
+              console.log(err)
+              this._loadingCtrl.hide();
+              this.alertNoConnection();
+            }
+          )
         },
         err => {
-          console.log(err)
-          this._loadingCtrl.hide();
-          this.alertNoConnection();
+          this.addressNotFound();
+          console.log('------------------------------>', err)
         }
       )
+
   }
 
   private alertNoConnection() {
     this._alertCtrl.show({
       title: 'Erro ao cadastrar endereco',
       subTitle: 'Para cadastrar um endereço você precisa esta conectado a internet.',
+      buttons: ['OK']
+    });
+  }
+
+  private addressNotFound() {
+    this._alertCtrl.show({
+      title: 'Erro ao cadastrar endereco',
+      subTitle: 'Endereco não encontrado.',
       buttons: ['OK']
     });
   }

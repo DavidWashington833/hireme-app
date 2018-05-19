@@ -49,17 +49,17 @@ export class RegisterAddress {
     this.numeroEndereco = Format.onlyNumbers(v);
   }
 
-  private CEPEndereco : number;
+  private CEPEndereco : string;
   public get cep() : string {
     return String(this.CEPEndereco);
   }
   public set cep(v : string) {
-    this.CEPEndereco = Format.onlyNumbers(v);
+    this.CEPEndereco = Format.onlyStringNumbers(v);
   }
 
   public idUsuario : number;
 
-  public longitudeEndereco : number;
+  public longitudeEndereco : string;
 
-  public latitudeEndereco : number;
+  public latitudeEndereco : string;
 }
