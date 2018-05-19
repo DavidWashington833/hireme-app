@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import { IonicStorageModule } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation';
 
@@ -15,6 +15,7 @@ import { LoadingProvider } from '../providers/loading/loading';
 import { EnderecoProvider } from '../providers/endereco/endereco';
 import { PrestadorProvider } from '../providers/prestador/prestador';
 import { LoginProvider } from '../providers/login/login';
+import { GMapsServiceProvider } from '../providers/g-maps-service/g-maps-service';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,9 @@ import { LoginProvider } from '../providers/login/login';
     LoadingProvider,
     EnderecoProvider,
     PrestadorProvider,
-    LoginProvider
+    LoginProvider,
+    GMapsServiceProvider,
+    GoogleMapsAPIWrapper
   ]
 })
 export class AppModule {}

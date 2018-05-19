@@ -3,7 +3,7 @@ import { PrestadorProvider } from './../../providers/prestador/prestador';
 import { RequestPage } from '../request/request';
 import { DetailUserPage } from '../detail-user/detail-user';
 import { Prestador } from '../../models/prestador';
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { DetailProviderPage } from '../detail-provider/detail-provider';
 import { SearchPage } from '../search/search';
@@ -12,6 +12,10 @@ import { ResponseUser } from '../../models/ResponseUser';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { AlertProvider } from '../../providers/alert/alert';
 import { HttpClient } from '@angular/common/http';
+import { MapsAPILoader } from '@agm/core';
+import { Observable } from 'rxjs/Observable';
+import { google } from '@agm/core/services/google-maps-types';
+import { GMapsServiceProvider } from '../../providers/g-maps-service/g-maps-service';
 
 @IonicPage()
 @Component({
@@ -35,8 +39,23 @@ export class MapPage {
     private _usuarioProvider: UsuarioProvider,
     private _prestadorProvider: PrestadorProvider,
     private _httpClient: HttpClient,
-    private _events: Events
+    private _events: Events,
+    private _mapsAPILoader: MapsAPILoader,
+    private _ngZone: NgZone,
+    private _teste: GMapsServiceProvider
   ) {
+    this._teste.getLatLan('04856285')
+      .subscribe(
+        res => {
+        console.log('------------------------------> teste', res)
+          console.log('lng', res.lng());
+          console.log('lat', res.lat());
+          this.longitude = res.lng();
+          this.latitude = res.lat();
+        },
+        err => console.log('------------------------------>', err)
+      )
+
     this._httpClient.get('/assets/json/map.json').
       subscribe(res => {
         this.styleArray = res
@@ -53,13 +72,31 @@ export class MapPage {
     }, 2000);
   }
 
+  getLocation(address: string): Observable<any> {
+    console.log('Getting address: ', address);
+    let geocoder = new google.maps.Geocode();
+    return Observable.create(observer => {
+      geocoder.geocode({
+        'address': address
+      }, (results, status) => {
+        if (status == google.maps.GeocoderStatus.OK) {
+          observer.next(results[0].geometry.location);
+          observer.complete();
+        } else {
+          console.log('Error: ', results, ' & Status: ', status);
+          observer.error();
+        }
+      });
+    });
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad MapPage');
     console.log('id do usuario', this._navParams.get('userId'));
     this.getUser();
     this.getCoords().then((res: Geoposition) => {
-      this.longitude = res.coords.longitude;
-      this.latitude = res.coords.latitude;
+      // this.longitude = res.coords.longitude;
+      // this.latitude = res.coords.latitude;
       console.log('pegando cordenadas usuário', res);
 
       this._prestadorProvider.getForCoords(this.latitude, this.longitude)
@@ -83,7 +120,7 @@ export class MapPage {
   }
 
   private getUser() {
-    this._loadingCtrl.show({content: 'Buscando dados do usuário...'});
+    this._loadingCtrl.show({ content: 'Buscando dados do usuário...' });
     this._usuarioProvider
       // .get(this._navParams.get('userId'))
       .get(1)
@@ -101,14 +138,14 @@ export class MapPage {
       // .get(this._navParams.get('userId'))
       .get(1)
       .subscribe(
-      res => {
-        console.log('resposta ao buscar prestador', res)
-        this.isProvider(res != null);
-      },
-      err => {
-        console.error('erro ao buscar prestador', err)
-        this.isProvider(false);
-      });
+        res => {
+          console.log('resposta ao buscar prestador', res)
+          this.isProvider(res != null);
+        },
+        err => {
+          console.error('erro ao buscar prestador', err)
+          this.isProvider(false);
+        });
   }
 
   private isProvider(v: boolean) {
