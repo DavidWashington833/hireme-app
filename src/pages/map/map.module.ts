@@ -9,9 +9,9 @@ import { AgmCoreModule } from '@agm/core';
   ],
   imports: [
     IonicPageModule.forChild(MapPage),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBeYIszBebgBTI-HAlw0uXXRMo25gohQv4'
-    })
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'AIzaSyBeYIszBebgBTI-HAlw0uXXRMo25gohQv4'
+    // })
   ],
   exports: [
     MapPage

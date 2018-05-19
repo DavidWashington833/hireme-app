@@ -20,7 +20,7 @@ import { LoginProvider } from '../providers/login/login';
   declarations: [
     AppComponent,
     LoginPage,
-    // MapPage,
+    MapPage,
   ],
   imports: [
     SharedModule,
@@ -29,15 +29,15 @@ import { LoginProvider } from '../providers/login/login';
       name: 'localdb',
          driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
-    // AgmCoreModule.forRoot({
-    //   apiKey: 'AIzaSyBeYIszBebgBTI-HAlw0uXXRMo25gohQv4'
-    // })
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBeYIszBebgBTI-HAlw0uXXRMo25gohQv4'
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     AppComponent,
     LoginPage,
-    // MapPage
+    MapPage
   ],
   providers: [
     Geolocation,

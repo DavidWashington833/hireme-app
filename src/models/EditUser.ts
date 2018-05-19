@@ -23,20 +23,20 @@ export class EditUser {
     this.emailUsuario = v;
   }
 
-  private CPFUsuario : number;
+  private CPFUsuario : string;
   public get cpf() : string {
-    return String(this.CPFUsuario);
+    return this.CPFUsuario;
   }
   public set cpf(v : string) {
-    this.CPFUsuario = Number(v.replace(/[^0-9]/g,''));
+    this.CPFUsuario = v.replace(/[^0-9]/g,'');
   }
 
-  private celularUsuario : number;
+  private celularUsuario : string;
   public get celular() : string {
-    return String(this.celularUsuario);
+    return this.celularUsuario;
   }
   public set celular(v : string) {
-    this.celularUsuario = Number(v.replace(/[^0-9]/g,''));
+    this.celularUsuario = v.replace(/[^0-9]/g,'');
   }
 
   private nascimentoUsuario : string;

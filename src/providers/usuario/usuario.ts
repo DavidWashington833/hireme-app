@@ -28,7 +28,7 @@ export class UsuarioProvider {
   }
 
   put(id: number, user: EditUser) {
-    return this._http.put<ResponseUser>(`${this._baseUrl}usuario/${id}`, this._httpOption);
+    return this._http.put<ResponseUser>(`${this._baseUrl}usuario/${id}`, user, this._httpOption);
   }
 
 }

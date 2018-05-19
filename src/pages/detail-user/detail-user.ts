@@ -107,6 +107,7 @@ export class DetailUserPage {
       .put(this.usuarioId, this.user)
       .subscribe(
         res => {
+          localStorage.setItem('user', JSON.stringify(res));
           loading.dismiss();
           this.alertSuccessRegister();
           console.log(res)
@@ -130,7 +131,7 @@ export class DetailUserPage {
   private alertSuccessRegister() {
     this._alertCtrl.show({
       title: 'Atualização de dados efetuado com sucesso!',
-      subTitle: '.',
+      subTitle: 'Seus dados foram alterados.',
       buttons: [
         {
           text: 'OK',
