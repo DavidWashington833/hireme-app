@@ -22,17 +22,29 @@ export class LoginPage {
   ) {}
 
   logar() {
+    console.log('login', this.login);
     const loading = this._loadingCtrl.create({
       content: 'Buscando usuário...'
     });
     loading.present();
 
-    this._loginProvider.post(this.login)
+    this._loginProvider
+      .post(this.login)
       .subscribe(
         res => {
           console.log(res)
           loading.dismiss();
-          this._navCtrl.setRoot(MapPage.name, {userId: res.idUsuario});
+          if (res.ativoUsuario) {
+            this._navCtrl.setRoot(MapPage.name, {userId: res.idUsuario});
+          }
+          else {
+            const alert = this._alertCtrl.create({
+              title: 'Erro ao logar',
+              subTitle: 'Você precisa confirma seu email, verifique na sua caixa de entrada ou no spam.',
+              buttons: ['OK']
+            });
+            alert.present();
+          }
         },
         err => {
           console.log(err)
@@ -54,8 +66,6 @@ export class LoginPage {
             alert.present();
           }
         })
-
-    console.log('login', this.login);
   }
 
   register() {

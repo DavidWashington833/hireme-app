@@ -15,6 +15,14 @@ export class ResponseUser {
     this.nomeUsuario = v;
   }
 
+  public ativoUsuario : number;
+  public get ativo() : number {
+    return this.ativoUsuario;
+  }
+  public set ativo(v : number) {
+    this.ativoUsuario = v;
+  }
+
   public sobrenomeUsuario : string;
   public get sobrenome() : string {
     return this.sobrenomeUsuario;
