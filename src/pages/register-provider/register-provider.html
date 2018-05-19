@@ -28,8 +28,7 @@
     <ion-item>
       <ion-label floating>Endereço</ion-label>
       <ion-select (ionChange)="registerProvider.endereco = $event">
-        <ion-option value="1">endereco1</ion-option>
-        <ion-option value="2">endereco2</ion-option>
+        <ion-option *ngFor="let endereco of enderecos" value="{{endereco.idEndereco}}">{{ endereco.ruaEndereco }}</ion-option>
       </ion-select>
     </ion-item>
   </form>

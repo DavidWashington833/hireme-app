@@ -14,7 +14,6 @@ import { AlertProvider } from '../../providers/alert/alert';
 import { HttpClient } from '@angular/common/http';
 import { MapsAPILoader } from '@agm/core';
 import { Observable } from 'rxjs/Observable';
-import { google } from '@agm/core/services/google-maps-types';
 import { GMapsServiceProvider } from '../../providers/g-maps-service/g-maps-service';
 
 @IonicPage()
@@ -60,23 +59,6 @@ export class MapPage {
     }, 2000);
   }
 
-  getLocation(address: string): Observable<any> {
-    console.log('Getting address: ', address);
-    let geocoder = new google.maps.Geocode();
-    return Observable.create(observer => {
-      geocoder.geocode({
-        'address': address
-      }, (results, status) => {
-        if (status == google.maps.GeocoderStatus.OK) {
-          observer.next(results[0].geometry.location);
-          observer.complete();
-        } else {
-          console.log('Error: ', results, ' & Status: ', status);
-          observer.error();
-        }
-      });
-    });
-  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MapPage');

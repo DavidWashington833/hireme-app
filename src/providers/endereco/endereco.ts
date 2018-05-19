@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { RegisterAddress } from '../../models/RegisterAddress';
+import { ResponseAddress } from '../../models/ReponseAddress';
 
 @Injectable()
 export class EnderecoProvider {
@@ -19,8 +20,8 @@ export class EnderecoProvider {
     return this._http.post<RegisterAddress>(`${this._baseUrl}endereco`, user, httpOption);
   }
 
-  // get(id: number) {
-  //   return this._http.get<RegisterUser>(`${this._baseUrl}usuario/${id}`);
-  // }
+  getForUsuario(id: number) {
+    return this._http.get<ResponseAddress[]>(`${this._baseUrl}endereco/usuario/${id}`);
+  }
 
 }

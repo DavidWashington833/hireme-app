@@ -4,6 +4,11 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { CustomValidators } from '../../utils/CustomValidators';
+import { LoadingProvider } from '../../providers/loading/loading';
+import { AlertProvider } from '../../providers/alert/alert';
+import { EnderecoProvider } from '../../providers/endereco/endereco';
+import { ResponseUser } from '../../models/ResponseUser';
+import { ResponseAddress } from '../../models/ReponseAddress';
 
 @IonicPage()
 @Component({
@@ -14,12 +19,14 @@ export class RegisterProviderPage {
   public documento: string = '';
   public formGroup: FormGroup;
   public registerProvider: RegisterProvider = new RegisterProvider();
+  public enderecos: ResponseAddress[];
 
   constructor(
     private _navCtrl: NavController,
     private _formBuilder: FormBuilder,
-    private _alertCtrl: AlertController,
-    private _loadingCtrl: LoadingController
+    private _loadingCtrl: LoadingProvider,
+    private _alertCtrl: AlertProvider,
+    private _enderecoProvider: EnderecoProvider
   ) {
     this.formGroup = this._formBuilder.group({
       agencia: ['', [
@@ -37,6 +44,22 @@ export class RegisterProviderPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterProviderPage');
+    this.getAddress();
+  }
+
+  private getAddress() {
+    const responseUser: ResponseUser =
+      JSON.parse(localStorage.getItem('user'));
+
+    this._loadingCtrl.show({ content: 'Buscando dados do usuário...' });
+    this._enderecoProvider
+      .getForUsuario(responseUser.idUsuario)
+      .subscribe(res => {
+        this.enderecos = res;
+        this._loadingCtrl.hide();
+      }, err => {
+        this._loadingCtrl.hide();
+      });
   }
 
   register() {
