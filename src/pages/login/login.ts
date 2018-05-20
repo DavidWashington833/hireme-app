@@ -5,6 +5,7 @@ import { Login } from '../../models/login';
 import { RegisterUserPage } from '../register-user/register-user';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import { MapPage } from '../map/map';
+import { LoginProvider } from '../../providers/login/login';
 
 @Component({
   selector: 'page-login',
@@ -16,37 +17,55 @@ export class LoginPage {
   constructor(
     private _alertCtrl: AlertController,
     private _loadingCtrl: LoadingController,
-    private _navCtrl: NavController
+    private _navCtrl: NavController,
+    private _loginProvider: LoginProvider
   ) {}
 
   logar() {
+    console.log('login', this.login);
     const loading = this._loadingCtrl.create({
       content: 'Buscando usuário...'
     });
     loading.present();
 
-    setTimeout(() => {
-      loading.dismiss();
-      console.log(this.login);
-
-      // Em caso de erro no login
-      // const alert = this._alertCtrl.create({
-      //   title: 'Erro ao logar',
-      //   subTitle: 'Login ou senha inválida.',
-      //   buttons: ['OK']
-      // });
-      // alert.present();
-
-      // Erro de conexão
-      // const alert = this._alertCtrl.create({
-      //   title: 'Erro ao logar',
-      //   subTitle: 'Para logar você precisa esta conectado a internet.',
-      //   buttons: ['OK']
-      // });
-      // alert.present();
-
-      this._navCtrl.setRoot(MapPage.name);
-    }, 1000);
+    this._loginProvider
+      .post(this.login)
+      .subscribe(
+        res => {
+          console.log(res)
+          loading.dismiss();
+          if (res.ativoUsuario) {
+            this._navCtrl.setRoot(MapPage.name, {userId: res.idUsuario});
+          }
+          else {
+            const alert = this._alertCtrl.create({
+              title: 'Erro ao logar',
+              subTitle: 'Você precisa confirma seu email, verifique na sua caixa de entrada ou no spam.',
+              buttons: ['OK']
+            });
+            alert.present();
+          }
+        },
+        err => {
+          console.log(err)
+          loading.dismiss();
+          if (err.status == 404) {
+            const alert = this._alertCtrl.create({
+              title: 'Erro ao logar',
+              subTitle: 'Login ou senha inválida.',
+              buttons: ['OK']
+            });
+            alert.present();
+          }
+          else {
+            const alert = this._alertCtrl.create({
+              title: 'Erro ao logar',
+              subTitle: 'Para logar você precisa esta conectado a internet.',
+              buttons: ['OK']
+            });
+            alert.present();
+          }
+        })
   }
 
   register() {

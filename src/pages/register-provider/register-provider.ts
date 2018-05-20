@@ -1,9 +1,18 @@
+import { RegisterAddress } from './../../models/RegisterAddress';
 import { RegisterProvider } from './../../models/RegisterProvider';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, Events } from 'ionic-angular';
 
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { CustomValidators } from '../../utils/custom-validators';
+import { CustomValidators } from '../../utils/CustomValidators';
+import { LoadingProvider } from '../../providers/loading/loading';
+import { AlertProvider } from '../../providers/alert/alert';
+import { EnderecoProvider } from '../../providers/endereco/endereco';
+import { ResponseUser } from '../../models/ResponseUser';
+import { ResponseAddress } from '../../models/ReponseAddress';
+import { PrestadorProvider } from '../../providers/prestador/prestador';
+import { DadosBancariosProvider } from '../../providers/dados-bancarios/dados-bancarios';
+import { RegisterBank } from '../../models/RegisterBank';
 
 @IonicPage()
 @Component({
@@ -14,12 +23,18 @@ export class RegisterProviderPage {
   public documento: string = '';
   public formGroup: FormGroup;
   public registerProvider: RegisterProvider = new RegisterProvider();
+  public dadosBancarios: RegisterBank = new RegisterBank();
+  public enderecos: ResponseAddress[];
 
   constructor(
     private _navCtrl: NavController,
     private _formBuilder: FormBuilder,
-    private _alertCtrl: AlertController,
-    private _loadingCtrl: LoadingController
+    private _loadingCtrl: LoadingProvider,
+    private _alertCtrl: AlertProvider,
+    private _enderecoProvider: EnderecoProvider,
+    private _prestadorProvider: PrestadorProvider,
+    private _dadosBancariosProvider: DadosBancariosProvider,
+    private _events: Events
   ) {
     this.formGroup = this._formBuilder.group({
       agencia: ['', [
@@ -37,6 +52,22 @@ export class RegisterProviderPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterProviderPage');
+    this.getAddress();
+  }
+
+  private getAddress() {
+    const responseUser: ResponseUser =
+      JSON.parse(localStorage.getItem('user'));
+
+    this._loadingCtrl.show({ content: 'Buscando dados do usuário...' });
+    this._enderecoProvider
+      .getForUsuario(responseUser.idUsuario)
+      .subscribe(res => {
+        this.enderecos = res;
+        this._loadingCtrl.hide();
+      }, err => {
+        this._loadingCtrl.hide();
+      });
   }
 
   register() {
@@ -52,36 +83,72 @@ export class RegisterProviderPage {
       return;
     }
 
-    const loading = this._loadingCtrl.create({
+
+    let endereco: ResponseAddress = this
+    .enderecos
+    .filter(e => e.idEndereco.toString() == this.registerProvider.endereco)[0];
+
+    this.registerProvider.latitudePrestador = endereco.latitudeEndereco;
+    this.registerProvider.longitudePrestador = endereco.longitudeEndereco;
+
+    this._loadingCtrl.show({
       content: 'Cadastrando...'
     });
-    loading.present();
 
-    setTimeout(() => {
-      console.log(this.registerProvider);
-      loading.dismiss();
+    console.log(this.dadosBancarios);
+    this
+      ._dadosBancariosProvider
+      .post(this.dadosBancarios)
+      .subscribe(
+        res => {
+          console.log('resposta do cadastro', res);
+          const responseUser: ResponseUser =
+            JSON.parse(localStorage.getItem('user'));
 
-      // Erro de conexão
-      // const alert = this._alertCtrl.create({
-      //   title: 'Erro ao cadastrar',
-      //   subTitle: 'Para se cadastrar você precisa esta conectado a internet.',
-      //   buttons: ['OK']
-      // });
-      // alert.present();
+          this.registerProvider.usuario = responseUser.idUsuario.toString();
+          this.registerProvider.dadosBancarios = res.idDadosBancario.toString();
 
-      const alert = this._alertCtrl.create({
-        title: 'Cadastro efetuado com sucesso!',
-        subTitle: 'Agora você é um prestador.',
-        buttons: [
-          {
-            text: 'OK',
-            handler: () => { this._navCtrl.pop() }
+          console.log('-------------------> registerProvider', JSON.stringify(this.registerProvider));
+          this._prestadorProvider
+            .post(this.registerProvider)
+            .subscribe(res => {
+              this.isProvider(res != null);
+              this._loadingCtrl.hide();
+              // this.alertSuccessRegister();
+              const alert = this._alertCtrl.create({
+                title: 'Cadastro efetuado com sucesso!',
+                subTitle: 'Agora você é um prestador.',
+                buttons: [
+                  {
+                    text: 'OK',
+                    handler: () => { this._navCtrl.pop() }
+                  },
+                ]
+              });
+              alert.present();
+            }, err => {
+              console.log(err);
+              this.registerError();
+            });
           },
-        ]
-      });
-      alert.present();
+          err => {
+            console.error('erro no cadastro', err);
+            this._loadingCtrl.hide();
+            this.registerError();
+          })
+  }
 
-    }, 1000);
+  private isProvider(v: boolean) {
+    this._events.publish('user:provider', v);
+  }
+
+  private registerError() {
+    const alert = this._alertCtrl.create({
+      title: 'Erro ao cadastrar',
+      subTitle: 'Para se cadastrar você precisa esta conectado a internet.',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
   segmentChanged(event) {

@@ -15,21 +15,21 @@
   <form [formGroup]="formGroup" (ngSubmit)="register()" #formRegister="ngForm">
     <ion-item>
       <ion-label floating>Agência:</ion-label>
-      <ion-input name="agencia" formControlName="agencia" (keyup)="registerProvider.agencia = $event.target.value"></ion-input>
+      <ion-input name="agencia" formControlName="agencia" (keyup)="dadosBancarios.agenciaDadosBancario = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Conta:</ion-label>
-      <ion-input name="conta" formControlName="conta" (keyup)="registerProvider.conta = $event.target.value"></ion-input>
+      <ion-input name="conta" formControlName="conta" (keyup)="dadosBancarios.contaDadosBancario = $event.target.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>CPF/CNPJ:</ion-label>
-      <ion-input name="documento" formControlName="documento" (keyup)="registerProvider.documento = $event.target.value; documento = $event.target.value" value="{{documento | maskCpf}}"></ion-input>
+      <ion-input name="documento" formControlName="documento" (keyup)="dadosBancarios.documentoDadosBancario = $event.target.value; documento = $event.target.value" value="{{documento | maskCpf}}"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Endereço</ion-label>
       <ion-select (ionChange)="registerProvider.endereco = $event">
-        <ion-option value="1">endereco1</ion-option>
-        <ion-option value="2">endereco2</ion-option>
+      <!-- <ion-select (ionChange)="registerProvider.endereco = $event"> -->
+        <ion-option *ngFor="let endereco of enderecos" value="{{endereco.idEndereco}}">{{ endereco.ruaEndereco }}</ion-option>
       </ion-select>
     </ion-item>
   </form>
