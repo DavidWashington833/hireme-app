@@ -25,9 +25,7 @@ import { PipesModule } from '../pipes/pipes.module';
   declarations: [
     AppComponent,
     LoginPage,
-    MapPage,
-    // MaskTelPipe,
-    // MaskCpfPipe,
+    // MapPage,
   ],
   imports: [
     PipesModule,
@@ -37,15 +35,15 @@ import { PipesModule } from '../pipes/pipes.module';
       name: 'localdb',
          driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBeYIszBebgBTI-HAlw0uXXRMo25gohQv4'
-    })
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'AIzaSyBeYIszBebgBTI-HAlw0uXXRMo25gohQv4'
+    // })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     AppComponent,
     LoginPage,
-    MapPage
+    // MapPage
   ],
   providers: [
     Geolocation,
