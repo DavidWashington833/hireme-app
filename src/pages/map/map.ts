@@ -105,8 +105,8 @@ export class MapPage {
       });
 
     this._prestadorProvider
-      // .get(this._navParams.get('userId'))
-      .get(1)
+      // .getForUser(this._navParams.get('userId'))
+      .getForUser(1)
       .subscribe(
         res => {
           console.log('resposta ao buscar prestador', res)

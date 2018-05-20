@@ -6,8 +6,6 @@ import { MaskCpfPipe } from '../../pipes/mask-cpf/mask-cpf';
 
 @NgModule({
   declarations: [
-    MaskTelPipe,
-    MaskCpfPipe,
     RegisterUserPage,
   ],
   imports: [

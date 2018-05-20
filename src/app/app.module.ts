@@ -16,14 +16,21 @@ import { EnderecoProvider } from '../providers/endereco/endereco';
 import { PrestadorProvider } from '../providers/prestador/prestador';
 import { LoginProvider } from '../providers/login/login';
 import { GMapsServiceProvider } from '../providers/g-maps-service/g-maps-service';
+import { DadosBancariosProvider } from '../providers/dados-bancarios/dados-bancarios';
+import { MaskTelPipe } from '../pipes/mask-tel/mask-tel';
+import { MaskCpfPipe } from '../pipes/mask-cpf/mask-cpf';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPage,
     MapPage,
+    // MaskTelPipe,
+    // MaskCpfPipe,
   ],
   imports: [
+    PipesModule,
     SharedModule,
     IonicModule.forRoot(AppComponent),
     IonicStorageModule.forRoot({
@@ -50,7 +57,8 @@ import { GMapsServiceProvider } from '../providers/g-maps-service/g-maps-service
     PrestadorProvider,
     LoginProvider,
     GMapsServiceProvider,
-    GoogleMapsAPIWrapper
+    GoogleMapsAPIWrapper,
+    DadosBancariosProvider
   ]
 })
 export class AppModule {}
