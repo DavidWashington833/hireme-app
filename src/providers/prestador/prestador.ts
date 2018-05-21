@@ -16,7 +16,7 @@ export class PrestadorProvider {
     private _http: HttpClient
   ) {}
 
-  get(id: number) {
+  getForId(id: number) {
     return this._http.get<ResponseProvider>(`${this._baseUrl}prestador?idPrestador=${id}`);
   }
 

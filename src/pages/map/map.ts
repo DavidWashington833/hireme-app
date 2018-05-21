@@ -24,8 +24,8 @@ import { GMapsServiceProvider } from '../../providers/g-maps-service/g-maps-serv
 export class MapPage {
   styleArray: any = [];
 
-  latitude: number = -23.737156;
-  longitude: number = -46.691307;
+  latitude: number | string = -23.737156;
+  longitude: number | string = -46.691307;
 
   providers: Array<Prestador>;
 

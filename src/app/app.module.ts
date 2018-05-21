@@ -20,6 +20,8 @@ import { DadosBancariosProvider } from '../providers/dados-bancarios/dados-banca
 import { MaskTelPipe } from '../pipes/mask-tel/mask-tel';
 import { MaskCpfPipe } from '../pipes/mask-cpf/mask-cpf';
 import { PipesModule } from '../pipes/pipes.module';
+import { ServicoProvider } from '../providers/servico/servico';
+import { CategoriaProvider } from '../providers/categoria/categoria';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { PipesModule } from '../pipes/pipes.module';
     LoginProvider,
     GMapsServiceProvider,
     GoogleMapsAPIWrapper,
-    DadosBancariosProvider
+    DadosBancariosProvider,
+    ServicoProvider,
+    CategoriaProvider
   ]
 })
 export class AppModule {}
