@@ -27,7 +27,7 @@ export class MapPage {
   latitude: number | string = -23.737156;
   longitude: number | string = -46.691307;
 
-  providers: Array<Prestador>;
+  providers: Array<Prestador> = new Array<Prestador>();
 
   constructor(
     private _geolocation: Geolocation,
@@ -47,16 +47,6 @@ export class MapPage {
       subscribe(res => {
         this.styleArray = res
       }, err => console.log(err))
-    this.providers = [
-      { id: 1, icon: 'assets/imgs/employees.png', latitude: -23.738156, longitude: -46.692307 },
-      { id: 2, icon: 'assets/imgs/employees.png', latitude: -23.739156, longitude: -46.691307 },
-      { id: 3, icon: 'assets/imgs/employees.png', latitude: -23.732156, longitude: -46.691107 },
-      { id: 4, icon: 'assets/imgs/employees.png', latitude: -23.731156, longitude: -46.691707 },
-      { id: 5, icon: 'assets/imgs/employees.png', latitude: -23.732156, longitude: -46.691307 }
-    ];
-    setTimeout(() => {
-      this.providers.push({ id: 6, icon: 'assets/imgs/employees.png', latitude: -23.737156, longitude: -46.691307 });
-    }, 2000);
   }
 
 
@@ -71,8 +61,17 @@ export class MapPage {
 
       this._prestadorProvider.getForCoords(this.latitude, this.longitude)
         .subscribe(
-          res => console.log('getForCoords', res),
-          error => console.log('getForCoords', error)
+          res => {
+            this.providers = res.map(p => {
+              let provider = new Prestador();
+              provider.icon = 'assets/imgs/employees.png';
+              provider.id = p.idPrestador;
+              provider.latitude = Number(p.latitudePrestador);
+              provider.longitude = Number(p.longitudePrestador);
+              return provider;
+            });
+          },
+          error => console.log(serror)
         );
 
     }).catch(error => console.log(error));
