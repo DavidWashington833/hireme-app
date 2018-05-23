@@ -32,7 +32,7 @@ export class RegisterAddressPage {
       rua: ['', [
         CustomValidators.required,
         CustomValidators.minLength(3),
-        CustomValidators.maxLength(20)
+        CustomValidators.maxLength(50)
       ]],
       logradouro: ['', [
         CustomValidators.required,

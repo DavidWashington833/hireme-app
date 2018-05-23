@@ -71,7 +71,7 @@ export class MapPage {
               return provider;
             });
           },
-          error => console.log(serror)
+          error => console.log(error)
         );
 
     }).catch(error => console.log(error));
@@ -91,8 +91,8 @@ export class MapPage {
   private getUser() {
     this._loadingCtrl.show({ content: 'Buscando dados do usuário...' });
     this._usuarioProvider
-      // .get(this._navParams.get('userId'))
-      .get(1)
+      .get(this._navParams.get('userId'))
+      // .get(1)
       .subscribe(res => {
         console.log('resposta da busca por usuário', res);
         localStorage.setItem('user', JSON.stringify(res));
@@ -104,11 +104,12 @@ export class MapPage {
       });
 
     this._prestadorProvider
-      // .getForUser(this._navParams.get('userId'))
-      .getForUser(1)
+    // .getForUser(1)
+      .getForUser(this._navParams.get('userId'))
       .subscribe(
         res => {
           console.log('resposta ao buscar prestador', res)
+          localStorage.setItem('provider', JSON.stringify(res));
           this.isProvider(res != null);
         },
         err => {

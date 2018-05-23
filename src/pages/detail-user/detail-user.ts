@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController, AlertController, Events } from 'ionic-angular';
 
 import { RegisterAddressPage } from '../register-address/register-address';
 import { RegisterUser } from '../../models/RegisterUser';
@@ -27,6 +27,7 @@ export class DetailUserPage {
     private _navCtrl: NavController,
     private _alertCtrl: AlertProvider,
     private _formBuilder: FormBuilder,
+    private _events: Events,
     private _usuarioProvider: UsuarioProvider
   ) {
     this.formGroup = this._formBuilder.group({
@@ -108,6 +109,7 @@ export class DetailUserPage {
       .subscribe(
         res => {
           localStorage.setItem('user', JSON.stringify(res));
+          this.createUser(localStorage.getItem('user'));
           loading.dismiss();
           this.alertSuccessRegister();
           console.log(res)
@@ -118,6 +120,10 @@ export class DetailUserPage {
           this.alertNoConnection();
         }
       )
+  }
+
+  private createUser(user) {
+    this._events.publish('user:created', user);
   }
 
   private alertNoConnection() {
