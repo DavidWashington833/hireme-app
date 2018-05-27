@@ -37,9 +37,9 @@ import { CategoriaProvider } from '../providers/categoria/categoria';
       name: 'localdb',
          driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
-    // AgmCoreModule.forRoot({
-    //   apiKey: 'AIzaSyBeYIszBebgBTI-HAlw0uXXRMo25gohQv4'
-    // })
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBeYIszBebgBTI-HAlw0uXXRMo25gohQv4'
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

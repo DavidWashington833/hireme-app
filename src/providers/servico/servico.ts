@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { RegisterService } from '../../models/RegisterService';
+import { ResponseService } from '../../models/ResponseService';
 
 @Injectable()
 export class ServicoProvider {
@@ -14,6 +15,10 @@ export class ServicoProvider {
     @Inject('BASE_URL') private _baseUrl: string,
     private _http: HttpClient
   ) {}
+
+  public getForIdPrestador(id) {
+    return this._http.get<ResponseService[]>(`${this._baseUrl}servicos/${id}`);
+  }
 
   post(service: RegisterService) {
     console.log(this._baseUrl);

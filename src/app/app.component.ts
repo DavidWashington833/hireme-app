@@ -72,6 +72,7 @@ export class AppComponent {
   }
 
   logout() {
+    localStorage.clear();
     this._nav.setRoot(LoginPage);
   }
 }

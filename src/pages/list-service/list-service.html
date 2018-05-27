@@ -3,17 +3,21 @@
     <ion-title>
       Lista de Servicos
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="cadastrar()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-card (click)="detalheServico()">
+  <ion-card *ngFor="let service of services">
     <ion-card-header>
-      Header
+      {{service.descricaoServico}}
     </ion-card-header>
     <ion-card-content>
-      The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
+      {{service.precoServico}}
     </ion-card-content>
   </ion-card>
-  <button ion-button (click)="cadastrar()">cadastrar</button>
 </ion-content>

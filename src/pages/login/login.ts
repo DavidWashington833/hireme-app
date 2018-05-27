@@ -6,6 +6,7 @@ import { RegisterUserPage } from '../register-user/register-user';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import { MapPage } from '../map/map';
 import { LoginProvider } from '../../providers/login/login';
+import { ResponseUser } from '../../models/ResponseUser';
 
 @Component({
   selector: 'page-login',
@@ -20,6 +21,14 @@ export class LoginPage {
     private _navCtrl: NavController,
     private _loginProvider: LoginProvider
   ) {}
+
+  ionViewDidLoad() {
+    let storage = localStorage.getItem('user');
+    if (storage && storage != 'null') {
+      let user = <ResponseUser>JSON.parse(storage);
+      this._navCtrl.setRoot(MapPage.name, {userId: user.idUsuario});
+    }
+  }
 
   logar() {
     console.log('login', this.login);
