@@ -89,9 +89,6 @@ export class RegisterAddressPage {
     this._GMaps.getLatLan(`${this.address.rua} ${this.address.numero}`)
       .subscribe(
         res => {
-        console.log('------------------------------> teste', res)
-          console.log('lng', res.lng());
-          console.log('lat', res.lat());
           this.address.longitudeEndereco = parseFloat(res.lng()).toFixed(6);
           this.address.latitudeEndereco = parseFloat(res.lat()).toFixed(6);
 

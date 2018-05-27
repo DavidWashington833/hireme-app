@@ -1,3 +1,4 @@
+import { Category } from './../../models/Category';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 
@@ -10,7 +11,7 @@ export class CategoriaProvider {
   ) { }
 
   public getAll() {
-    return this._http.get(`${this._http}categoria`);
+    return this._http.get<Category[]>(`${this._baseUrl}categoria`);
   }
 
 }

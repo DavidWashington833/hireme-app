@@ -23,8 +23,8 @@
     </ion-item>
     <ion-item>
       <ion-label floating>Categoria</ion-label>
-      <ion-select>
-        <ion-option value="1">pedreiro</ion-option>
+      <ion-select name="idCategoria" formControlName="idCategoria" (ionChange)="selectCategory($event)">
+        <ion-option *ngFor="let category of categorys" value="{{category.idCategoria}}">{{category.nomeCategoria}}</ion-option>
       </ion-select>
     </ion-item>
   </form>

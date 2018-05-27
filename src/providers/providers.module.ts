@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { UsuarioProvider } from './usuario/usuario';
 import { AlertProvider } from './alert/alert';
+import { GoogleMapsAPIWrapper } from '@agm/core';
 
 @NgModule({
 	declarations: [
@@ -10,7 +11,7 @@ import { AlertProvider } from './alert/alert';
 	imports: [],
 	exports: [
     UsuarioProvider,
-    AlertProvider
+    AlertProvider,
   ]
 })
 export class ProvidersModule {}
