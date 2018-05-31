@@ -3,6 +3,10 @@ export class Format {
     return `${year}-${month}-${day}`;
   }
 
+  public static dateYMDHM(year: string, month: string, day: string, hour: string, minute: string): string {
+    return `${year}-${month}-${day} ${hour}:${minute}:00`;
+  }
+
   public static onlyNumbers(v: string): number {
     return Number(v.replace(/[^0-9]/g,''));
   }

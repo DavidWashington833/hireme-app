@@ -16,6 +16,14 @@ export class PedidoProvider {
     private _http: HttpClient
   ) {}
 
+  getForUser(id: number) {
+    return this._http.get<ResponseRequest[]>(`${this._baseUrl}pedido/usuario/${id}`);
+  }
+
+  getForProvider(id: number) {
+    return this._http.get<ResponseRequest[]>(`${this._baseUrl}pedido/prestador/${id}`);
+  }
+
   post(request: RegisterRequest) {
     return this._http.post<ResponseRequest>(`${this._baseUrl}pedido`, request, this._httpOption);
   }

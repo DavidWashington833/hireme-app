@@ -46,7 +46,7 @@ export class DetailProviderPage {
     const responseUser: ResponseUser =
       JSON.parse(localStorage.getItem('user'));
 
-    this.request.dataPedido = Format.dateYMD(date.year, date.month, date.day);;
+    this.request.dataPedido = Format.dateYMDHM(date.year, date.month, date.day, date.hour, date.minute);
     this.request.idPrestador = this.idPrestador;
     this.request.valorPedido = this.services.filter(s => s.idServico == this.request.idServico.toString())[0].precoServico;
     this.request.idUsuario = responseUser.idUsuario;
