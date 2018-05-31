@@ -55,8 +55,8 @@ export class MapPage {
     console.log('id do usuario', this._navParams.get('userId'));
     this.getUser();
     this.getCoords().then((res: Geoposition) => {
-      this.longitude = -78.531753;
-      this.latitude = -0.252021;
+      this.longitude = res.coords.longitude;
+      this.latitude = res.coords.latitude;
       console.log('pegando cordenadas usuário', res);
 
       this._prestadorProvider.getForCoords(this.latitude, this.longitude)
