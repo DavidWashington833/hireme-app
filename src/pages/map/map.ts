@@ -15,6 +15,7 @@ import { HttpClient } from '@angular/common/http';
 import { MapsAPILoader } from '@agm/core';
 import { Observable } from 'rxjs/Observable';
 import { GMapsServiceProvider } from '../../providers/g-maps-service/g-maps-service';
+import { Calendar } from '@ionic-native/calendar';
 
 @IonicPage()
 @Component({
@@ -40,7 +41,7 @@ export class MapPage {
     private _httpClient: HttpClient,
     private _events: Events,
     private _mapsAPILoader: MapsAPILoader,
-    private _ngZone: NgZone
+    private _ngZone: NgZone,
   ) {
     this._httpClient.get('/assets/json/map.json').
       subscribe(res => {
@@ -54,8 +55,8 @@ export class MapPage {
     console.log('id do usuario', this._navParams.get('userId'));
     this.getUser();
     this.getCoords().then((res: Geoposition) => {
-      this.longitude = res.coords.longitude;
-      this.latitude = res.coords.latitude;
+      this.longitude = -78.531753;
+      this.latitude = -0.252021;
       console.log('pegando cordenadas usuário', res);
 
       this._prestadorProvider.getForCoords(this.latitude, this.longitude)

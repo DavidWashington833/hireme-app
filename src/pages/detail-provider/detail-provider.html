@@ -14,8 +14,10 @@
     <ion-card-content>
       {{service.precoServico}}
       <div padding>
-        <button ion-button block (click)="hire(service.idServico)">Contratar</button>
+        <button ion-button block (click)="request.idServico = service.idServico; picker.open();">Agendar</button>
       </div>
     </ion-card-content>
   </ion-card>
+
+  <ion-datetime (ionChange)="hire($event)" hidden #picker displayFormat="DD/MM/YY HH:mm"></ion-datetime>
 </ion-content>

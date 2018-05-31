@@ -22,6 +22,8 @@ import { MaskCpfPipe } from '../pipes/mask-cpf/mask-cpf';
 import { PipesModule } from '../pipes/pipes.module';
 import { ServicoProvider } from '../providers/servico/servico';
 import { CategoriaProvider } from '../providers/categoria/categoria';
+import { Calendar } from '@ionic-native/calendar';
+import { PedidoProvider } from '../providers/pedido/pedido';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,8 @@ import { CategoriaProvider } from '../providers/categoria/categoria';
     GoogleMapsAPIWrapper,
     DadosBancariosProvider,
     ServicoProvider,
-    CategoriaProvider
+    CategoriaProvider,
+    PedidoProvider
   ]
 })
 export class AppModule {}
