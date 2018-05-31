@@ -7,5 +7,15 @@
 </ion-header>
 
 <ion-content padding>
-
+  <ion-card *ngFor="let service of services">
+    <ion-card-header>
+      {{service.descricaoServico}}
+    </ion-card-header>
+    <ion-card-content>
+      {{service.precoServico}}
+      <div padding>
+        <button ion-button block (click)="hire(service.idServico)">Contratar</button>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

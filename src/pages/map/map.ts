@@ -42,7 +42,6 @@ export class MapPage {
     private _mapsAPILoader: MapsAPILoader,
     private _ngZone: NgZone
   ) {
-
     this._httpClient.get('/assets/json/map.json').
       subscribe(res => {
         this.styleArray = res
