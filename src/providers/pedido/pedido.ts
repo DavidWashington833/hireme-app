@@ -24,6 +24,10 @@ export class PedidoProvider {
     return this._http.get<ResponseRequest[]>(`${this._baseUrl}pedido/prestador/${id}`);
   }
 
+  confirmRequest(request: ResponseRequest) {
+    return this._http.put<ResponseRequest>(`${this._baseUrl}confirmarPedido/${request.idPedido}`, request, this._httpOption);
+  }
+
   post(request: RegisterRequest) {
     return this._http.post<ResponseRequest>(`${this._baseUrl}pedido`, request, this._httpOption);
   }
