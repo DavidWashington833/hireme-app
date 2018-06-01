@@ -1,3 +1,21 @@
+ion-navbar {
+  ion-title {
+    .toolbar-title {
+      color: #fff;
+    }
+  }
+  .button-inner {
+    color: #fff;
+  }
+  .toolbar-background {
+    background: linear-gradient(to bottom, rgba(64,192,255,1) 0%, rgba(133,223,255,1) 100%);
+  }
+}
+
+
+
+
+
 page-map {
   agm-map {
     width: 100%;

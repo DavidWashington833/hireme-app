@@ -21,7 +21,7 @@ export class ServicoProvider {
   }
 
   public getForIdPrestador(id) {
-    return this._http.get<ResponseService[]>(`${this._baseUrl}prestador/${id}`);
+    return this._http.get<ResponseService[]>(`${this._baseUrl}servicos/prestador/${id}`);
   }
 
   post(service: RegisterService) {

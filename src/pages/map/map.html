@@ -1,15 +1,13 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>
-      Mapa
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+
+
+    
 
 <ion-content>
+  <ion-fab top left>
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-fab>
   <agm-map [styles]="styleArray" [latitude]="latitude" [longitude]="longitude" [zoom]="15">
     <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
     <agm-marker *ngFor="let provider of providers" [iconUrl]="provider.icon" [latitude]="provider.latitude" [longitude]="provider.longitude"
@@ -27,7 +25,7 @@
     </ion-col>
     <ion-col (click)="request()">
       <button ion-button clear small>
-        <ion-icon name="paper"></ion-icon>
+        <ion-icon name="cart"></ion-icon>
       </button>
       <br>Pedidos
     </ion-col>

@@ -1,13 +1,6 @@
 <ion-menu [content]="content">
   <ion-header>
     <ion-item>
-      <div>
-        <ion-avatar item-start>
-          <div class="circle">
-            <h5>{{ userInitials }}</h5>
-          </div>
-        </ion-avatar>
-      </div>
       <h2>{{ userName }}</h2>
       <p>{{ userEmail }}</p>
     </ion-item>
@@ -15,11 +8,11 @@
   <ion-content>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        <ion-icon [name]="p.icon" item-left></ion-icon>
+        <ion-icon class="custom-icon" [name]="p.icon" item-left></ion-icon>
         {{p.title}}
       </button>
       <button menuClose ion-item (click)="logout()">
-        <ion-icon name="paper" item-left></ion-icon>
+        <ion-icon class="custom-icon" name="exit" item-left></ion-icon>
         Sair
       </button>
     </ion-list>
