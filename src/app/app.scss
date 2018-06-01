@@ -1,8 +1,7 @@
 ion-menu {
   ion-header {
-    background-image: url('../assets/imgs/material-design-background.jpg');
-    height: 150px;
     margin-bottom: 10px;
+    background: linear-gradient(to bottom, rgba(0,120,178,1) 0%, rgba(0,174,224,1) 100%);
 
     ion-item {
       background: transparent !important;
@@ -36,4 +35,8 @@ ion-menu {
       color: #eee !important;
     }
   }
+}
+
+.custom-icon {
+  color: #00AEE0;
 }

@@ -50,17 +50,17 @@ export class AppComponent {
       console.log(isProvider);
       if(isProvider) {
         this._pages = [
-          { title: 'Meus dados', component: DetailUserPage.name, icon: 'paper' },
-          { title: 'Meus pedidos', component: RequestPage.name, icon: 'paper' },
-          { title: 'Agenda', component: SchedulePage.name, icon: 'paper' },
+          { title: 'Meus dados', component: DetailUserPage.name, icon: 'person' },
+          { title: 'Meus pedidos', component: RequestPage.name, icon: 'cart' },
+          { title: 'Agenda', component: SchedulePage.name, icon: 'calendar' },
           { title: 'Servico', component: ListServicePage.name, icon: 'paper' }
         ];
       }
       else {
         this._pages = [
-          { title: 'Meus dados', component: DetailUserPage.name, icon: 'paper' },
-          { title: 'Meus pedidos', component: RequestPage.name, icon: 'paper' },
-          { title: 'Cadastrar Prestador', component: RegisterProviderPage.name, icon: 'paper' },
+          { title: 'Meus dados', component: DetailUserPage.name, icon: 'person' },
+          { title: 'Meus pedidos', component: RequestPage.name, icon: 'cart' },
+          { title: 'Quero trabalhar', component: RegisterProviderPage.name, icon: 'briefcase' },
         ];
       }
     });
