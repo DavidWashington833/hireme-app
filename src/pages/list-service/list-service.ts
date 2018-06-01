@@ -2,7 +2,7 @@ import { ServicoProvider } from './../../providers/servico/servico';
 import { RegisterServicePage } from '../register-service/register-service';
 import { DetailServicePage } from '../detail-service/detail-service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { ResponseProvider } from '../../models/ResponseProvider';
 import { ResponseService } from '../../models/ResponseService';
 
@@ -16,26 +16,29 @@ export class ListServicePage {
 
   constructor(
     private _navCtrl: NavController,
+    private _events: Events,
     private _servicoProvider: ServicoProvider
-  ) {}
+  ) {
+    this._events.subscribe('service:created', () => {
+      this.getServices();
+    });
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListServicePage');
 
-    const responseProvider: ResponseProvider =
-      JSON.parse(localStorage.getItem('provider'));
+    this.getServices();
+  }
 
+  private getServices() {
+    const responseProvider: ResponseProvider = JSON.parse(localStorage.getItem('provider'));
     const id = responseProvider.idPrestador.toString();
-
     this._servicoProvider
       .getForIdPrestador(id)
-      .subscribe(
-        res => {
-          this.services = res;
-          console.log(res)
-        },
-        err => console.log(err)
-      );
+      .subscribe(res => {
+        this.services = res;
+        console.log(res);
+      }, err => console.log(err));
   }
 
   detalheServico() {

@@ -54,26 +54,31 @@ export class MapPage {
     console.log('ionViewDidLoad MapPage');
     console.log('id do usuario', this._navParams.get('userId'));
     this.getUser();
+  }
+
+  private getProviders(id:number) {
     this.getCoords().then((res: Geoposition) => {
       this.longitude = res.coords.longitude;
       this.latitude = res.coords.latitude;
       console.log('pegando cordenadas usuário', res);
-
       this._prestadorProvider.getForCoords(this.latitude, this.longitude)
-        .subscribe(
-          res => {
-            this.providers = res.map(p => {
-              let provider = new Prestador();
-              provider.icon = 'assets/imgs/employees.png';
-              provider.id = p.idPrestador;
-              provider.latitude = Number(p.latitudePrestador);
-              provider.longitude = Number(p.longitudePrestador);
-              return provider;
-            });
-          },
-          error => console.log(error)
-        );
-
+        .subscribe(res => {
+          let v = res.map(p => {
+            let provider = new Prestador();
+            provider.icon = 'assets/imgs/employees.png';
+            provider.id = p.idPrestador;
+            provider.latitude = Number(p.latitudePrestador);
+            provider.longitude = Number(p.longitudePrestador);
+            return provider;
+          });
+          if (id != undefined) {
+            this.providers = v.filter(p2 => p2.id != id);
+          }
+          else {
+            this.providers = v;
+          }
+          console.log(this.providers);
+        }, error => console.log(error));
     }).catch(error => console.log(error));
   }
 
@@ -108,6 +113,7 @@ export class MapPage {
       .getForUser(this._navParams.get('userId'))
       .subscribe(
         res => {
+          this.getProviders(res ? res.idPrestador:0);
           console.log('resposta ao buscar prestador', res)
           localStorage.setItem('provider', JSON.stringify(res));
           this.isProvider(res != null);

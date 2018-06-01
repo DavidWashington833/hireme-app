@@ -1,7 +1,7 @@
 import { Category } from './../../models/Category';
 import { ServicoProvider } from './../../providers/servico/servico';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
 import { MapPage } from '../map/map';
 import { RegisterService } from '../../models/RegisterService';
@@ -24,6 +24,7 @@ export class RegisterServicePage {
   private service: RegisterService = new RegisterService();
 
   constructor(
+    private _events: Events,
     private _navCtrl: NavController,
     private _alertCtrl: AlertProvider,
     private _loadingCtrl: LoadingProvider,
@@ -116,7 +117,10 @@ export class RegisterServicePage {
       buttons: [
         {
           text: 'OK',
-          handler: () => { this._navCtrl.pop(); }
+          handler: () => {
+            this._events.publish('service:created', null);
+            this._navCtrl.pop();
+          }
         },
       ]
     });

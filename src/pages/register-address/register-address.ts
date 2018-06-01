@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, Events } from 'ionic-angular';
 import { RegisterAddress } from '../../models/RegisterAddress';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { AlertProvider } from '../../providers/alert/alert';
@@ -26,6 +26,7 @@ export class RegisterAddressPage {
     private _alertCtrl: AlertProvider,
     private _formBuilder: FormBuilder,
     private _enderecoProvider: EnderecoProvider,
+    private _events: Events,
     private _GMaps: GMapsServiceProvider
   ) {
     this.formGroup = this._formBuilder.group({
@@ -46,17 +47,17 @@ export class RegisterAddressPage {
       ]],
       estado: ['', [
         CustomValidators.required,
-        CustomValidators.minLength(3),
+        CustomValidators.minLength(2),
         CustomValidators.maxLength(20)
       ]],
       cidade: ['', [
         CustomValidators.required,
-        CustomValidators.minLength(3),
+        CustomValidators.minLength(2),
         CustomValidators.maxLength(20)
       ]],
       numero: ['', [
         CustomValidators.required,
-        CustomValidators.minLength(3),
+        CustomValidators.minLength(2),
         CustomValidators.maxLength(20)
       ]],
       cep: ['', [
@@ -141,7 +142,10 @@ export class RegisterAddressPage {
       buttons: [
         {
           text: 'OK',
-          handler: () => { this._navCtrl.pop(); }
+          handler: () => {
+            this._events.publish('address:created', null);
+            this._navCtrl.pop();
+          }
         },
       ]
     });

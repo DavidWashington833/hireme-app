@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, NavController } from 'ionic-angular';
+import { IonicPage, NavParams, NavController, Events } from 'ionic-angular';
 import { ResponseService } from '../../models/ResponseService';
 import { ServicoProvider } from '../../providers/servico/servico';
 import { ResponseProvider } from '../../models/ResponseProvider';
@@ -7,6 +7,7 @@ import { RegisterRequest } from '../../models/RegisterRequest';
 import { ResponseUser } from '../../models/ResponseUser';
 import { PedidoProvider } from '../../providers/pedido/pedido';
 import { Format } from '../../utils/Format';
+import { AlertProvider } from '../../providers/alert/alert';
 
 @IonicPage()
 @Component({
@@ -19,9 +20,11 @@ export class DetailProviderPage {
   public idPrestador: number = 0;
 
   constructor(
+    private _alertCtrl: AlertProvider,
     private _navCtrl: NavController,
     private _servicoProvider: ServicoProvider,
     private _pedidoProvider: PedidoProvider,
+    private _events: Events,
     private _navParams: NavParams
   ) {
     this.idPrestador = this._navParams.get('id');
@@ -55,7 +58,22 @@ export class DetailProviderPage {
       ._pedidoProvider
       .post(this.request)
       .subscribe(
-        res => console.log(res),
+        res => {
+          console.log(res);
+          const alert = this._alertCtrl.create({
+            title: 'Serviço agendado com sucesso!',
+            subTitle: 'Agora você é só aguardar.',
+            buttons: [
+              {
+                text: 'OK',
+                handler: () => {
+                  this._events.publish('service:agendado', null);
+                }
+              },
+            ]
+          });
+          alert.present();
+        },
         err => console.log(err)
       );
   }

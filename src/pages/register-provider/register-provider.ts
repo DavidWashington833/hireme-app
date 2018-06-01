@@ -13,6 +13,7 @@ import { ResponseAddress } from '../../models/ReponseAddress';
 import { PrestadorProvider } from '../../providers/prestador/prestador';
 import { DadosBancariosProvider } from '../../providers/dados-bancarios/dados-bancarios';
 import { RegisterBank } from '../../models/RegisterBank';
+import { RegisterAddressPage } from '../register-address/register-address';
 
 @IonicPage()
 @Component({
@@ -36,6 +37,9 @@ export class RegisterProviderPage {
     private _dadosBancariosProvider: DadosBancariosProvider,
     private _events: Events
   ) {
+    this._events.subscribe('address:created', () => {
+      this.getAddress();
+    });
     this.formGroup = this._formBuilder.group({
       agencia: ['', [
         CustomValidators.required
@@ -44,6 +48,9 @@ export class RegisterProviderPage {
         CustomValidators.required
       ]],
       documento: ['', [
+        CustomValidators.required
+      ]],
+      endereco: ['', [
         CustomValidators.required
       ]]
     });
@@ -121,7 +128,22 @@ export class RegisterProviderPage {
                 buttons: [
                   {
                     text: 'OK',
-                    handler: () => { this._navCtrl.pop() }
+                    handler: () => {
+                      this._navCtrl.pop();
+                      this._prestadorProvider
+                      // .getForUser(1)
+                        .getForUser(Number(this.registerProvider.usuario))
+                        .subscribe(
+                          res => {
+                            console.log('resposta ao buscar prestador', res)
+                            localStorage.setItem('provider', JSON.stringify(res));
+                            this.isProvider(res != null);
+                          },
+                          err => {
+                            console.error('erro ao buscar prestador', err)
+                            this.isProvider(false);
+                          });
+                    }
                   },
                 ]
               });
@@ -158,5 +180,9 @@ export class RegisterProviderPage {
   markAsTouchedFields(value: Object) {
     let fields = ['agencia', 'conta', 'documento'];
     fields.forEach((field) => this.formGroup.controls[field].markAsTouched());
+  }
+
+  registerAddress() {
+    this._navCtrl.push(RegisterAddressPage.name);
   }
 }

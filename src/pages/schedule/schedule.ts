@@ -9,6 +9,7 @@ import { PedidoProvider } from '../../providers/pedido/pedido';
 import { ServicoProvider } from '../../providers/servico/servico';
 import { ResponseUser } from '../../models/ResponseUser';
 import { Format } from '../../utils/Format';
+import { AlertProvider } from '../../providers/alert/alert';
 
 @IonicPage()
 @Component({
@@ -20,6 +21,7 @@ export class SchedulePage {
   private requestJoinServices: Array<RequestJoinService> = new Array<RequestJoinService>();
 
   constructor(
+    private _alertCtrl: AlertProvider,
     private _navCtrl: NavController,
     private _navParams: NavParams,
     private _pedidoProvider: PedidoProvider,
@@ -82,7 +84,17 @@ export class SchedulePage {
               rs.confirmadoPedido = res.confirmadoPedido;
             }
             return rs;
-          })
+          });
+          const alert = this._alertCtrl.create({
+            title: 'Serviço confimado com sucesso!',
+            subTitle: 'Agora você é só aguardar.',
+            buttons: [
+              {
+                text: 'OK'
+              },
+            ]
+          });
+          alert.present();
         },
         err => console.log(err)
       );

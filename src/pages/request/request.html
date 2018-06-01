@@ -9,11 +9,11 @@
 <ion-content padding>
   <ion-card *ngFor="let rs of requestJoinServices">
     <ion-card-header>
-      {{rs.valorPedido}}
+      <h2><strong>{{rs.descricaoServico}}</strong></h2> <br>
+      R$ {{rs.valorPedido}}
     </ion-card-header>
     <ion-card-content>
-      <h2><strong>{{rs.descricaoServico}}</strong></h2> <br>
-      R$ {{rs.dataPedido}} <br>
+      {{rs.dataPedido}} <br>
       {{rs.confirmadoPedido ? 'Confirmado pelo prestador':'Precisa ser confirmado pelo prestador'}}
     </ion-card-content>
   </ion-card>

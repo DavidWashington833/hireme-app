@@ -27,10 +27,10 @@
     </ion-item>
     <ion-item>
       <ion-label floating>Endereço</ion-label>
-      <ion-select (ionChange)="registerProvider.endereco = $event">
-      <!-- <ion-select (ionChange)="registerProvider.endereco = $event"> -->
+      <ion-select name="endereco" formControlName="endereco" (ionChange)="registerProvider.endereco = $event">
         <ion-option *ngFor="let endereco of enderecos" value="{{endereco.idEndereco}}">{{ endereco.ruaEndereco }}</ion-option>
       </ion-select>
     </ion-item>
   </form>
+  <button ion-button block (click)="registerAddress()">cadastrar endereço</button>
 </ion-content>
