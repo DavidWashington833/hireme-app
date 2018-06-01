@@ -7,15 +7,16 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card (click)="detailRequest()">
+  <ion-card *ngFor="let rs of requestJoinServices">
     <ion-card-header>
-      Header
+      {{rs.valorPedido}}
     </ion-card-header>
     <ion-card-content>
-      The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
-      <div padding>
+      <h2><strong>{{rs.descricaoServico}}</strong></h2> <br>
+      R$ {{rs.dataPedido}} <br>
+      <div padding *ngIf="!rs.confirmadoPedido" (click)="confirm(rs.idPedido)">
         <button ion-button block>Confirmar</button>
       </div>
-    </ion-card-content>
-  </ion-card>
+      </ion-card-content>
+    </ion-card>
 </ion-content>
