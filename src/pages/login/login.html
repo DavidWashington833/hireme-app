@@ -1,12 +1,7 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Login
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content padding>
+  <div>
+    <img src="assets/imgs/logotipo.png" alt="Hireme" class="logotipo">
+  </div>
   <form #formLogin="ngForm" (ngSubmit)="logar()">
     <ion-item>
       <ion-label floating>Email:</ion-label>
@@ -18,7 +13,7 @@
     </ion-item>
   </form>
   <div padding>
-    <button ion-button block (click)="formLogin.ngSubmit.emit()">Entrar</button>
+    <button class="btn-entrar" ion-button block (click)="formLogin.ngSubmit.emit()">Entrar</button>
   </div>
   <div>
     <button ion-button clear small (click)="register()">Criar conta</button>
