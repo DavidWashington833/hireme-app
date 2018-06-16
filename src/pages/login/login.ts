@@ -39,14 +39,19 @@ export class LoginPage {
     this.loginProvider
       .post(this.login)
       .subscribe(
-        (res) => this.successResponse(res),
-        (err) => this.errorRequest(err),
-        () => this.hideLoading()
+        res => {
+          this.successResponse(res);
+          this.hideLoading();
+        },
+        err => {
+          this.errorRequest(err);
+          this.hideLoading();
+        },
       );
   }
 
   errorRequest(err: any) {
-    if (err.status === '404') {
+    if (err.status === 404) {
       this.alertProvider.show({
         title: 'Erro ao logar',
         subTitle: 'Login ou senha inválida.',

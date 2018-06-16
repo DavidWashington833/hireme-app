@@ -5,7 +5,7 @@ import { ResponseUser } from '../../models/ResponseUser';
 export class UserStorageProvider {
 
   isLogged(): boolean {
-    return localStorage.getItem('user') != null;
+    return localStorage.getItem('user') != null && localStorage.getItem('user') !== 'null';
   }
 
   removeUserAndProvider(): void {
