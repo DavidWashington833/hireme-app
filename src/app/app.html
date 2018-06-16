@@ -1,15 +1,15 @@
 <ion-menu [content]="content">
   <ion-header>
     <ion-item>
-      <h2>{{ userName }}</h2>
-      <p>{{ userEmail }}</p>
+      <h2>{{ user.fullName }}</h2>
+      <p>{{ user.email }}</p>
     </ion-item>
   </ion-header>
   <ion-content>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         <ion-icon class="custom-icon" [name]="p.icon" item-left></ion-icon>
-        {{p.title}}
+        {{ p.title }}
       </button>
       <button menuClose ion-item (click)="logout()">
         <ion-icon class="custom-icon" name="exit" item-left></ion-icon>

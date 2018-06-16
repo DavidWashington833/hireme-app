@@ -1,3 +1,4 @@
+import { ResponseProvider } from './../../models/ResponseProvider';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { PrestadorProvider } from './../../providers/prestador/prestador';
 import { RequestPage } from '../request/request';
@@ -116,20 +117,21 @@ export class MapPage {
           this.getProviders(res ? res.idPrestador:0);
           console.log('resposta ao buscar prestador', res)
           localStorage.setItem('provider', JSON.stringify(res));
-          this.isProvider(res != null);
+          this.isProvider(res);
         },
         err => {
           console.error('erro ao buscar prestador', err)
-          this.isProvider(false);
+          this.isProvider(null);
         });
   }
 
-  private isProvider(v: boolean) {
-    this._events.publish('user:provider', v);
+  private isProvider(v: ResponseProvider) {
+    this._events.publish('provider:load', v);
   }
 
   private createUser(user) {
-    this._events.publish('user:created', user);
+    const responseUser: ResponseUser = JSON.parse(user);
+    this._events.publish('user:load', responseUser);
   }
 
   private detailProvider(id: number) {

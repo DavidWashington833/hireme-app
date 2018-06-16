@@ -1,3 +1,4 @@
+import { ResponseProvider } from './../../models/ResponseProvider';
 import { RegisterAddress } from './../../models/RegisterAddress';
 import { RegisterProvider } from './../../models/RegisterProvider';
 import { Component } from '@angular/core';
@@ -119,7 +120,7 @@ export class RegisterProviderPage {
           this._prestadorProvider
             .post(this.registerProvider)
             .subscribe(res => {
-              this.isProvider(res != null);
+              this.isProvider(res);
               this._loadingCtrl.hide();
               // this.alertSuccessRegister();
               const alert = this._alertCtrl.create({
@@ -137,11 +138,11 @@ export class RegisterProviderPage {
                           res => {
                             console.log('resposta ao buscar prestador', res)
                             localStorage.setItem('provider', JSON.stringify(res));
-                            this.isProvider(res != null);
+                            this.isProvider(res);
                           },
                           err => {
                             console.error('erro ao buscar prestador', err)
-                            this.isProvider(false);
+                            this.isProvider(null);
                           });
                     }
                   },
@@ -160,8 +161,8 @@ export class RegisterProviderPage {
           })
   }
 
-  private isProvider(v: boolean) {
-    this._events.publish('user:provider', v);
+  private isProvider(v: ResponseProvider) {
+    this._events.publish('provider:load', v);
   }
 
   private registerError() {

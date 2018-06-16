@@ -123,7 +123,8 @@ export class DetailUserPage {
   }
 
   private createUser(user) {
-    this._events.publish('user:created', user);
+    const responseUser: ResponseUser = JSON.parse(user);
+    this._events.publish('user:update', responseUser);
   }
 
   private alertNoConnection() {
