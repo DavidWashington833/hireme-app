@@ -11,10 +11,12 @@ import { DadosBancariosProvider } from './dados-bancarios/dados-bancarios';
 import { ServicoProvider } from './servico/servico';
 import { CategoriaProvider } from './categoria/categoria';
 import { PedidoProvider } from './pedido/pedido';
+import { UserStorageProvider } from './user-storage/user-storage';
 
 @NgModule({
   declarations: [],
   providers: [
+    UserStorageProvider,
     UsuarioProvider,
     AlertProvider,
     UsuarioProvider,
