@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, NavController, Events } from 'ionic-angular';
+import { IonicPage, NavParams, Events } from 'ionic-angular';
 import { ResponseService } from '../../models/ResponseService';
 import { ServicoProvider } from '../../providers/servico/servico';
-import { ResponseProvider } from '../../models/ResponseProvider';
 import { RegisterRequest } from '../../models/RegisterRequest';
 import { ResponseUser } from '../../models/ResponseUser';
 import { PedidoProvider } from '../../providers/pedido/pedido';
@@ -17,11 +16,10 @@ import { AlertProvider } from '../../providers/alert/alert';
 export class DetailProviderPage {
   public request: RegisterRequest = new RegisterRequest();
   public services: Array<ResponseService> = new Array<ResponseService>();
-  public idPrestador: number = 0;
+  public idPrestador = 0;
 
   constructor(
     private _alertCtrl: AlertProvider,
-    private _navCtrl: NavController,
     private _servicoProvider: ServicoProvider,
     private _pedidoProvider: PedidoProvider,
     private _events: Events,
@@ -31,10 +29,7 @@ export class DetailProviderPage {
     this._servicoProvider
       .getForIdPrestador(this.idPrestador)
       .subscribe(
-        res => {
-          this.services = res;
-          console.log(res)
-        },
+        res => this.services = res,
         err => console.log(err)
       );
   }
@@ -51,7 +46,7 @@ export class DetailProviderPage {
 
     this.request.dataPedido = Format.dateYMDHM(date.year, date.month, date.day, date.hour, date.minute);
     this.request.idPrestador = this.idPrestador;
-    this.request.valorPedido = this.services.filter(s => s.idServico == this.request.idServico.toString())[0].precoServico;
+    this.request.valorPedido = this.services.filter(s => s.idServico === this.request.idServico.toString())[0].precoServico;
     this.request.idUsuario = responseUser.idUsuario;
     console.log('request', this.request);
     this

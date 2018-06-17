@@ -2,12 +2,10 @@ import { ResponseProvider } from './../../models/ResponseProvider';
 import { DetailRequestPage } from '../detail-request/detail-request';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { MapPage } from '../map/map';
 import { ResponseRequest } from '../../models/ResponseRequest';
 import { RequestJoinService } from '../../models/RequestJoinService';
 import { PedidoProvider } from '../../providers/pedido/pedido';
 import { ServicoProvider } from '../../providers/servico/servico';
-import { ResponseUser } from '../../models/ResponseUser';
 import { Format } from '../../utils/Format';
 import { AlertProvider } from '../../providers/alert/alert';
 
@@ -49,7 +47,14 @@ export class SchedulePage {
                   let date = new Date(r.dataPedido);
 
                   rs.confirmadoPedido = r.confirmadoPedido;
-                  rs.dataPedido = Format.dateYMDHM(date.getFullYear().toString(), date.getMonth().toString(), date.getDay().toString(), date.getHours().toString(), date.getMinutes().toString());
+                  rs.dataPedido = Format
+                    .dateYMDHM(
+                      date.getFullYear().toString(),
+                      date.getMonth().toString(),
+                      date.getDay().toString(),
+                      date.getHours().toString(),
+                      date.getMinutes().toString()
+                    );
                   rs.descricaoServico = s.descricaoServico;
                   rs.idCategoria = s.idCategoria;
                   rs.idPedido = r.idPedido;
@@ -71,7 +76,7 @@ export class SchedulePage {
   }
 
   confirm(id: number) {
-    let request: ResponseRequest = this.requests.filter(r => r.idPedido == id)[0];
+    const request: ResponseRequest = this.requests.filter(r => r.idPedido == id)[0];
     request.confirmadoPedido = true;
 
     this._pedidoProvider

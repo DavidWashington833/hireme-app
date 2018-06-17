@@ -1,8 +1,7 @@
 import { ResponseProvider } from './../../models/ResponseProvider';
-import { RegisterAddress } from './../../models/RegisterAddress';
 import { RegisterProvider } from './../../models/RegisterProvider';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController, Events } from 'ionic-angular';
+import { IonicPage, NavController, Events } from 'ionic-angular';
 
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { CustomValidators } from '../../utils/CustomValidators';
@@ -22,7 +21,7 @@ import { RegisterAddressPage } from '../register-address/register-address';
   templateUrl: 'register-provider.html',
 })
 export class RegisterProviderPage {
-  public documento: string = '';
+  public documento = '';
   public formGroup: FormGroup;
   public registerProvider: RegisterProvider = new RegisterProvider();
   public dadosBancarios: RegisterBank = new RegisterBank();
@@ -179,7 +178,7 @@ export class RegisterProviderPage {
   }
 
   markAsTouchedFields(value: Object) {
-    let fields = ['agencia', 'conta', 'documento'];
+    const fields = ['agencia', 'conta', 'documento'];
     fields.forEach((field) => this.formGroup.controls[field].markAsTouched());
   }
 

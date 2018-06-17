@@ -48,7 +48,14 @@ export class RequestPage {
               let rs = new RequestJoinService();
               let date = new Date(r.dataPedido);
               rs.confirmadoPedido = r.confirmadoPedido;
-              rs.dataPedido = Format.dateYMDHM(date.getFullYear().toString(), date.getMonth().toString(), date.getDay().toString(), date.getHours().toString(), date.getMinutes().toString());
+              rs.dataPedido = Format
+                .dateYMDHM(
+                  date.getFullYear().toString(),
+                  date.getMonth().toString(),
+                  date.getDay().toString(),
+                  date.getHours().toString(),
+                  date.getMinutes().toString()
+                );
               rs.descricaoServico = s.descricaoServico;
               rs.idCategoria = s.idCategoria;
               rs.idPedido = r.idPedido;

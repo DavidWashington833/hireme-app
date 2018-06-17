@@ -2,7 +2,7 @@ import { ServicoProvider } from './../../providers/servico/servico';
 import { RegisterServicePage } from '../register-service/register-service';
 import { DetailServicePage } from '../detail-service/detail-service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { IonicPage, NavController, Events } from 'ionic-angular';
 import { ResponseProvider } from '../../models/ResponseProvider';
 import { ResponseService } from '../../models/ResponseService';
 
@@ -12,7 +12,7 @@ import { ResponseService } from '../../models/ResponseService';
   templateUrl: 'list-service.html',
 })
 export class ListServicePage {
-  private services: Array<ResponseService> = new Array<ResponseService>();
+  private services: Array<ResponseService> = [];
 
   constructor(
     private _navCtrl: NavController,

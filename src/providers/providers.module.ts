@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { UsuarioProvider } from './usuario/usuario';
 import { AlertProvider } from './alert/alert';
-import { GoogleMapsAPIWrapper } from '@agm/core';
 import { LoadingProvider } from './loading/loading';
 import { EnderecoProvider } from './endereco/endereco';
 import { PrestadorProvider } from './prestador/prestador';

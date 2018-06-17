@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, LoadingController, AlertController, Events } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController, Events } from 'ionic-angular';
 
 import { RegisterAddressPage } from '../register-address/register-address';
-import { RegisterUser } from '../../models/RegisterUser';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { CustomValidators } from '../../utils/CustomValidators';
@@ -112,14 +111,12 @@ export class DetailUserPage {
           this.createUser(localStorage.getItem('user'));
           loading.dismiss();
           this.alertSuccessRegister();
-          console.log(res)
         },
         err => {
           loading.dismiss();
-          console.log(err)
           this.alertNoConnection();
         }
-      )
+      );
   }
 
   private createUser(user) {
@@ -157,7 +154,7 @@ export class DetailUserPage {
   }
 
   markAsTouchedFields(value: Object) {
-    let fields = ['nome', 'sobrenome', 'email', 'cpf', 'celular', 'nascimento'];
+    const fields = ['nome', 'sobrenome', 'email', 'cpf', 'celular', 'nascimento'];
     fields.forEach((field) => this.formGroup.controls[field].markAsTouched());
   }
 

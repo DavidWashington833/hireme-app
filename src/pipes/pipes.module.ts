@@ -6,10 +6,7 @@ import { MaskTelPipe } from './mask-tel/mask-tel';
     MaskCpfPipe,
     MaskTelPipe
   ],
-	imports: [
-    // MaskCpfPipe,
-    // MaskTelPipe
-  ],
+	imports: [],
 	exports: [
     MaskCpfPipe,
     MaskTelPipe

@@ -4,7 +4,6 @@ import { RegisterAddress } from '../../models/RegisterAddress';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { AlertProvider } from '../../providers/alert/alert';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { CustomValidators } from '../../utils/CustomValidators';
 import { HandlerFields } from '../../utils/HandlerFields';
 import { EnderecoProvider } from '../../providers/endereco/endereco';
@@ -100,22 +99,17 @@ export class RegisterAddressPage {
           .post(this.address)
           .subscribe(
             res => {
-              console.log(res)
               this._loadingCtrl.hide();
               this.alertSuccessRegister();
             },
             err => {
-              console.log(err)
               this._loadingCtrl.hide();
               this.alertNoConnection();
             }
-          )
+          );
         },
-        err => {
-          this.addressNotFound();
-          console.log('------------------------------>', err)
-        }
-      )
+        err => this.addressNotFound()
+      );
 
   }
 
