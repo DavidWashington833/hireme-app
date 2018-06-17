@@ -1,22 +1,21 @@
-import { ResponseProvider } from './../../models/ResponseProvider';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import { Component, NgZone } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { MapsAPILoader } from '@agm/core';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+
+import { ResponseProvider } from './../../models/ResponseProvider';
 import { PrestadorProvider } from './../../providers/prestador/prestador';
 import { RequestPage } from '../request/request';
 import { DetailUserPage } from '../detail-user/detail-user';
 import { Prestador } from '../../models/prestador';
-import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { DetailProviderPage } from '../detail-provider/detail-provider';
 import { SearchPage } from '../search/search';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { ResponseUser } from '../../models/ResponseUser';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { AlertProvider } from '../../providers/alert/alert';
-import { HttpClient } from '@angular/common/http';
-import { MapsAPILoader } from '@agm/core';
-import { Observable } from 'rxjs/Observable';
-import { GMapsServiceProvider } from '../../providers/g-maps-service/g-maps-service';
-import { Calendar } from '@ionic-native/calendar';
+import { UserStorageProvider } from '../../providers/user-storage/user-storage';
 
 @IonicPage()
 @Component({
@@ -25,44 +24,41 @@ import { Calendar } from '@ionic-native/calendar';
 })
 export class MapPage {
   styleArray: any = [];
-
+  providers: Array<Prestador> = [];
   latitude: number | string = -23.737156;
   longitude: number | string = -46.691307;
 
-  providers: Array<Prestador> = new Array<Prestador>();
-
   constructor(
-    private _geolocation: Geolocation,
-    private _navCtrl: NavController,
-    private _navParams: NavParams,
-    private _loadingCtrl: LoadingProvider,
-    private _alertCtrl: AlertProvider,
-    private _usuarioProvider: UsuarioProvider,
-    private _prestadorProvider: PrestadorProvider,
-    private _httpClient: HttpClient,
-    private _events: Events,
-    private _mapsAPILoader: MapsAPILoader,
-    private _ngZone: NgZone,
+    private geolocation: Geolocation,
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private loadingProvider: LoadingProvider,
+    private usuarioProvider: UsuarioProvider,
+    private prestadorProvider: PrestadorProvider,
+    private httpClient: HttpClient,
+    private events: Events,
+    private userStorage: UserStorageProvider
   ) {
-    this._httpClient.get('/assets/json/map.json').
-      subscribe(res => {
-        this.styleArray = res
-      }, err => console.log(err))
+    this.httpClient
+      .get('/assets/json/map.json')
+      .subscribe(
+        res => this.styleArray = res,
+        err => console.log('erro ao carregar styleArray', err)
+      );
   }
-
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MapPage');
-    console.log('id do usuario', this._navParams.get('userId'));
     this.getUser();
+    this.getUserPosition()
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   }
 
-  private getProviders(id:number) {
+  getProviders(id: number) {
     this.getCoords().then((res: Geoposition) => {
-      this.longitude = res.coords.longitude;
-      this.latitude = res.coords.latitude;
-      console.log('pegando cordenadas usuário', res);
-      this._prestadorProvider.getForCoords(this.latitude, this.longitude)
+      this.setPostion(res.coords.longitude, res.coords.latitude);
+
+      this.prestadorProvider.getForCoords(this.latitude, this.longitude)
         .subscribe(res => {
           let v = res.map(p => {
             let provider = new Prestador();
@@ -83,9 +79,18 @@ export class MapPage {
     }).catch(error => console.log(error));
   }
 
-  private getCoords() {
+  getUserPosition() {
+    return this.geolocation.watchPosition().toPromise();
+  }
+
+  setPostion(longitude: string | number, latitude: string | number): void {
+    this.longitude = longitude;
+    this.latitude = latitude;
+  }
+
+  getCoords() {
     return new Promise((resolve, reject) => {
-      this._geolocation
+      this.geolocation
         .watchPosition()
         .subscribe(
           (res: Geoposition) => resolve(res),
@@ -94,60 +99,58 @@ export class MapPage {
     });
   }
 
-  private getUser() {
-    this._loadingCtrl.show({ content: 'Buscando dados do usuário...' });
-    this._usuarioProvider
-      .get(this._navParams.get('userId'))
+  getUser() {
+    this.loadingProvider.show({ content: 'Buscando dados do usuário...' });
+    this.usuarioProvider
+      .get(this.navParams.get('userId'))
       // .get(1)
       .subscribe(res => {
-        console.log('resposta da busca por usuário', res);
-        localStorage.setItem('user', JSON.stringify(res));
-        this._loadingCtrl.hide();
-        this.createUser(localStorage.getItem('user'));
+        this.userStorage.setUser(res);
+        this.loadingProvider.hide();
+        this.publishLoadUser(this.userStorage.getUser());
       }, err => {
         console.error('erro ao buscar usuário', err);
-        this._loadingCtrl.hide();
+        this.loadingProvider.hide();
       });
 
-    this._prestadorProvider
+    this.prestadorProvider
     // .getForUser(1)
-      .getForUser(this._navParams.get('userId'))
+      .getForUser(this.navParams.get('userId'))
       .subscribe(
         res => {
           this.getProviders(res ? res.idPrestador:0);
           console.log('resposta ao buscar prestador', res)
-          localStorage.setItem('provider', JSON.stringify(res));
-          this.isProvider(res);
+          this.userStorage.setProvider(res);
+          this.publishLoadProvider(res);
         },
         err => {
           console.error('erro ao buscar prestador', err)
-          this.isProvider(null);
+          this.publishLoadProvider(null);
         });
   }
 
-  private isProvider(v: ResponseProvider) {
-    this._events.publish('provider:load', v);
+  publishLoadProvider(provider: ResponseProvider) {
+    this.events.publish('provider:load', provider);
   }
 
-  private createUser(user) {
-    const responseUser: ResponseUser = JSON.parse(user);
-    this._events.publish('user:load', responseUser);
+  publishLoadUser(user: ResponseUser) {
+    this.events.publish('user:load', user);
   }
 
-  private detailProvider(id: number) {
-    this._navCtrl.push(DetailProviderPage.name, { id: id });
+  openDetailProvider(id: number) {
+    this.navCtrl.push(DetailProviderPage.name, { id: id });
   }
 
-  private detailUser() {
-    this._navCtrl.push(DetailUserPage.name);
+  openDetailUser() {
+    this.navCtrl.push(DetailUserPage.name);
   }
 
-  private request() {
-    this._navCtrl.push(RequestPage.name);
+  openRequest() {
+    this.navCtrl.push(RequestPage.name);
   }
 
-  private search() {
-    this._navCtrl.push(SearchPage.name);
+  openSearch() {
+    this.navCtrl.push(SearchPage.name);
   }
 
 }

@@ -29,7 +29,7 @@ export class PrestadorProvider {
     return this._http.post<ResponseProvider>(`${this._baseUrl}prestador`, provider, this._httpOption);
   }
 
-  getForCoords(latitude: number, longitude: number) {
+  getForCoords(latitude: string | number, longitude: string | number) {
     return this._http.get<ResponseProvider[]>(`${this._baseUrl}prestador/proximos?lat=${latitude}&lon=${longitude}`);
   }
 
