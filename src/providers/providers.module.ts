@@ -12,6 +12,7 @@ import { ServicoProvider } from './servico/servico';
 import { CategoriaProvider } from './categoria/categoria';
 import { PedidoProvider } from './pedido/pedido';
 import { UserStorageProvider } from './user-storage/user-storage';
+import { PositionProvider } from './position/position';
 
 @NgModule({
   declarations: [],
@@ -29,7 +30,8 @@ import { UserStorageProvider } from './user-storage/user-storage';
     DadosBancariosProvider,
     ServicoProvider,
     CategoriaProvider,
-    PedidoProvider
+    PedidoProvider,
+    PositionProvider
   ]
 })
 export class ProvidersModule {}

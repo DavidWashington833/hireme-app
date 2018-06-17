@@ -16,6 +16,7 @@ import { ResponseUser } from '../../models/ResponseUser';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { AlertProvider } from '../../providers/alert/alert';
 import { UserStorageProvider } from '../../providers/user-storage/user-storage';
+import { PositionProvider } from '../../providers/position/position';
 
 @IonicPage()
 @Component({
@@ -37,50 +38,51 @@ export class MapPage {
     private prestadorProvider: PrestadorProvider,
     private httpClient: HttpClient,
     private events: Events,
-    private userStorage: UserStorageProvider
-  ) {
+    private userStorage: UserStorageProvider,
+    private positionProvider: PositionProvider
+  ) {}
+
+  ionViewDidLoad() {
     this.httpClient
       .get('/assets/json/map.json')
       .subscribe(
         res => this.styleArray = res,
         err => console.log('erro ao carregar styleArray', err)
       );
-  }
 
-  ionViewDidLoad() {
     this.getUser();
-    this.getUserPosition()
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+
+    this.positionProvider
+      .getUserPosition()
+      .subscribe(
+        res => {
+          const {longitude, latitude} = res.coords;
+          this.setPostion(longitude, latitude);
+          this.getProviders(Number(this.navParams.get('userId')));
+        },
+        err => console.log('erro ao pegar posição do usuário', err)
+      );
   }
 
   getProviders(id: number) {
-    this.getCoords().then((res: Geoposition) => {
-      this.setPostion(res.coords.longitude, res.coords.latitude);
-
-      this.prestadorProvider.getForCoords(this.latitude, this.longitude)
-        .subscribe(res => {
-          let v = res.map(p => {
-            let provider = new Prestador();
-            provider.icon = 'assets/imgs/employees.png';
-            provider.id = p.idPrestador;
-            provider.latitude = Number(p.latitudePrestador);
-            provider.longitude = Number(p.longitudePrestador);
-            return provider;
-          });
-          if (id != undefined) {
-            this.providers = v.filter(p2 => p2.id != id);
-          }
-          else {
-            this.providers = v;
-          }
-          console.log(this.providers);
-        }, error => console.log(error));
-    }).catch(error => console.log(error));
+    this.prestadorProvider
+      .getForCoords(this.latitude, this.longitude)
+      .subscribe(res =>
+        this.providers =
+          res
+            .filter(p => p.idUsuario !== id)
+            .map(p => this.buildPrestador(p)),
+        error => console.log(error)
+      );
   }
 
-  getUserPosition() {
-    return this.geolocation.watchPosition().toPromise();
+  private buildPrestador(p: ResponseProvider) {
+    let provider = new Prestador();
+    provider.icon = 'assets/imgs/employees.png';
+    provider.id = p.idPrestador;
+    provider.latitude = Number(p.latitudePrestador);
+    provider.longitude = Number(p.longitudePrestador);
+    return provider;
   }
 
   setPostion(longitude: string | number, latitude: string | number): void {
