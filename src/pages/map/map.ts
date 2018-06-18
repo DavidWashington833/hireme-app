@@ -1,4 +1,3 @@
-import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
@@ -12,7 +11,6 @@ import { DetailProviderPage } from '../detail-provider/detail-provider';
 import { SearchPage } from '../search/search';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { ResponseUser } from '../../models/ResponseUser';
-import { LoadingProvider } from '../../providers/loading/loading';
 import { UserStorageProvider } from '../../providers/user-storage/user-storage';
 import { PositionProvider } from '../../providers/position/position';
 
@@ -22,16 +20,14 @@ import { PositionProvider } from '../../providers/position/position';
   templateUrl: 'map.html',
 })
 export class MapPage {
-  styleArray: any = [];
+  styleMap: any = [];
   providers: Array<Prestador> = [];
   latitude: number | string = -23.737156;
   longitude: number | string = -46.691307;
 
   constructor(
-    private geolocation: Geolocation,
     private navCtrl: NavController,
     private navParams: NavParams,
-    private loadingProvider: LoadingProvider,
     private usuarioProvider: UsuarioProvider,
     private prestadorProvider: PrestadorProvider,
     private httpClient: HttpClient,
@@ -44,42 +40,43 @@ export class MapPage {
     this.httpClient
       .get('/assets/json/map.json')
       .subscribe(
-        res => this.styleArray = res,
+        styleMap => this.styleMap = styleMap,
         err => console.log('erro ao carregar styleArray', err)
       );
 
     this.getUser();
 
+    this.getUserProvider();
+
     this.positionProvider
       .getUserPosition()
       .subscribe(
-        res => {
-          const {longitude, latitude} = res.coords;
+        position => {
+          const {longitude, latitude} = position.coords;
           this.setPostion(longitude, latitude);
-          this.getProviders(Number(this.navParams.get('userId')));
+          this.getProviders()
+            .subscribe(providers =>
+              this.providers =
+                providers
+                  .filter(p => p.idUsuario !== Number(this.navParams.get('userId')))
+                  .map(p => this.buildPrestador(p)),
+              error => console.log(error)
+            );
         },
         err => console.log('erro ao pegar posição do usuário', err)
       );
   }
 
-  getProviders(id: number) {
-    this.prestadorProvider
-      .getForCoords(this.latitude, this.longitude)
-      .subscribe(res =>
-        this.providers =
-          res
-            .filter(p => p.idUsuario !== id)
-            .map(p => this.buildPrestador(p)),
-        error => console.log(error)
-      );
+  getProviders() {
+    return this.prestadorProvider
+      .getForCoords(this.latitude, this.longitude);
   }
 
-  private buildPrestador(p: ResponseProvider) {
+  buildPrestador(responseProvider: ResponseProvider) {
     const provider = new Prestador();
-    provider.icon = 'assets/imgs/employees.png';
-    provider.id = p.idPrestador;
-    provider.latitude = Number(p.latitudePrestador);
-    provider.longitude = Number(p.longitudePrestador);
+    provider.id = responseProvider.idPrestador;
+    provider.latitude = Number(responseProvider.latitudePrestador);
+    provider.longitude = Number(responseProvider.longitudePrestador);
     return provider;
   }
 
@@ -88,45 +85,22 @@ export class MapPage {
     this.latitude = latitude;
   }
 
-  getCoords() {
-    return new Promise((resolve, reject) => {
-      this.geolocation
-        .watchPosition()
-        .subscribe(
-          (res: Geoposition) => resolve(res),
-          error => reject(error)
-        );
-    });
-  }
-
   getUser() {
-    this.loadingProvider.show({ content: 'Buscando dados do usuário...' });
     this.usuarioProvider
       .get(this.navParams.get('userId'))
-      // .get(1)
-      .subscribe(res => {
-        this.userStorage.setUser(res);
-        this.loadingProvider.hide();
+      .subscribe(user => {
+        this.userStorage.setUser(user);
         this.publishLoadUser(this.userStorage.getUser());
-      }, err => {
-        console.error('erro ao buscar usuário', err);
-        this.loadingProvider.hide();
-      });
+      }, err => console.error('erro ao buscar usuário', err));
+  }
 
+  getUserProvider() {
     this.prestadorProvider
-    // .getForUser(1)
       .getForUser(this.navParams.get('userId'))
-      .subscribe(
-        res => {
-          this.getProviders(res ? res.idPrestador : 0);
-          console.log('resposta ao buscar prestador', res);
-          this.userStorage.setProvider(res);
-          this.publishLoadProvider(res);
-        },
-        err => {
-          console.error('erro ao buscar prestador', err);
-          this.publishLoadProvider(null);
-        });
+      .subscribe(provider => {
+        this.userStorage.setProvider(provider);
+        this.publishLoadProvider(provider);
+      }, err => console.error('erro ao buscar prestador', err));
   }
 
   publishLoadProvider(provider: ResponseProvider) {
