@@ -12,7 +12,7 @@ import { ResponseService } from '../../models/ResponseService';
   templateUrl: 'list-service.html',
 })
 export class ListServicePage {
-  private services: Array<ResponseService> = [];
+  services: Array<ResponseService> = [];
 
   constructor(
     private _navCtrl: NavController,

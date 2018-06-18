@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { MaskCpfPipe } from './mask-cpf/mask-cpf';
 import { MaskTelPipe } from './mask-tel/mask-tel';
 @NgModule({
-	declarations: [
+  declarations: [
     MaskCpfPipe,
     MaskTelPipe
   ],
-	imports: [],
-	exports: [
+  imports: [],
+  exports: [
     MaskCpfPipe,
     MaskTelPipe
   ]

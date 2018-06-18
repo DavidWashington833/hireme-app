@@ -74,7 +74,7 @@ export class RegisterAddressPage {
     this.address.idUsuario = user.idUsuario;
   }
 
-  private register() {
+  register() {
     console.log(this.address);
     if (!this.formGroup.valid) {
       this.alertInvalidFields();
@@ -98,13 +98,14 @@ export class RegisterAddressPage {
           ._enderecoProvider
           .post(this.address)
           .subscribe(
-            res => {
+            () => {
               this._loadingCtrl.hide();
               this.alertSuccessRegister();
             },
             err => {
               this._loadingCtrl.hide();
               this.alertNoConnection();
+              console.log(err);
             }
           );
         },

@@ -54,7 +54,7 @@ export class RegisterProviderPage {
         CustomValidators.required
       ]]
     });
-    this.formGroup.valueChanges.subscribe(value => this.markAsTouchedFields(value));
+    this.formGroup.valueChanges.subscribe(() => this.markAsTouchedFields());
   }
 
   ionViewDidLoad() {
@@ -91,9 +91,8 @@ export class RegisterProviderPage {
     }
 
 
-    let endereco: ResponseAddress = this
-    .enderecos
-    .filter(e => e.idEndereco.toString() == this.registerProvider.endereco)[0];
+    const endereco: ResponseAddress = this.enderecos
+      .filter(e => e.idEndereco.toString() === this.registerProvider.endereco)[0];
 
     this.registerProvider.latitudePrestador = endereco.latitudeEndereco;
     this.registerProvider.longitudePrestador = endereco.longitudeEndereco;
@@ -118,8 +117,8 @@ export class RegisterProviderPage {
           console.log('-------------------> registerProvider', JSON.stringify(this.registerProvider));
           this._prestadorProvider
             .post(this.registerProvider)
-            .subscribe(res => {
-              this.isProvider(res);
+            .subscribe(ress => {
+              this.isProvider(ress);
               this._loadingCtrl.hide();
               // this.alertSuccessRegister();
               const alert = this._alertCtrl.create({
@@ -134,13 +133,13 @@ export class RegisterProviderPage {
                       // .getForUser(1)
                         .getForUser(Number(this.registerProvider.usuario))
                         .subscribe(
-                          res => {
-                            console.log('resposta ao buscar prestador', res)
-                            localStorage.setItem('provider', JSON.stringify(res));
-                            this.isProvider(res);
+                          resss => {
+                            console.log('resposta ao buscar prestador', resss);
+                            localStorage.setItem('provider', JSON.stringify(resss));
+                            this.isProvider(resss);
                           },
                           err => {
-                            console.error('erro ao buscar prestador', err)
+                            console.error('erro ao buscar prestador', err);
                             this.isProvider(null);
                           });
                     }
@@ -157,7 +156,7 @@ export class RegisterProviderPage {
             console.error('erro no cadastro', err);
             this._loadingCtrl.hide();
             this.registerError();
-          })
+          });
   }
 
   private isProvider(v: ResponseProvider) {
@@ -177,7 +176,7 @@ export class RegisterProviderPage {
     console.log(event);
   }
 
-  markAsTouchedFields(value: Object) {
+  markAsTouchedFields() {
     const fields = ['agencia', 'conta', 'documento'];
     fields.forEach((field) => this.formGroup.controls[field].markAsTouched());
   }

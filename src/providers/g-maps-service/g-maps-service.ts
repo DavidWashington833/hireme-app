@@ -1,13 +1,13 @@
 
 import { Injectable, NgZone } from '@angular/core';
-import { Observable, Observer } from 'rxjs';
+import { Observable } from 'rxjs';
 import { GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
 
 declare var google: any;
 
 @Injectable()
 export class GMapsServiceProvider extends GoogleMapsAPIWrapper {
-  constructor(private __loader: MapsAPILoader, private __zone: NgZone, private mapsAPILoader: MapsAPILoader) {
+  constructor(public __loader: MapsAPILoader, public __zone: NgZone, private mapsAPILoader: MapsAPILoader) {
     super(__loader, __zone);
   }
 
@@ -17,10 +17,10 @@ export class GMapsServiceProvider extends GoogleMapsAPIWrapper {
 
     return Observable.create(observer => {
       this.mapsAPILoader.load().then(() => {
-        let geocoder = new google.maps.Geocoder();
+        const geocoder = new google.maps.Geocoder();
         geocoder.geocode({ 'address': address }, function (results, status) {
           console.log('--------------------------------------->', results);
-          if (status == google.maps.GeocoderStatus.OK) {
+          if (status === google.maps.GeocoderStatus.OK) {
             observer.next(results[0].geometry.location);
             observer.complete();
           } else {
@@ -30,12 +30,12 @@ export class GMapsServiceProvider extends GoogleMapsAPIWrapper {
           }
         });
       })
-      .catch(err => {
+        .catch(err => {
 
-        console.log('Error -  & Status - ', err);
-        observer.next({});
-        observer.complete();
-      });
-    })
+          console.log('Error -  & Status - ', err);
+          observer.next({});
+          observer.complete();
+        });
+    });
   }
 }

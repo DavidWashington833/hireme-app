@@ -45,8 +45,8 @@ export class RequestPage {
           this._servicoProvider
             .get(r.idServico)
             .subscribe(s => {
-              let rs = new RequestJoinService();
-              let date = new Date(r.dataPedido);
+              const rs = new RequestJoinService();
+              const date = new Date(r.dataPedido);
               rs.confirmadoPedido = r.confirmadoPedido;
               rs.dataPedido = Format
                 .dateYMDHM(

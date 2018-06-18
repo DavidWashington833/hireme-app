@@ -1,7 +1,6 @@
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
-import { Component, NgZone } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MapsAPILoader } from '@agm/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
 import { ResponseProvider } from './../../models/ResponseProvider';
@@ -14,7 +13,6 @@ import { SearchPage } from '../search/search';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { ResponseUser } from '../../models/ResponseUser';
 import { LoadingProvider } from '../../providers/loading/loading';
-import { AlertProvider } from '../../providers/alert/alert';
 import { UserStorageProvider } from '../../providers/user-storage/user-storage';
 import { PositionProvider } from '../../providers/position/position';
 
@@ -77,7 +75,7 @@ export class MapPage {
   }
 
   private buildPrestador(p: ResponseProvider) {
-    let provider = new Prestador();
+    const provider = new Prestador();
     provider.icon = 'assets/imgs/employees.png';
     provider.id = p.idPrestador;
     provider.latitude = Number(p.latitudePrestador);
@@ -120,13 +118,13 @@ export class MapPage {
       .getForUser(this.navParams.get('userId'))
       .subscribe(
         res => {
-          this.getProviders(res ? res.idPrestador:0);
-          console.log('resposta ao buscar prestador', res)
+          this.getProviders(res ? res.idPrestador : 0);
+          console.log('resposta ao buscar prestador', res);
           this.userStorage.setProvider(res);
           this.publishLoadProvider(res);
         },
         err => {
-          console.error('erro ao buscar prestador', err)
+          console.error('erro ao buscar prestador', err);
           this.publishLoadProvider(null);
         });
   }

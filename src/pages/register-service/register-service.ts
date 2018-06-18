@@ -1,7 +1,7 @@
 import { Category } from './../../models/Category';
 import { ServicoProvider } from './../../providers/servico/servico';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { IonicPage, NavController, Events } from 'ionic-angular';
 
 import { RegisterService } from '../../models/RegisterService';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -93,7 +93,7 @@ export class RegisterServicePage {
           this._loadingCtrl.hide();
           this.alertNoConnection();
         }
-      )
+      );
   }
 
   selectCategory(event) {
