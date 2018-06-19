@@ -74,15 +74,24 @@ export class SchedulePage {
       );
   }
 
-  confirm(id: number) {
-    const request: ResponseRequest = this.requests.filter(r => r.idPedido === id)[0];
+  confirm(rss: RequestJoinService) {
+    const request: ResponseRequest = this.requests.filter(r => r.idPedido === rss.idPedido)[0];
     request.confirmadoPedido = true;
+    const date = new Date(rss.dataPedido);
+
+    request.dataPedido = Format
+      .dateYMDHM(
+        date.getFullYear().toString(),
+        date.getMonth().toString(),
+        date.getDay().toString(),
+        date.getHours().toString(),
+        date.getMinutes().toString()
+      );
 
     this._pedidoProvider
       .confirmRequest(request)
       .subscribe(
         res => {
-          console.log(res);
           this.requestJoinServices = this.requestJoinServices.map(rs => {
             if (rs.idPedido === res.idPedido) {
               rs.confirmadoPedido = res.confirmadoPedido;

@@ -14,7 +14,7 @@
     <ion-card-content>
       <h2><strong>{{rs.descricaoServico}}</strong></h2> <br>
       R$ {{rs.dataPedido}} <br>
-      <div padding *ngIf="!rs.confirmadoPedido" (click)="confirm(rs.idPedido)">
+      <div padding *ngIf="!rs.confirmadoPedido" (click)="confirm(rs)">
         <button ion-button block>Confirmar</button>
       </div>
       </ion-card-content>
