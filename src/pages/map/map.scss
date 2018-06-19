@@ -1,27 +1,26 @@
-ion-navbar {
-  ion-title {
-    .toolbar-title {
-      color: #fff;
+page-map {
+  ion-fab {
+    .button-md {
+      background: #40C0FF;
     }
   }
-  .button-inner {
-    color: #fff;
-  }
-  .toolbar-background {
-    background: linear-gradient(to bottom, rgba(64,192,255,1) 0%, rgba(133,223,255,1) 100%);
-  }
-}
 
-
-
-
-
-page-map {
   agm-map {
     width: 100%;
     height: 100%;
   }
   ion-footer {
+    ion-row {
+      ion-col {
+        ion-icon {
+          color: #fff;
+        }
+      }
+      color: #fff;
+      font-weight: bold;
+      box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.4);
+      background: #40C0FF;
+    }
     text-align: center;
   }
 }
