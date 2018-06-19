@@ -23,7 +23,7 @@
     </ion-item>
     <ion-item>
       <ion-label floating>CPF/CNPJ:</ion-label>
-      <ion-input name="documento" formControlName="documento" (keyup)="dadosBancarios.documentoDadosBancario = $event.target.value; documento = $event.target.value" value="{{documento | maskCpf}}"></ion-input>
+      <ion-input name="documento" formControlName="documento" (keyup)="dadosBancarios.documentoDadosBancario = $event.target.value; documento = $event.target.value" value="{{documento}}"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Endereço</ion-label>

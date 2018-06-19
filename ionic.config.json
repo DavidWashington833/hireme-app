@@ -1,5 +1,5 @@
 {
-  "name": "pi-5-app",
+  "name": "Hireme",
   "app_id": "",
   "type": "ionic-angular",
   "integrations": {
@@ -8,7 +8,7 @@
   "proxies": [
     {
       "path": "/",
-      "proxyUrl": "http://54.187.197.222:3000/"
+      "proxyUrl": "http://localhost:3000/"
     }
   ]
 }

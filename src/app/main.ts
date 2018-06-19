@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 
 export function getBaseUrl() {
   // return 'http://localhost:8100/';
-  return 'http://54.187.197.222:3000/';
+  return 'https://hireme-api.azurewebsites.net/';
 }
 
 const providers = [

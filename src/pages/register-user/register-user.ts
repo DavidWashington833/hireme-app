@@ -111,8 +111,8 @@ export class RegisterUserPage {
 
   alertSuccessRegister() {
     this.alertProvider.show({
-      title: 'Cadastro efetuado com sucesso!',
-      subTitle: 'Verifique sua caixa de email para confirmar sua conta.',
+      title: 'Cadastro efetuado com sucesso',
+      subTitle: 'Seja bem-vindo!',
       buttons: [
         {
           text: 'OK',
