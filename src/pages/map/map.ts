@@ -21,7 +21,77 @@ import { AlertProvider } from '../../providers/alert/alert';
   templateUrl: 'map.html',
 })
 export class MapPage {
-  styleMap: any = [];
+  styleMap: any = [
+    {
+      featureType: "landscape.natural",
+      elementType: "geometry.fill",
+      stylers: [
+        {
+          visibility: "on"
+        },
+        {
+          color: "#e0efef"
+        }
+      ]
+    },
+    {
+      featureType: "poi",
+      elementType: "geometry.fill",
+      stylers: [
+        {
+          visibility: "on"
+        },
+        {
+          hue: "#1900ff"
+        },
+        {
+          color: "#c0e8e8"
+        }
+      ]
+    },
+    {
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [
+        {
+          lightness: 100
+        },
+        {
+          visibility: "simplified"
+        }
+      ]
+    },
+    {
+      featureType: "road",
+      elementType: "labels",
+      stylers: [
+        {
+          visibility: "off"
+        }
+      ]
+    },
+    {
+      featureType: "transit.line",
+      elementType: "geometry",
+      stylers: [
+        {
+          visibility: "on"
+        },
+        {
+          lightness: 700
+        }
+      ]
+    },
+    {
+      featureType: "water",
+      elementType: "all",
+      stylers: [
+        {
+          color: "#7dcdcd"
+        }
+      ]
+    }
+  ];
   providers: Array<Prestador> = [];
   latitude: number | string = -23.669922;
   longitude: number | string = -46.700162;
@@ -39,41 +109,34 @@ export class MapPage {
   ) {}
 
   ionViewDidLoad() {
-    this.httpClient
-      .get('/assets/json/map.json')
-      .subscribe(
-        styleMap => this.styleMap = styleMap,
-        err => console.log('erro ao carregar styleArray', err)
-      );
+    // this.httpClient
+    //   .get('/assets/json/map.json')
+    //   .subscribe(
+    //     styleMap => this.styleMap = styleMap,
+    //     err => console.log('erro ao carregar styleArray', err)
+    //   );
 
     this.getUser();
 
     this.getUserProvider();
 
-    this.positionProvider
-      .getUserPosition()
-      .subscribe(
-        position => {
-          const {longitude, latitude} = position.coords;
-          this.setPostion(longitude, latitude);
+    // this.positionProvider
+    //   .getUserPosition()
+    //   .subscribe(
+    //     position => {
+    //       const {longitude, latitude} = position.coords;
+    //       this.setPostion(longitude, latitude);
           this.getProviders()
-            .subscribe(providers => {
+            .subscribe(providers =>
                 this.providers =
                   providers
                     .filter(p => p.idUsuario !== Number(this.navParams.get('userId')))
-                    .map(p => this.buildPrestador(p));
-
-                this.alertProvider.show({
-                  title: 'Erro ao logar',
-                  subTitle: JSON.stringify(providers),
-                  buttons: ['OK']
-                });
-              },
+                    .map(p => this.buildPrestador(p)),
               error => console.log(error)
             );
-        },
-        err => console.log('erro ao pegar posição do usuário', err)
-      );
+      //   },
+      //   err => console.log('erro ao pegar posição do usuário', err)
+      // );
   }
 
   getProviders() {
