@@ -34,11 +34,6 @@ export class RegisterAddressPage {
         CustomValidators.minLength(3),
         CustomValidators.maxLength(50)
       ]],
-      logradouro: ['', [
-        CustomValidators.required,
-        CustomValidators.minLength(3),
-        CustomValidators.maxLength(20)
-      ]],
       complemento: ['', [
         CustomValidators.required,
         CustomValidators.minLength(3),
@@ -85,7 +80,8 @@ export class RegisterAddressPage {
       content: 'Cadastrando...'
     });
 
-    console.log('cep', this.address.cep);
+    this.address.logradouro = 'logradouro';
+
     this._GMaps.getLatLan(`${this.address.rua} ${this.address.numero}`)
       .subscribe(
         res => {

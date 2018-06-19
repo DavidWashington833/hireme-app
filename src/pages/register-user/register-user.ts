@@ -55,6 +55,16 @@ export class RegisterUserPage {
         CustomValidators.minLength(3),
         CustomValidators.maxLength(20)
       ]],
+      cartao: ['', [
+        CustomValidators.required,
+        CustomValidators.minLength(16),
+        CustomValidators.maxLength(16)
+      ]],
+      codigoDeSeguranca: ['', [
+        CustomValidators.required,
+        CustomValidators.minLength(3),
+        CustomValidators.maxLength(3)
+      ]],
       cpf: ['', [
         CustomValidators.required,
         CustomValidators.cpf
