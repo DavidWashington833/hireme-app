@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { DetailServicePage } from '../detail-service/detail-service';
+import { ServicoProvider } from '../../providers/servico/servico';
+import { ResponseService } from '../../models/ResponseService';
 
 @IonicPage()
 @Component({
@@ -9,20 +11,27 @@ import { DetailServicePage } from '../detail-service/detail-service';
 })
 export class SearchPage {
 
-  public text: string;
+  text: string;
+  services: Array<ResponseService> = [];
 
   constructor(
-    private _navCtrl: NavController
+    private navCtrl: NavController,
+    private serviceProvider: ServicoProvider
   ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SearchPage');
+    this.serviceProvider
+      .get()
+      .subscribe(
+        services => this.services = services,
+        err => console.log(err)
+      );
   }
 
   onCancel(event: Event) {}
   onInput(event: Event) {}
 
   goServiceDetail() {
-    this._navCtrl.push(DetailServicePage.name);
+    this.navCtrl.push(DetailServicePage.name);
   }
 }

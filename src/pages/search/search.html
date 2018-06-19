@@ -8,12 +8,12 @@
 
 <ion-content padding>
   <ion-searchbar [(ngModel)]="text" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)"></ion-searchbar>
-  <ion-card (click)="goServiceDetail()">
+  <ion-card *ngFor="let service of services" (click)="goServiceDetail()">
     <ion-card-header>
-      Header
+      {{service.descricaoServico}}
     </ion-card-header>
     <ion-card-content>
-      The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
+      {{service.precoServico}}
     </ion-card-content>
   </ion-card>
 </ion-content>

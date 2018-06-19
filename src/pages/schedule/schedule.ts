@@ -39,7 +39,7 @@ export class SchedulePage {
 
           this.requests.forEach(r => {
             this._servicoProvider
-              .get(r.idServico)
+              .getForId(r.idServico)
               .subscribe(
                 s => {
                   const rs = new RequestJoinService();

@@ -56,10 +56,10 @@ export class MapPage {
           this.setPostion(longitude, latitude);
           this.getProviders()
             .subscribe(providers =>
-              this.providers =
-                providers
-                  .filter(p => p.idUsuario !== Number(this.navParams.get('userId')))
-                  .map(p => this.buildPrestador(p)),
+                this.providers =
+                  providers
+                    .filter(p => p.idUsuario !== Number(this.navParams.get('userId')))
+                    .map(p => this.buildPrestador(p)),
               error => console.log(error)
             );
         },

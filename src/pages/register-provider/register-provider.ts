@@ -90,7 +90,6 @@ export class RegisterProviderPage {
       return;
     }
 
-
     const endereco: ResponseAddress = this.enderecos
       .filter(e => e.idEndereco.toString() === this.registerProvider.endereco)[0];
 
