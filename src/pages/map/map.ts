@@ -13,6 +13,7 @@ import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { ResponseUser } from '../../models/ResponseUser';
 import { UserStorageProvider } from '../../providers/user-storage/user-storage';
 import { PositionProvider } from '../../providers/position/position';
+import { AlertProvider } from '../../providers/alert/alert';
 
 @IonicPage()
 @Component({
@@ -22,10 +23,11 @@ import { PositionProvider } from '../../providers/position/position';
 export class MapPage {
   styleMap: any = [];
   providers: Array<Prestador> = [];
-  latitude: number | string = -23.737156;
-  longitude: number | string = -46.691307;
+  latitude: number | string = -23.669922;
+  longitude: number | string = -46.700162;
 
   constructor(
+    private alertProvider: AlertProvider,
     private navCtrl: NavController,
     private navParams: NavParams,
     private usuarioProvider: UsuarioProvider,
@@ -55,11 +57,18 @@ export class MapPage {
           const {longitude, latitude} = position.coords;
           this.setPostion(longitude, latitude);
           this.getProviders()
-            .subscribe(providers =>
+            .subscribe(providers => {
                 this.providers =
                   providers
                     .filter(p => p.idUsuario !== Number(this.navParams.get('userId')))
-                    .map(p => this.buildPrestador(p)),
+                    .map(p => this.buildPrestador(p));
+
+                this.alertProvider.show({
+                  title: 'Erro ao logar',
+                  subTitle: JSON.stringify(providers),
+                  buttons: ['OK']
+                });
+              },
               error => console.log(error)
             );
         },
@@ -74,6 +83,7 @@ export class MapPage {
 
   buildPrestador(responseProvider: ResponseProvider) {
     const provider = new Prestador();
+    provider.icon = 'assets/imgs/employees.png';
     provider.id = responseProvider.idPrestador;
     provider.latitude = Number(responseProvider.latitudePrestador);
     provider.longitude = Number(responseProvider.longitudePrestador);
@@ -81,8 +91,8 @@ export class MapPage {
   }
 
   setPostion(longitude: string | number, latitude: string | number): void {
-    this.longitude = longitude;
-    this.latitude = latitude;
+    // this.longitude = longitude;
+    // this.latitude = latitude;
   }
 
   getUser() {
