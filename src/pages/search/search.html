@@ -7,13 +7,18 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-searchbar [(ngModel)]="text" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)"></ion-searchbar>
-  <ion-card *ngFor="let service of services" (click)="goServiceDetail()">
+  <ion-searchbar [(ngModel)]="textSearch" (ionInput)="onInput()" (ionCancel)="onCancel()"></ion-searchbar>
+  <ion-card *ngFor="let service of servicesFilter">
     <ion-card-header>
       {{service.descricaoServico}}
     </ion-card-header>
     <ion-card-content>
       {{service.precoServico}}
+      <div padding>
+        <button ion-button block (click)="setSelectService(service); picker.open();">Agendar</button>
+      </div>
     </ion-card-content>
   </ion-card>
+
+  <ion-datetime (ionChange)="hire($event)" hidden #picker displayFormat="DD/MM/YY HH:mm"></ion-datetime>
 </ion-content>

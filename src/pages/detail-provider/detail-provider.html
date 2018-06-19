@@ -14,7 +14,7 @@
     <ion-card-content>
       {{service.precoServico}}
       <div padding>
-        <button ion-button block (click)="request.idServico = service.idServico; picker.open();">Agendar</button>
+        <button ion-button block (click)="setSelectService(service); picker.open();">Agendar</button>
       </div>
     </ion-card-content>
   </ion-card>
