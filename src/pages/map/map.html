@@ -4,9 +4,9 @@
         <ion-icon name="menu"></ion-icon>
     </button>
   </ion-fab>
-  <agm-map [styles]="styleArray" [latitude]="latitude" [longitude]="longitude" [zoom]="15">
+  <agm-map [styles]="styleMap" [latitude]="latitude" [longitude]="longitude" [zoom]="15">
     <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
-    <agm-marker *ngFor="let provider of providers" iconUrl="assets/imgs/employees.png" [latitude]="provider.latitude" [longitude]="provider.longitude"
+    <agm-marker *ngFor="let provider of providers" [iconUrl]="provider.icon" [latitude]="provider.latitude" [longitude]="provider.longitude"
       (markerClick)="openDetailProvider(provider.id)"></agm-marker>
   </agm-map>
 </ion-content>

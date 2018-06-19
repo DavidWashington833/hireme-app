@@ -10,13 +10,13 @@ export class DadosBancariosProvider {
     private _http: HttpClient
   ) { }
 
-  post(user: RegisterBank) {
+  post(registerBack: RegisterBank) {
     const httpOption = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json; charset=utf-8'
       })
     };
-    return this._http.post<RegisterBank>(`${this._baseUrl}dadosBancarios`, user, httpOption);
+    return this._http.post<RegisterBank>(`${this._baseUrl}dadosBancarios`, registerBack, httpOption);
   }
 
 }

@@ -45,5 +45,13 @@
       <ion-label floating>Nascimento:</ion-label>
       <ion-datetime formControlName="nascimento" (ionChange)="buildNascimento($event)" displayFormat="DD/MM/YY"></ion-datetime>
     </ion-item>
+    <ion-item>
+      <ion-label floating>Cartão de crédito:</ion-label>
+      <ion-input type="text" formControlName="cartao"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Código de segurança:</ion-label>
+      <ion-input type="text" formControlName="codigoDeSeguranca"></ion-input>
+    </ion-item>
   </form>
 </ion-content>
