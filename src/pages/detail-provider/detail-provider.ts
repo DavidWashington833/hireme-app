@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, NavController, Events } from 'ionic-angular';
+import { IonicPage, NavParams, Events } from 'ionic-angular';
 import { ResponseService } from '../../models/ResponseService';
 import { ServicoProvider } from '../../providers/servico/servico';
-import { ResponseProvider } from '../../models/ResponseProvider';
 import { RegisterRequest } from '../../models/RegisterRequest';
 import { ResponseUser } from '../../models/ResponseUser';
 import { PedidoProvider } from '../../providers/pedido/pedido';
@@ -15,32 +14,33 @@ import { AlertProvider } from '../../providers/alert/alert';
   templateUrl: 'detail-provider.html',
 })
 export class DetailProviderPage {
-  public request: RegisterRequest = new RegisterRequest();
-  public services: Array<ResponseService> = new Array<ResponseService>();
-  public idPrestador: number = 0;
+  request: RegisterRequest = new RegisterRequest();
+  services: Array<ResponseService> = new Array<ResponseService>();
+  selectService: ResponseService = new ResponseService();
+  idPrestador = 0;
 
   constructor(
-    private _alertCtrl: AlertProvider,
-    private _navCtrl: NavController,
-    private _servicoProvider: ServicoProvider,
-    private _pedidoProvider: PedidoProvider,
-    private _events: Events,
-    private _navParams: NavParams
+    private alertCtrl: AlertProvider,
+    private servicoProvider: ServicoProvider,
+    private pedidoProvider: PedidoProvider,
+    private events: Events,
+    private navParams: NavParams
   ) {
-    this.idPrestador = this._navParams.get('id');
-    this._servicoProvider
+    this.idPrestador = this.navParams.get('id');
+    this.servicoProvider
       .getForIdPrestador(this.idPrestador)
       .subscribe(
-        res => {
-          this.services = res;
-          console.log(res)
-        },
+        res => this.services = res,
         err => console.log(err)
       );
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailProviderPage');
+  }
+
+  setSelectService(service: ResponseService) {
+    this.selectService = service;
   }
 
   hire(date) {
@@ -51,23 +51,24 @@ export class DetailProviderPage {
 
     this.request.dataPedido = Format.dateYMDHM(date.year, date.month, date.day, date.hour, date.minute);
     this.request.idPrestador = this.idPrestador;
-    this.request.valorPedido = this.services.filter(s => s.idServico == this.request.idServico.toString())[0].precoServico;
+    this.request.valorPedido = this.services.filter(s => s.idServico === this.selectService.idServico)[0].precoServico;
+    this.request.idServico = Number(this.selectService.idServico);
     this.request.idUsuario = responseUser.idUsuario;
-    console.log('request', this.request);
+    console.log('request', JSON.stringify(this.request));
     this
-      ._pedidoProvider
+      .pedidoProvider
       .post(this.request)
       .subscribe(
         res => {
           console.log(res);
-          const alert = this._alertCtrl.create({
+          const alert = this.alertCtrl.create({
             title: 'Serviço agendado com sucesso!',
             subTitle: 'Agora você é só aguardar.',
             buttons: [
               {
                 text: 'OK',
                 handler: () => {
-                  this._events.publish('service:agendado', null);
+                  this.events.publish('service:agendado', null);
                 }
               },
             ]

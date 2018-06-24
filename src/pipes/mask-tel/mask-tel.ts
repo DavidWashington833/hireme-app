@@ -11,7 +11,7 @@ export class MaskTelPipe implements PipeTransform {
       n = n.slice(0, 11);
     }
 
-    let mask =
+    const mask =
       (n.length >= 2 ? `(${n[0]}${n[1]}) ` : '') +
       (n.length >= 7 ? `${n[2]}${n[3]}${n[4]}${n[5]}${n[6]}-` : '') +
       (n.length >= 11 ? `${n[7]}${n[8]}${n[9]}${n[10]}` : '');

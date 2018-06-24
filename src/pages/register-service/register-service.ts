@@ -1,9 +1,8 @@
 import { Category } from './../../models/Category';
 import { ServicoProvider } from './../../providers/servico/servico';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { IonicPage, NavController, Events } from 'ionic-angular';
 
-import { MapPage } from '../map/map';
 import { RegisterService } from '../../models/RegisterService';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { CustomValidators } from '../../utils/CustomValidators';
@@ -19,9 +18,9 @@ import { ResponseProvider } from '../../models/ResponseProvider';
   templateUrl: 'register-service.html',
 })
 export class RegisterServicePage {
-  private categorys: Array<Category> = new Array<Category>();
-  private formGroup: FormGroup;
-  private service: RegisterService = new RegisterService();
+  categorys: Array<Category> = [];
+  formGroup: FormGroup;
+  service: RegisterService = new RegisterService();
 
   constructor(
     private _events: Events,
@@ -30,8 +29,7 @@ export class RegisterServicePage {
     private _loadingCtrl: LoadingProvider,
     private _formBuilder: FormBuilder,
     private _servicoProvider: ServicoProvider,
-    private _categoriaProvider: CategoriaProvider,
-    private _navParams: NavParams
+    private _categoriaProvider: CategoriaProvider
   ) {
     this.formGroup = this._formBuilder.group({
       descricaoServico: ['', [
@@ -70,7 +68,7 @@ export class RegisterServicePage {
       );
   }
 
-  private register() {
+  register() {
     console.log('dados cadastrais', this.service);
     if (!this.formGroup.valid) {
       this.alertInvalidFields();
@@ -95,14 +93,14 @@ export class RegisterServicePage {
           this._loadingCtrl.hide();
           this.alertNoConnection();
         }
-      )
+      );
   }
 
   selectCategory(event) {
     this.service.idCategoria = event;
   }
 
-  private alertNoConnection() {
+  alertNoConnection() {
     this._alertCtrl.show({
       title: 'Erro ao cadastrar',
       subTitle: 'Para cadastrar um serviço você precisa esta conectado a internet.',
@@ -110,7 +108,7 @@ export class RegisterServicePage {
     });
   }
 
-  private alertSuccessRegister() {
+  alertSuccessRegister() {
     this._alertCtrl.show({
       title: 'Cadastro efetuado com sucesso!',
       subTitle: 'Seu serviço foi cadastrado.',
@@ -126,7 +124,7 @@ export class RegisterServicePage {
     });
   }
 
-  private alertInvalidFields() {
+  alertInvalidFields() {
     this._alertCtrl.show({
       title: 'Erro ao cadastrar',
       subTitle: 'Preencha todos os campos da forma correta!',

@@ -1,7 +1,7 @@
-import { RegisterAddress } from './../../models/RegisterAddress';
+import { ResponseProvider } from './../../models/ResponseProvider';
 import { RegisterProvider } from './../../models/RegisterProvider';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController, Events } from 'ionic-angular';
+import { IonicPage, NavController, Events } from 'ionic-angular';
 
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { CustomValidators } from '../../utils/CustomValidators';
@@ -21,7 +21,7 @@ import { RegisterAddressPage } from '../register-address/register-address';
   templateUrl: 'register-provider.html',
 })
 export class RegisterProviderPage {
-  public documento: string = '';
+  public documento = '';
   public formGroup: FormGroup;
   public registerProvider: RegisterProvider = new RegisterProvider();
   public dadosBancarios: RegisterBank = new RegisterBank();
@@ -54,7 +54,7 @@ export class RegisterProviderPage {
         CustomValidators.required
       ]]
     });
-    this.formGroup.valueChanges.subscribe(value => this.markAsTouchedFields(value));
+    this.formGroup.valueChanges.subscribe(() => this.markAsTouchedFields());
   }
 
   ionViewDidLoad() {
@@ -90,10 +90,8 @@ export class RegisterProviderPage {
       return;
     }
 
-
-    let endereco: ResponseAddress = this
-    .enderecos
-    .filter(e => e.idEndereco.toString() == this.registerProvider.endereco)[0];
+    const endereco: ResponseAddress = this.enderecos
+      .filter(e => e.idEndereco.toString() === this.registerProvider.endereco)[0];
 
     this.registerProvider.latitudePrestador = endereco.latitudeEndereco;
     this.registerProvider.longitudePrestador = endereco.longitudeEndereco;
@@ -118,8 +116,8 @@ export class RegisterProviderPage {
           console.log('-------------------> registerProvider', JSON.stringify(this.registerProvider));
           this._prestadorProvider
             .post(this.registerProvider)
-            .subscribe(res => {
-              this.isProvider(res != null);
+            .subscribe(ress => {
+              this.isProvider(ress);
               this._loadingCtrl.hide();
               // this.alertSuccessRegister();
               const alert = this._alertCtrl.create({
@@ -134,14 +132,14 @@ export class RegisterProviderPage {
                       // .getForUser(1)
                         .getForUser(Number(this.registerProvider.usuario))
                         .subscribe(
-                          res => {
-                            console.log('resposta ao buscar prestador', res)
-                            localStorage.setItem('provider', JSON.stringify(res));
-                            this.isProvider(res != null);
+                          resss => {
+                            console.log('resposta ao buscar prestador', resss);
+                            localStorage.setItem('provider', JSON.stringify(resss));
+                            this.isProvider(resss);
                           },
                           err => {
-                            console.error('erro ao buscar prestador', err)
-                            this.isProvider(false);
+                            console.error('erro ao buscar prestador', err);
+                            this.isProvider(null);
                           });
                     }
                   },
@@ -157,11 +155,11 @@ export class RegisterProviderPage {
             console.error('erro no cadastro', err);
             this._loadingCtrl.hide();
             this.registerError();
-          })
+          });
   }
 
-  private isProvider(v: boolean) {
-    this._events.publish('user:provider', v);
+  private isProvider(v: ResponseProvider) {
+    this._events.publish('provider:load', v);
   }
 
   private registerError() {
@@ -177,8 +175,8 @@ export class RegisterProviderPage {
     console.log(event);
   }
 
-  markAsTouchedFields(value: Object) {
-    let fields = ['agencia', 'conta', 'documento'];
+  markAsTouchedFields() {
+    const fields = ['agencia', 'conta', 'documento'];
     fields.forEach((field) => this.formGroup.controls[field].markAsTouched());
   }
 

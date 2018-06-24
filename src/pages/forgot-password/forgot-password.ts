@@ -24,7 +24,7 @@ export class ForgotPasswordPage {
         CustomValidators.email
       ]]
     });
-    this.formGroup.valueChanges.subscribe(value => this.markAsTouchedFields(value));
+    this.formGroup.valueChanges.subscribe(() => this.markAsTouchedFields());
   }
 
   ionViewDidLoad() {
@@ -41,12 +41,12 @@ export class ForgotPasswordPage {
       loading.dismiss();
 
       if (!this.formGroup.valid) {
-        const alert = this._alertCtrl.create({
+        const alertC = this._alertCtrl.create({
           title: 'Erro ao enviar email de recuperação',
           subTitle: 'O email é inválido.',
           buttons: ['OK']
         });
-        alert.present();
+        alertC.present();
 
         return;
       }
@@ -66,7 +66,7 @@ export class ForgotPasswordPage {
         buttons: [
           {
             text: 'OK',
-            handler: () => { this._navCtrl.pop() }
+            handler: () => { this._navCtrl.pop(); }
           },
         ]
       });
@@ -74,8 +74,8 @@ export class ForgotPasswordPage {
     }, 1000);
   }
 
-  markAsTouchedFields(value: Object) {
-    let fields = ['email'];
+  markAsTouchedFields() {
+    const fields = ['email'];
     fields.forEach((field) => this.formGroup.controls[field].markAsTouched());
   }
 }

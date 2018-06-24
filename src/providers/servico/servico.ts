@@ -16,7 +16,11 @@ export class ServicoProvider {
     private _http: HttpClient
   ) {}
 
-  public get(id) {
+  public get() {
+    return this._http.get<ResponseService[]>(`${this._baseUrl}servicos/`);
+  }
+
+  public getForId(id) {
     return this._http.get<ResponseService>(`${this._baseUrl}servicos/${id}`);
   }
 

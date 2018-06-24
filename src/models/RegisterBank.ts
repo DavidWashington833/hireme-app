@@ -1,6 +1,6 @@
 export class RegisterBank {
-  idDadosBancario: string;
-  agenciaDadosBancario: string;
-  contaDadosBancario: string;
-  documentoDadosBancario: string;
+  idDadosBancario: number;
+  agenciaDadosBancario: number;
+  contaDadosBancario: number;
+  documentoDadosBancario: number;
 }

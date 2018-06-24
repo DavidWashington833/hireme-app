@@ -1,21 +1,19 @@
-import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+
+import { ResponseProvider } from './../../models/ResponseProvider';
 import { PrestadorProvider } from './../../providers/prestador/prestador';
 import { RequestPage } from '../request/request';
 import { DetailUserPage } from '../detail-user/detail-user';
 import { Prestador } from '../../models/prestador';
-import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { DetailProviderPage } from '../detail-provider/detail-provider';
 import { SearchPage } from '../search/search';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { ResponseUser } from '../../models/ResponseUser';
-import { LoadingProvider } from '../../providers/loading/loading';
+import { UserStorageProvider } from '../../providers/user-storage/user-storage';
+import { PositionProvider } from '../../providers/position/position';
 import { AlertProvider } from '../../providers/alert/alert';
-import { HttpClient } from '@angular/common/http';
-import { MapsAPILoader } from '@agm/core';
-import { Observable } from 'rxjs/Observable';
-import { GMapsServiceProvider } from '../../providers/g-maps-service/g-maps-service';
-import { Calendar } from '@ionic-native/calendar';
 
 @IonicPage()
 @Component({
@@ -23,129 +21,183 @@ import { Calendar } from '@ionic-native/calendar';
   templateUrl: 'map.html',
 })
 export class MapPage {
-  styleArray: any = [];
-
-  latitude: number | string = -23.737156;
-  longitude: number | string = -46.691307;
-
-  providers: Array<Prestador> = new Array<Prestador>();
+  styleMap: any = [
+    {
+      featureType: "landscape.natural",
+      elementType: "geometry.fill",
+      stylers: [
+        {
+          visibility: "on"
+        },
+        {
+          color: "#e0efef"
+        }
+      ]
+    },
+    {
+      featureType: "poi",
+      elementType: "geometry.fill",
+      stylers: [
+        {
+          visibility: "on"
+        },
+        {
+          hue: "#1900ff"
+        },
+        {
+          color: "#c0e8e8"
+        }
+      ]
+    },
+    {
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [
+        {
+          lightness: 100
+        },
+        {
+          visibility: "simplified"
+        }
+      ]
+    },
+    {
+      featureType: "road",
+      elementType: "labels",
+      stylers: [
+        {
+          visibility: "off"
+        }
+      ]
+    },
+    {
+      featureType: "transit.line",
+      elementType: "geometry",
+      stylers: [
+        {
+          visibility: "on"
+        },
+        {
+          lightness: 700
+        }
+      ]
+    },
+    {
+      featureType: "water",
+      elementType: "all",
+      stylers: [
+        {
+          color: "#7dcdcd"
+        }
+      ]
+    }
+  ];
+  providers: Array<Prestador> = [];
+  latitude: number | string = -23.669922;
+  longitude: number | string = -46.700162;
 
   constructor(
-    private _geolocation: Geolocation,
-    private _navCtrl: NavController,
-    private _navParams: NavParams,
-    private _loadingCtrl: LoadingProvider,
-    private _alertCtrl: AlertProvider,
-    private _usuarioProvider: UsuarioProvider,
-    private _prestadorProvider: PrestadorProvider,
-    private _httpClient: HttpClient,
-    private _events: Events,
-    private _mapsAPILoader: MapsAPILoader,
-    private _ngZone: NgZone,
-  ) {
-    this._httpClient.get('/assets/json/map.json').
-      subscribe(res => {
-        this.styleArray = res
-      }, err => console.log(err))
-  }
-
+    private alertProvider: AlertProvider,
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private usuarioProvider: UsuarioProvider,
+    private prestadorProvider: PrestadorProvider,
+    private httpClient: HttpClient,
+    private events: Events,
+    private userStorage: UserStorageProvider,
+    private positionProvider: PositionProvider
+  ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MapPage');
-    console.log('id do usuario', this._navParams.get('userId'));
+    // this.httpClient
+    //   .get('/assets/json/map.json')
+    //   .subscribe(
+    //     styleMap => this.styleMap = styleMap,
+    //     err => console.log('erro ao carregar styleArray', err)
+    //   );
+
     this.getUser();
+
+    this.getUserProvider();
+
+    // this.positionProvider
+    //   .getUserPosition()
+    //   .subscribe(
+    //     position => {
+    //       const {longitude, latitude} = position.coords;
+    //       this.setPostion(longitude, latitude);
+          this.getProviders()
+            .subscribe(providers =>
+                this.providers =
+                  providers
+                    .filter(p => p.idUsuario !== Number(this.navParams.get('userId')))
+                    .map(p => this.buildPrestador(p)),
+              error => console.log(error)
+            );
+      //   },
+      //   err => console.log('erro ao pegar posição do usuário', err)
+      // );
   }
 
-  private getProviders(id:number) {
-    this.getCoords().then((res: Geoposition) => {
-      this.longitude = res.coords.longitude;
-      this.latitude = res.coords.latitude;
-      console.log('pegando cordenadas usuário', res);
-      this._prestadorProvider.getForCoords(this.latitude, this.longitude)
-        .subscribe(res => {
-          let v = res.map(p => {
-            let provider = new Prestador();
-            provider.icon = 'assets/imgs/employees.png';
-            provider.id = p.idPrestador;
-            provider.latitude = Number(p.latitudePrestador);
-            provider.longitude = Number(p.longitudePrestador);
-            return provider;
-          });
-          if (id != undefined) {
-            this.providers = v.filter(p2 => p2.id != id);
-          }
-          else {
-            this.providers = v;
-          }
-          console.log(this.providers);
-        }, error => console.log(error));
-    }).catch(error => console.log(error));
+  getProviders() {
+    return this.prestadorProvider
+      .getForCoords(this.latitude, this.longitude);
   }
 
-  private getCoords() {
-    return new Promise((resolve, reject) => {
-      this._geolocation
-        .watchPosition()
-        .subscribe(
-          (res: Geoposition) => resolve(res),
-          error => reject(error)
-        );
-    });
+  buildPrestador(responseProvider: ResponseProvider) {
+    const provider = new Prestador();
+    provider.icon = 'assets/imgs/employees.png';
+    provider.id = responseProvider.idPrestador;
+    provider.latitude = Number(responseProvider.latitudePrestador);
+    provider.longitude = Number(responseProvider.longitudePrestador);
+    return provider;
   }
 
-  private getUser() {
-    this._loadingCtrl.show({ content: 'Buscando dados do usuário...' });
-    this._usuarioProvider
-      .get(this._navParams.get('userId'))
-      // .get(1)
-      .subscribe(res => {
-        console.log('resposta da busca por usuário', res);
-        localStorage.setItem('user', JSON.stringify(res));
-        this._loadingCtrl.hide();
-        this.createUser(localStorage.getItem('user'));
-      }, err => {
-        console.error('erro ao buscar usuário', err);
-        this._loadingCtrl.hide();
-      });
-
-    this._prestadorProvider
-    // .getForUser(1)
-      .getForUser(this._navParams.get('userId'))
-      .subscribe(
-        res => {
-          this.getProviders(res ? res.idPrestador:0);
-          console.log('resposta ao buscar prestador', res)
-          localStorage.setItem('provider', JSON.stringify(res));
-          this.isProvider(res != null);
-        },
-        err => {
-          console.error('erro ao buscar prestador', err)
-          this.isProvider(false);
-        });
+  setPostion(longitude: string | number, latitude: string | number): void {
+    // this.longitude = longitude;
+    // this.latitude = latitude;
   }
 
-  private isProvider(v: boolean) {
-    this._events.publish('user:provider', v);
+  getUser() {
+    this.usuarioProvider
+      .get(this.navParams.get('userId'))
+      .subscribe(user => {
+        this.userStorage.setUser(user);
+        this.publishLoadUser(this.userStorage.getUser());
+      }, err => console.error('erro ao buscar usuário', err));
   }
 
-  private createUser(user) {
-    this._events.publish('user:created', user);
+  getUserProvider() {
+    this.prestadorProvider
+      .getForUser(this.navParams.get('userId'))
+      .subscribe(provider => {
+        this.userStorage.setProvider(provider);
+        this.publishLoadProvider(provider);
+      }, err => console.error('erro ao buscar prestador', err));
   }
 
-  private detailProvider(id: number) {
-    this._navCtrl.push(DetailProviderPage.name, { id: id });
+  publishLoadProvider(provider: ResponseProvider) {
+    this.events.publish('provider:load', provider);
   }
 
-  private detailUser() {
-    this._navCtrl.push(DetailUserPage.name);
+  publishLoadUser(user: ResponseUser) {
+    this.events.publish('user:load', user);
   }
 
-  private request() {
-    this._navCtrl.push(RequestPage.name);
+  openDetailProvider(id: number) {
+    this.navCtrl.push(DetailProviderPage.name, { id: id });
   }
 
-  private search() {
-    this._navCtrl.push(SearchPage.name);
+  openDetailUser() {
+    this.navCtrl.push(DetailUserPage.name);
+  }
+
+  openRequest() {
+    this.navCtrl.push(RequestPage.name);
+  }
+
+  openSearch() {
+    this.navCtrl.push(SearchPage.name);
   }
 
 }

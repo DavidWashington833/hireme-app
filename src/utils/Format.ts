@@ -8,10 +8,10 @@ export class Format {
   }
 
   public static onlyNumbers(v: string): number {
-    return Number(v.replace(/[^0-9]/g,''));
+    return Number(v.replace(/[^0-9]/g, ''));
   }
 
   public static onlyStringNumbers(v: string): string {
-    return v.replace(/[^0-9]/g,'');
+    return v.replace(/[^0-9]/g, '');
   }
 }

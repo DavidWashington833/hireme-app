@@ -43,12 +43,19 @@ export class RequestPage {
         this.requests = res;
         this.requests.forEach(r => {
           this._servicoProvider
-            .get(r.idServico)
+            .getForId(r.idServico)
             .subscribe(s => {
-              let rs = new RequestJoinService();
-              let date = new Date(r.dataPedido);
+              const rs = new RequestJoinService();
+              const date = new Date(r.dataPedido);
               rs.confirmadoPedido = r.confirmadoPedido;
-              rs.dataPedido = Format.dateYMDHM(date.getFullYear().toString(), date.getMonth().toString(), date.getDay().toString(), date.getHours().toString(), date.getMinutes().toString());
+              rs.dataPedido = Format
+                .dateYMDHM(
+                  date.getFullYear().toString(),
+                  date.getMonth().toString(),
+                  date.getDay().toString(),
+                  date.getHours().toString(),
+                  date.getMinutes().toString()
+                );
               rs.descricaoServico = s.descricaoServico;
               rs.idCategoria = s.idCategoria;
               rs.idPedido = r.idPedido;

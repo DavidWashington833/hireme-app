@@ -1,7 +1,7 @@
 ion-menu {
   ion-header {
     margin-bottom: 10px;
-    background: linear-gradient(to bottom, rgba(0,120,178,1) 0%, rgba(0,174,224,1) 100%);
+    background: #008BE3;
 
     ion-item {
       background: transparent !important;
@@ -38,5 +38,18 @@ ion-menu {
 }
 
 .custom-icon {
-  color: #00AEE0;
+  color: #777;
+}
+ion-navbar {
+  ion-title {
+    .toolbar-title {
+      color: #fff;
+    }
+  }
+  .button-inner {
+    color: #fff;
+  }
+  .toolbar-background {
+    background: #008BE3;
+  }
 }

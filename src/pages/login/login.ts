@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, AlertController, AlertOptions } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
+import { LoadingProvider } from './../../providers/loading/loading';
+import { UserStorageProvider } from './../../providers/user-storage/user-storage';
 import { Login } from '../../models/login';
 import { RegisterUserPage } from '../register-user/register-user';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import { MapPage } from '../map/map';
 import { LoginProvider } from '../../providers/login/login';
+import { AlertProvider } from '../../providers/alert/alert';
 import { ResponseUser } from '../../models/ResponseUser';
 
 @Component({
@@ -13,75 +16,87 @@ import { ResponseUser } from '../../models/ResponseUser';
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  public login: Login = new Login();
+  login: Login = new Login();
 
   constructor(
-    private _alertCtrl: AlertController,
-    private _loadingCtrl: LoadingController,
-    private _navCtrl: NavController,
-    private _loginProvider: LoginProvider
+    private alertProvider: AlertProvider,
+    private loadingProvider: LoadingProvider,
+    private navCtrl: NavController,
+    private loginProvider: LoginProvider,
+    private userStorageProvider: UserStorageProvider
   ) {}
 
   ionViewDidLoad() {
-    let storage = localStorage.getItem('user');
-    if (storage && storage != 'null') {
-      let user = <ResponseUser>JSON.parse(storage);
-      this._navCtrl.setRoot(MapPage.name, {userId: user.idUsuario});
+    if (this.userStorageProvider.isLogged()) {
+      const user = this.userStorageProvider.getUser();
+      this.openMap(user.idUsuario);
     }
   }
 
   logar() {
-    console.log('login', this.login);
-    const loading = this._loadingCtrl.create({
-      content: 'Buscando usuário...'
-    });
-    loading.present();
+    this.showLoading();
 
-    this._loginProvider
+    this.loginProvider
       .post(this.login)
       .subscribe(
         res => {
-          console.log(res)
-          loading.dismiss();
-          if (res.ativoUsuario) {
-            this._navCtrl.setRoot(MapPage.name, {userId: res.idUsuario});
-          }
-          else {
-            const alert = this._alertCtrl.create({
-              title: 'Erro ao logar',
-              subTitle: 'Você precisa confirma seu email, verifique na sua caixa de entrada ou no spam.',
-              buttons: ['OK']
-            });
-            alert.present();
-          }
+          this.successResponse(res);
+          this.hideLoading();
         },
         err => {
-          console.log(err)
-          loading.dismiss();
-          if (err.status == 404) {
-            const alert = this._alertCtrl.create({
-              title: 'Erro ao logar',
-              subTitle: 'Login ou senha inválida.',
-              buttons: ['OK']
-            });
-            alert.present();
-          }
-          else {
-            const alert = this._alertCtrl.create({
-              title: 'Erro ao logar',
-              subTitle: 'Para logar você precisa esta conectado a internet.',
-              buttons: ['OK']
-            });
-            alert.present();
-          }
-        })
+          this.errorRequest(err);
+          this.hideLoading();
+        },
+      );
   }
 
-  register() {
-    this._navCtrl.push(RegisterUserPage.name);
+  errorRequest(err: any) {
+    if (err.status === 404) {
+      this.alertProvider.show({
+        title: 'Erro ao logar',
+        subTitle: 'Login ou senha inválida.',
+        buttons: ['OK']
+      });
+    } else {
+      this.alertProvider.show({
+        title: 'Erro ao logar',
+        subTitle: 'Para logar você precisa esta conectado a internet.',
+        buttons: ['OK']
+      });
+    }
   }
 
-  forgotPassword() {
-    this._navCtrl.push(ForgotPasswordPage.name);
+  successResponse(res: ResponseUser) {
+    if (res.ativoUsuario) {
+      this.navCtrl.setRoot(MapPage.name, { userId: res.idUsuario });
+    } else {
+      this.alertProvider.show({
+        title: 'Erro ao logar',
+        subTitle: 'Você precisa confirma seu email, verifique na sua caixa de entrada ou no spam.',
+        buttons: ['OK']
+      });
+    }
+  }
+
+  hideLoading() {
+    this.loadingProvider.hide();
+  }
+
+  showLoading() {
+    this.loadingProvider.show({
+      content: 'Buscando usuário...'
+    });
+  }
+
+  openMap(id: number) {
+    this.navCtrl.setRoot(MapPage.name, { userId: id });
+  }
+
+  openRegisterUser() {
+    this.navCtrl.push(RegisterUserPage.name);
+  }
+
+  openForgotPassword() {
+    this.navCtrl.push(ForgotPasswordPage.name);
   }
 }
